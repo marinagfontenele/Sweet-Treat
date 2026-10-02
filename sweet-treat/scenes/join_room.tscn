@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://qt02msmsyoia"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_megxp"]
+font_size = 70
+
+[node name="JoinRoom" type="Control" unique_id=2041612077]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=312713564]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -955.5
+offset_top = -542.0
+offset_right = 955.5
+offset_bottom = 542.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.32156864, 0.6039216, 0.23921569, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=779998327]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -249.0
+offset_top = -48.0
+offset_right = 249.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=122475419]
+layout_mode = 2
+text = "Digite o código"
+label_settings = SubResource("LabelSettings_megxp")
+
+[node name="Spacer" type="Control" parent="VBoxContainer" unique_id=26938278]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer" unique_id=1465613113]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2

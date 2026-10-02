@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://cla4ecnxfa24"]
+
+[ext_resource type="Script" uid="uid://cpac8u4i6x772" path="res://scripts/main_menu.gd" id="1_s3esy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_megxp"]
+font_size = 100
+outline_size = 10
+outline_color = Color(0.99215686, 0.17254902, 0.019607844, 1)
+shadow_size = 15
+
+[node name="MainGame" type="Control" unique_id=2120241287]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s3esy")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=411272654]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -956.5
+offset_top = -541.0
+offset_right = 956.5
+offset_bottom = 541.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.45490196, 0.49803922, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=887838525]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -68.5
+offset_right = 240.0
+offset_bottom = 68.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1820157149]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "MePassei!"
+label_settings = SubResource("LabelSettings_megxp")
+
+[node name="Spacer" type="Control" parent="VBoxContainer" unique_id=330939095]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="VBoxContainer" unique_id=1227837684]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "INICIAR"
