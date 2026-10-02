@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="Sweet-Treat"
+run/main_scene="uid://cla4ecnxfa24"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*uid://b3j3ja3203xj8"
 
 [display]
 
