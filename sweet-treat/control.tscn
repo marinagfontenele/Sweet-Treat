@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://lbsc0ppjr8gs"]
+
+[node name="Home" type="Control" unique_id=215453282]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="." unique_id=885105222]
+layout_mode = 1
+
+[node name="PlayerArea" type="Panel" parent="." unique_id=629946616]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
