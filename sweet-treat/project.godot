@@ -1,0 +1,52 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="SweetTreat"
+run/main_scene="res://lobby.tscn"
+config/features=PackedStringArray("4.7", "Mobile")
+config/icon="res://icon.svg"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation=1
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+rendering_device/driver.windows="d3d12"
+renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
+
+[xogot]
+
+project/editorState=[{
+"column": 0,
+"line": 0,
+"path": "res://controlGame.gd",
+"type": "file"
+}, {
+"column": 13,
+"current": true,
+"line": 71,
+"path": "res://ControlLobby.gd",
+"type": "file"
+}]
+project/shaderEditorState=[]
+project/breakpoints={
+"res://ControlLobby.gd": PackedInt32Array()
+}
+project/disabled_breakpoints={}
