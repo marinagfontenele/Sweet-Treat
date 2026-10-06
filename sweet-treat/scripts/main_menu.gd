@@ -3,7 +3,7 @@ extends Node
 
 func _ready() -> void:
 
-	$VBoxContainer/StartButton.pressed.connect(_on_start_pressed)
+	$CreateRoomButton.pressed.connect(_on_start_pressed)
 
 	print("Main menu ready! Waiting for player input...")
 
