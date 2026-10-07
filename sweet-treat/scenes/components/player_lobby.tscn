@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://2wt22hjltvpg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_05mgj"]
+bg_color = Color(1, 1, 1, 0.13333334)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.1764706)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[node name="PlayerLobby" type="Panel" unique_id=1087966299]
+custom_minimum_size = Vector2(138, 129)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_05mgj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=729407]
+custom_minimum_size = Vector2(63, 63)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -45.0
+offset_right = 40.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Panel" type="Panel" parent="VBoxContainer" unique_id=1218022813]
+custom_minimum_size = Vector2(63, 63)
+custom_maximum_size = Vector2(63, 63)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=2064516076]
+layout_mode = 2
+text = "Fulano123"

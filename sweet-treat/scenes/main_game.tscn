@@ -3,10 +3,13 @@
 [ext_resource type="Script" uid="uid://cpac8u4i6x772" path="res://scripts/main_menu.gd" id="1_s3esy"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_megxp"]
-font_size = 100
+font_size = 48
 outline_size = 10
-outline_color = Color(0.99215686, 0.17254902, 0.019607844, 1)
+outline_color = Color(0, 0, 0, 1)
 shadow_size = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_seen7"]
+font_size = 40
 
 [node name="MainGame" type="Control" unique_id=2120241287]
 layout_mode = 3
@@ -32,7 +35,7 @@ offset_right = 956.5
 offset_bottom = 541.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 0.45490196, 0.49803922, 1)
+color = Color(0.4392157, 0, 0.9411765, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=887838525]
 layout_mode = 1
@@ -51,14 +54,134 @@ grow_vertical = 2
 [node name="Label" type="Label" parent="VBoxContainer" unique_id=1820157149]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "MePassei!"
+text = "Configurações da partida"
 label_settings = SubResource("LabelSettings_megxp")
 
 [node name="Spacer" type="Control" parent="VBoxContainer" unique_id=330939095]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="StartButton" type="Button" parent="VBoxContainer" unique_id=1227837684]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=375801431]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1227837684]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 text = "INICIAR"
+
+[node name="Spacer2" type="Control" parent="VBoxContainer/HBoxContainer" unique_id=218489886]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1245874847]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=917164084]
+layout_mode = 2
+text = "Perguntas por jogador"
+label_settings = SubResource("LabelSettings_seen7")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1441538407]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=242476917]
+custom_minimum_size = Vector2(82, 44)
+layout_mode = 2
+text = "1"
+
+[node name="Spacer4" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=695486630]
+custom_minimum_size = Vector2(25, 50)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=387318968]
+custom_minimum_size = Vector2(82, 44)
+layout_mode = 2
+text = "2"
+
+[node name="Spacer5" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=1054944620]
+custom_minimum_size = Vector2(25, 50)
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=1788780362]
+custom_minimum_size = Vector2(82, 44)
+layout_mode = 2
+text = "3"
+
+[node name="Spacer3" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1864122773]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=146400954]
+layout_mode = 2
+text = "Tempo de resposta"
+label_settings = SubResource("LabelSettings_seen7")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1111868025]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1875941405]
+custom_minimum_size = Vector2(82, 44)
+layout_mode = 2
+text = "30s"
+
+[node name="Spacer4" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1350392160]
+custom_minimum_size = Vector2(25, 50)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=677406087]
+custom_minimum_size = Vector2(82, 44)
+layout_mode = 2
+text = "60s"
+
+[node name="Spacer5" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1574136903]
+custom_minimum_size = Vector2(25, 50)
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=727492900]
+custom_minimum_size = Vector2(82, 44)
+layout_mode = 2
+text = "90s"
+
+[node name="Spacer4" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=991137782]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1567700744]
+layout_mode = 2
+text = "Tempo de votação"
+label_settings = SubResource("LabelSettings_seen7")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=2081316576]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1169165740]
+custom_minimum_size = Vector2(82, 44)
+layout_mode = 2
+text = "30s"
+
+[node name="Spacer4" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=364184349]
+custom_minimum_size = Vector2(25, 50)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=973740724]
+custom_minimum_size = Vector2(82, 44)
+layout_mode = 2
+text = "60s"
+
+[node name="Spacer5" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1700988957]
+custom_minimum_size = Vector2(25, 50)
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=917303218]
+custom_minimum_size = Vector2(82, 44)
+layout_mode = 2
+text = "90s"
+
+[node name="Spacer5" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=612193313]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Button4" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1035600039]
+custom_minimum_size = Vector2(82, 44)
+layout_mode = 2
+text = "Iniciar"
