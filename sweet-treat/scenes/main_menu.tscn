@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://lbsc0ppjr8gs"]
 
+[ext_resource type="Script" uid="uid://cpac8u4i6x772" path="res://scripts/main_menu.gd" id="1_0fbet"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bkf4g"]
 bg_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_f5rsn"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_62e2m"]
 
 [sub_resource type="GDScript" id="GDScript_uchyk"]
 script/source = "extends \"res://scripts/main_menu.gd\"
@@ -19,15 +21,16 @@ func _process(delta: float) -> void:
 	pass
 "
 
-[node name="Home" type="Control" unique_id=215453282]
+[node name="MainMenu" type="Control" unique_id=1121190018]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_0fbet")
 
-[node name="Background" type="ColorRect" parent="." unique_id=885105222]
+[node name="Background" type="ColorRect" parent="." unique_id=1391268182]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,7 +38,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayerArea" type="Panel" parent="." unique_id=629946616]
+[node name="PlayerArea" type="Panel" parent="." unique_id=84918727]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 0
 offset_top = -1.0
@@ -43,7 +46,7 @@ offset_right = 563.0
 offset_bottom = 170.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_bkf4g")
 
-[node name="Avatar" type="ColorRect" parent="PlayerArea" unique_id=546785993]
+[node name="Avatar" type="ColorRect" parent="PlayerArea" unique_id=76652446]
 layout_mode = 0
 offset_left = 49.0
 offset_top = 60.0
@@ -51,7 +54,7 @@ offset_right = 103.0
 offset_bottom = 102.0
 color = Color(1, 0, 0.2509804, 1)
 
-[node name="Nickname" type="LineEdit" parent="PlayerArea" unique_id=411377765]
+[node name="Nickname" type="LineEdit" parent="PlayerArea" unique_id=509839958]
 light_mask = 15
 layout_mode = 0
 offset_left = 137.0
@@ -61,17 +64,17 @@ offset_bottom = 108.0
 theme_override_font_sizes/font_size = 24
 placeholder_text = "Digite o seu nickname"
 
-[node name="EditButton" type="Button" parent="PlayerArea" unique_id=1861776268]
+[node name="EditButton" type="Button" parent="PlayerArea" unique_id=1928702834]
 layout_mode = 0
 offset_left = 454.0
 offset_top = 101.0
 offset_right = 551.0
 offset_bottom = 160.0
 theme_override_font_sizes/font_size = 24
-theme_override_icons/icon = SubResource("ViewportTexture_f5rsn")
+theme_override_icons/icon = SubResource("ViewportTexture_62e2m")
 text = "Editar"
 
-[node name="InfoButton" type="Button" parent="." unique_id=197153413]
+[node name="InfoButton" type="Button" parent="." unique_id=2083137892]
 layout_mode = 0
 offset_left = 1022.0
 offset_top = 56.0
@@ -80,7 +83,7 @@ offset_bottom = 135.0
 theme_override_font_sizes/font_size = 24
 text = "i"
 
-[node name="SettingsButton" type="Button" parent="." unique_id=1482361210]
+[node name="SettingsButton" type="Button" parent="." unique_id=1273038552]
 layout_mode = 0
 offset_left = 1151.0
 offset_top = 52.0
@@ -89,13 +92,13 @@ offset_bottom = 132.0
 theme_override_font_sizes/font_size = 24
 text = "⚙"
 
-[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1614761281]
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1353227117]
 position = Vector2(-4.999996, -101)
 scale = Vector2(0.81846654, 0.86017394)
 color = Color(0.8096956, 0.890742, 0.97711605, 1)
 polygon = PackedVector2Array(305, 522, 384, 397, 412, 511, 500, 542, 409, 593, 430, 690, 353, 630, 273, 690, 290, 601, 191, 558)
 
-[node name="JoinRoomButton" type="Button" parent="." unique_id=1221640195]
+[node name="JoinRoomButton" type="Button" parent="." unique_id=818954755]
 layout_mode = 0
 offset_left = 711.0
 offset_top = 261.0
@@ -104,7 +107,7 @@ offset_bottom = 380.0
 theme_override_font_sizes/font_size = 42
 text = "Entre na sala"
 
-[node name="CreateRoomButton" type="Button" parent="." unique_id=4185528]
+[node name="CreateRoomButton" type="Button" parent="." unique_id=1507454871]
 layout_mode = 0
 offset_left = 705.0
 offset_top = 435.0

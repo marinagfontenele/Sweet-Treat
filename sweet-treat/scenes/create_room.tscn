@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://qt02msmsyoia"]
 
-[ext_resource type="Script" uid="uid://cpac8u4i6x772" path="res://scripts/main_menu.gd" id="1_alqp6"]
+[ext_resource type="Script" uid="uid://b6dw7oq0x2h12" path="res://scripts/create_room.gd" id="1_78kgv"]
 [ext_resource type="PackedScene" uid="uid://y3y604jq3l4a" path="res://scenes/components/configuration_button.tscn" id="2_g5yfu"]
 [ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="3_78kgv"]
 
@@ -38,7 +38,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_alqp6")
+script = ExtResource("1_78kgv")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=411272654]
 layout_mode = 1

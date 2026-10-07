@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Sweet-Treat"
-run/main_scene="uid://cla4ecnxfa24"
+run/main_scene="uid://lbsc0ppjr8gs"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 

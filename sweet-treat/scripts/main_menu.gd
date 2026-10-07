@@ -12,7 +12,7 @@ func _on_start_pressed() -> void:
 
 	# Change to the game level scene
 	# GameManager is our autoload, so we can call its functions from anywhere!
-#Não existe create room ainda	GameManager.change_scene("res://scenes/CreateRoom.tscn")
+	GameManager.change_scene("res://scenes/create_room.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
