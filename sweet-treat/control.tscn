@@ -1,24 +1,31 @@
-[gd_scene format=3 uid="uid://cla4ecnxfa24"]
+[gd_scene format=3 uid="uid://lbsc0ppjr8gs"]
 
-[ext_resource type="Script" uid="uid://cpac8u4i6x772" path="res://scripts/main_menu.gd" id="1_s3esy"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bkf4g"]
+bg_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_megxp"]
-font_size = 48
-outline_size = 10
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 15
+[sub_resource type="ViewportTexture" id="ViewportTexture_f5rsn"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_seen7"]
-font_size = 40
+[sub_resource type="GDScript" id="GDScript_uchyk"]
+script/source = "extends \"res://scripts/main_menu.gd\"
 
-[node name="MainGame" type="Control" unique_id=2120241287]
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[node name="Home" type="Control" unique_id=215453282]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_s3esy")
 
 [node name="Background" type="ColorRect" parent="." unique_id=885105222]
 layout_mode = 1
@@ -27,7 +34,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.4392157, 0, 0.9411765, 1)
 
 [node name="PlayerArea" type="Panel" parent="." unique_id=629946616]
 custom_minimum_size = Vector2(40, 40)
@@ -107,3 +113,4 @@ offset_bottom = 562.0
 theme_override_font_sizes/font_size = 42
 text = "Crie uma sala
 "
+script = SubResource("GDScript_uchyk")
