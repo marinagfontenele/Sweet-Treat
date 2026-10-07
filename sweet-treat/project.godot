@@ -10,24 +10,25 @@ config_version=5
 
 [application]
 
-config/name="SweetTreat"
-run/main_scene="res://lobby.tscn"
+config/name="RT Game"
+run/main_scene="uid://buu0ointtok0u"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameManager="*res://GameManager.gd"
+
 [display]
 
+window/size/viewport_width=393
+window/size/viewport_height=852
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
 
-[physics]
-
-3d/physics_engine="Jolt Physics"
-
 [rendering]
 
-rendering_device/driver.windows="d3d12"
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
 
@@ -36,17 +37,25 @@ textures/vram_compression/import_etc2_astc=true
 project/editorState=[{
 "column": 0,
 "line": 0,
-"path": "res://controlGame.gd",
+"path": "res://main.gd",
 "type": "file"
 }, {
-"column": 13,
+"column": 0,
+"line": 0,
+"path": "res://button.gd",
+"type": "file"
+}, {
+"column": 0,
+"line": 0,
+"path": "res://inc_button.gd",
+"type": "file"
+}, {
+"column": 0,
 "current": true,
-"line": 71,
-"path": "res://ControlLobby.gd",
+"line": 0,
+"path": "res://GameManager.gd",
 "type": "file"
 }]
 project/shaderEditorState=[]
-project/breakpoints={
-"res://ControlLobby.gd": PackedInt32Array()
-}
+project/breakpoints={}
 project/disabled_breakpoints={}
