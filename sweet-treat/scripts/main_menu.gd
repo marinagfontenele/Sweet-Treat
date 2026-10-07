@@ -4,6 +4,10 @@ extends Node
 func _ready() -> void:
 
 	$CreateRoomButton.pressed.connect(_on_start_pressed)
+	#### PARTE DO GAME CENTER
+	#$CountLabel.position = (get_viewport_rect().size - $CountLabel.size) / 2.0
+	$CountLabel.text = "0"
+	GameManager.authenticate()
 
 	print("Main menu ready! Waiting for player input...")
 

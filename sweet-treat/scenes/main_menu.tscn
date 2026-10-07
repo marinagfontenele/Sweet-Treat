@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://lbsc0ppjr8gs"]
 
 [ext_resource type="Script" uid="uid://cpac8u4i6x772" path="res://scripts/main_menu.gd" id="1_0fbet"]
+[ext_resource type="Script" uid="uid://dch20a34c5cxh" path="res://scripts/button.gd" id="2_bqqt6"]
+[ext_resource type="Script" uid="uid://du60xx18wxvpw" path="res://scripts/inc_button.gd" id="3_wu84c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bkf4g"]
 bg_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
@@ -117,3 +119,38 @@ theme_override_font_sizes/font_size = 42
 text = "Crie uma sala
 "
 script = SubResource("GDScript_uchyk")
+
+[node name="Button" type="Button" parent="." unique_id=617872628]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 523.0
+offset_right = 258.0
+offset_bottom = 600.0
+theme_override_font_sizes/font_size = 50
+text = "match"
+script = ExtResource("2_bqqt6")
+
+[node name="IncButton" type="Button" parent="." unique_id=189579557]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 524.0
+offset_right = 379.0
+offset_bottom = 601.0
+theme_override_font_sizes/font_size = 50
+text = "inc"
+script = ExtResource("3_wu84c")
+
+[node name="CountLabel" type="Label" parent="." unique_id=399968898]
+layout_mode = 0
+offset_left = 173.0
+offset_top = 612.0
+offset_right = 303.0
+offset_bottom = 681.0
+theme_override_colors/font_color = Color(0.05490196, 0.08235294, 1, 1)
+theme_override_font_sizes/font_size = 50
+text = "Label"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
+[connection signal="pressed" from="IncButton" to="IncButton" method="_on_pressed"]
