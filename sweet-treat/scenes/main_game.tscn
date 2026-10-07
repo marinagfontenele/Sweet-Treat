@@ -2,12 +2,16 @@
 
 [ext_resource type="Script" uid="uid://cpac8u4i6x772" path="res://scripts/main_menu.gd" id="1_s3esy"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bkf4g"]
-bg_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
+[sub_resource type="LabelSettings" id="LabelSettings_megxp"]
+font_size = 48
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 15
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_f5rsn"]
+[sub_resource type="LabelSettings" id="LabelSettings_seen7"]
+font_size = 40
 
-[node name="MainGame" type="Control" unique_id=215453282]
+[node name="MainGame" type="Control" unique_id=2120241287]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,6 +27,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.4392157, 0, 0.9411765, 1)
 
 [node name="PlayerArea" type="Panel" parent="." unique_id=629946616]
 custom_minimum_size = Vector2(40, 40)

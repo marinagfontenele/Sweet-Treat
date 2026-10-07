@@ -1,0 +1,198 @@
+[gd_scene format=3 uid="uid://qt02msmsyoia"]
+
+[ext_resource type="Script" uid="uid://cpac8u4i6x772" path="res://scripts/main_menu.gd" id="1_alqp6"]
+[ext_resource type="PackedScene" uid="uid://y3y604jq3l4a" path="res://scenes/components/configuration_button.tscn" id="2_g5yfu"]
+[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="3_78kgv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_megxp"]
+font_size = 24
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
+bg_color = Color(1, 1, 1, 0.26666668)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_seen7"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_78kgv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_seen7"]
+font_size = 20
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[node name="CreateRoom" type="Control" unique_id=2120241287]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_alqp6")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=411272654]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.6862745, 0.9411765, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=887838525]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -68.5
+offset_right = 240.0
+offset_bottom = 68.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1820157149]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Configurações da partida"
+label_settings = SubResource("LabelSettings_megxp")
+
+[node name="Spacer" type="Control" parent="VBoxContainer" unique_id=330939095]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=375801431]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=796115655]
+custom_minimum_size = Vector2(371, 31)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Panel" unique_id=954787946]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.0
+offset_top = -93.0
+offset_right = 115.0
+offset_bottom = 93.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Panel/VBoxContainer" unique_id=1508144903]
+layout_mode = 2
+text = "Código da sala"
+
+[node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer/Panel/VBoxContainer" unique_id=2142868674]
+custom_minimum_size = Vector2(163, 48)
+custom_maximum_size = Vector2(163, -1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_seen7")
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer/Panel/VBoxContainer" unique_id=984905471]
+custom_maximum_size = Vector2(230, -1)
+layout_mode = 2
+text = "Copie o código da sala e compartilhe com os jogadores"
+label_settings = SubResource("LabelSettings_78kgv")
+autowrap_mode = 3
+
+[node name="Spacer2" type="Control" parent="VBoxContainer/HBoxContainer" unique_id=218489886]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1245874847]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=917164084]
+layout_mode = 2
+text = "Perguntas por jogador"
+label_settings = SubResource("LabelSettings_seen7")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1774395063]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="ConfigurationButtonButton" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=122511985 instance=ExtResource("2_g5yfu")]
+layout_mode = 2
+text = "1"
+
+[node name="ConfigurationButtonButton2" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=957145932 instance=ExtResource("2_g5yfu")]
+layout_mode = 2
+text = "2"
+
+[node name="ConfigurationButtonButton3" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=2100345248 instance=ExtResource("2_g5yfu")]
+layout_mode = 2
+text = "3"
+
+[node name="Spacer3" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1864122773]
+custom_minimum_size = Vector2(10, 25)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=146400954]
+layout_mode = 2
+text = "Tempo de resposta"
+label_settings = SubResource("LabelSettings_seen7")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1111868025]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="ConfigurationButtonButton" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=972421051 instance=ExtResource("2_g5yfu")]
+layout_mode = 2
+text = "30s"
+
+[node name="ConfigurationButtonButton2" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=938037032 instance=ExtResource("2_g5yfu")]
+layout_mode = 2
+
+[node name="ConfigurationButtonButton3" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=638741882 instance=ExtResource("2_g5yfu")]
+layout_mode = 2
+text = "90s"
+
+[node name="Spacer4" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=991137782]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1567700744]
+layout_mode = 2
+text = "Tempo de votação"
+label_settings = SubResource("LabelSettings_seen7")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1422987464]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="ConfigurationButtonButton" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1430046057 instance=ExtResource("2_g5yfu")]
+layout_mode = 2
+text = "30s"
+
+[node name="ConfigurationButtonButton2" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1377326788 instance=ExtResource("2_g5yfu")]
+layout_mode = 2
+
+[node name="ConfigurationButtonButton3" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=787289198 instance=ExtResource("2_g5yfu")]
+layout_mode = 2
+text = "90s"
+
+[node name="Spacer5" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=612193313]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="PlayButton" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1859471613 instance=ExtResource("3_78kgv")]
+layout_mode = 2
