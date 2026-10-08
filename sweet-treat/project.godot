@@ -35,3 +35,22 @@ window/stretch/aspect="expand"
 
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
+
+[xogot]
+
+project/editorState=[{
+"column": 0,
+"current": true,
+"line": 0,
+"path": "res://scripts/game_manager.gd",
+"type": "file"
+}, {
+"column": 0,
+"line": 0,
+"path": "res://scripts/button.gd",
+"type": "file"
+}]
+project/shaderEditorState=[]
+project/breakpoints={}
+project/disabled_breakpoints={}
