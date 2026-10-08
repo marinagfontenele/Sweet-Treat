@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://lbsc0ppjr8gs"]
 
 [ext_resource type="Script" uid="uid://cpac8u4i6x772" path="res://scripts/main_menu.gd" id="1_0fbet"]
-[ext_resource type="Script" uid="uid://dch20a34c5cxh" path="res://scripts/button.gd" id="2_bqqt6"]
 [ext_resource type="Script" uid="uid://du60xx18wxvpw" path="res://scripts/inc_button.gd" id="3_wu84c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bkf4g"]
@@ -21,6 +20,10 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+	
+func _on_pressed() -> void:
+	print(\"_on_pressed\")
+	GameManager.request_match()
 "
 
 [node name="MainMenu" type="Control" unique_id=1121190018]
@@ -120,16 +123,6 @@ text = "Crie uma sala
 "
 script = SubResource("GDScript_uchyk")
 
-[node name="Button" type="Button" parent="." unique_id=617872628]
-layout_mode = 0
-offset_left = 52.0
-offset_top = 523.0
-offset_right = 258.0
-offset_bottom = 600.0
-theme_override_font_sizes/font_size = 50
-text = "match"
-script = ExtResource("2_bqqt6")
-
 [node name="IncButton" type="Button" parent="." unique_id=189579557]
 layout_mode = 0
 offset_left = 300.0
@@ -152,5 +145,4 @@ text = "Label"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
 [connection signal="pressed" from="IncButton" to="IncButton" method="_on_pressed"]
