@@ -114,10 +114,10 @@ text = "Entre na sala"
 
 [node name="CreateRoomButton" type="Button" parent="." unique_id=1507454871]
 layout_mode = 0
-offset_left = 705.0
-offset_top = 435.0
-offset_right = 1191.0
-offset_bottom = 562.0
+offset_left = 433.0
+offset_top = 127.0
+offset_right = 919.0
+offset_bottom = 254.0
 theme_override_font_sizes/font_size = 42
 text = "Crie uma sala
 "
