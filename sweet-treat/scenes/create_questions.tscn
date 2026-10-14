@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bvq3577axoqo8" path="res://scripts/create_questions.gd" id="1_qpg4m"]
 [ext_resource type="Texture2D" uid="uid://bkri1wimsir0s" path="res://assets/images/background.svg" id="2_n1i85"]
-[ext_resource type="Texture2D" uid="uid://4ahppqn5reta" path="res://Group 39.png" id="2_qpg4m"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="3_fjeh6"]
 [ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="3_obo4k"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="4_llf5h"]
@@ -14,6 +13,34 @@ outline_size = 1
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 4
 shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
+bg_color = Color(0.7764706, 0.25490198, 1, 1)
+border_width_left = 1
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.49411765, 0, 0.7058824, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+corner_detail = 20
+shadow_color = Color(0, 0, 0, 0.26666668)
+shadow_size = 4
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_seen7"]
+bg_color = Color(1, 0.85490197, 0.21960784, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.9607843, 0.76862746, 0.011764706, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+corner_detail = 20
 
 [sub_resource type="LabelSettings" id="LabelSettings_ywv44"]
 font = ExtResource("4_llf5h")
@@ -86,11 +113,15 @@ layout_mode = 2
 text = "Pergunta 1 de 3"
 label_settings = SubResource("LabelSettings_hmaif")
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=1129570760]
-custom_minimum_size = Vector2(2, 2)
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=1930597599]
+custom_minimum_size = Vector2(673, 35)
 layout_mode = 2
-texture = ExtResource("2_qpg4m")
-expand_mode = 5
+theme_override_styles/background = SubResource("StyleBoxFlat_megxp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_seen7")
+max_value = 3.0
+step = 1.0
+value = 1.0
+show_percentage = false
 
 [node name="Label2" parent="MarginContainer/VBoxContainer" unique_id=1945571086 instance=ExtResource("3_fjeh6")]
 layout_mode = 2

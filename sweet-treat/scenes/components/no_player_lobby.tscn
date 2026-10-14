@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://df3i6itbbq8ys"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ucrgg"]
+bg_color = Color(0.03529412, 0.12156863, 0.41568628, 0.78431374)
+border_color = Color(0.03529412, 0.12156863, 0.41568628, 0.31764707)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.03529412, 0.12156863, 0.41568628, 0.31764707)
+shadow_offset = Vector2(1.71, 3.42)
+
+[node name="NoPlayerLobby" type="Panel" unique_id=1087966299]
+custom_minimum_size = Vector2(119, 111)
+custom_maximum_size = Vector2(1000, 1000)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ucrgg")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="." unique_id=538730078]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
