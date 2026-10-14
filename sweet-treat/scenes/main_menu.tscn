@@ -1,0 +1,148 @@
+[gd_scene format=3 uid="uid://lbsc0ppjr8gs"]
+
+[ext_resource type="Script" uid="uid://cpac8u4i6x772" path="res://scripts/main_menu.gd" id="1_0fbet"]
+[ext_resource type="Script" uid="uid://du60xx18wxvpw" path="res://scripts/inc_button.gd" id="3_wu84c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bkf4g"]
+bg_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_62e2m"]
+
+[sub_resource type="GDScript" id="GDScript_uchyk"]
+script/source = "extends \"res://scripts/main_menu.gd\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+	
+func _on_pressed() -> void:
+	print(\"_on_pressed\")
+	GameManager.request_match()
+"
+
+[node name="MainMenu" type="Control" unique_id=1121190018]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0fbet")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1391268182]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerArea" type="Panel" parent="." unique_id=84918727]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 0
+offset_top = -1.0
+offset_right = 563.0
+offset_bottom = 170.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bkf4g")
+
+[node name="Avatar" type="ColorRect" parent="PlayerArea" unique_id=76652446]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 60.0
+offset_right = 103.0
+offset_bottom = 102.0
+color = Color(1, 0, 0.2509804, 1)
+
+[node name="Nickname" type="LineEdit" parent="PlayerArea" unique_id=509839958]
+light_mask = 15
+layout_mode = 0
+offset_left = 137.0
+offset_top = 57.0
+offset_right = 436.0
+offset_bottom = 108.0
+theme_override_font_sizes/font_size = 24
+placeholder_text = "Digite o seu nickname"
+
+[node name="EditButton" type="Button" parent="PlayerArea" unique_id=1928702834]
+layout_mode = 0
+offset_left = 454.0
+offset_top = 101.0
+offset_right = 551.0
+offset_bottom = 160.0
+theme_override_font_sizes/font_size = 24
+theme_override_icons/icon = SubResource("ViewportTexture_62e2m")
+text = "Editar"
+
+[node name="InfoButton" type="Button" parent="." unique_id=2083137892]
+layout_mode = 0
+offset_left = 1022.0
+offset_top = 56.0
+offset_right = 1106.0
+offset_bottom = 135.0
+theme_override_font_sizes/font_size = 24
+text = "i"
+
+[node name="SettingsButton" type="Button" parent="." unique_id=1273038552]
+layout_mode = 0
+offset_left = 1151.0
+offset_top = 52.0
+offset_right = 1235.0
+offset_bottom = 132.0
+theme_override_font_sizes/font_size = 24
+text = "⚙"
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1353227117]
+position = Vector2(-4.999996, -101)
+scale = Vector2(0.81846654, 0.86017394)
+color = Color(0.8096956, 0.890742, 0.97711605, 1)
+polygon = PackedVector2Array(305, 522, 384, 397, 412, 511, 500, 542, 409, 593, 430, 690, 353, 630, 273, 690, 290, 601, 191, 558)
+
+[node name="JoinRoomButton" type="Button" parent="." unique_id=818954755]
+layout_mode = 0
+offset_left = 711.0
+offset_top = 261.0
+offset_right = 1201.0
+offset_bottom = 380.0
+theme_override_font_sizes/font_size = 42
+text = "Entre na sala"
+
+[node name="CreateRoomButton" type="Button" parent="." unique_id=1507454871]
+layout_mode = 0
+offset_left = 705.0
+offset_top = 435.0
+offset_right = 1191.0
+offset_bottom = 562.0
+theme_override_font_sizes/font_size = 42
+text = "Crie uma sala
+"
+script = SubResource("GDScript_uchyk")
+
+[node name="IncButton" type="Button" parent="." unique_id=189579557]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 524.0
+offset_right = 379.0
+offset_bottom = 601.0
+theme_override_font_sizes/font_size = 50
+text = "inc"
+script = ExtResource("3_wu84c")
+
+[node name="CountLabel" type="Label" parent="." unique_id=399968898]
+layout_mode = 0
+offset_left = 173.0
+offset_top = 612.0
+offset_right = 303.0
+offset_bottom = 681.0
+theme_override_colors/font_color = Color(0.05490196, 0.08235294, 1, 1)
+theme_override_font_sizes/font_size = 50
+text = "Label"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="IncButton" to="IncButton" method="_on_pressed"]
