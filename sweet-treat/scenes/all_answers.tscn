@@ -1,0 +1,143 @@
+[gd_scene format=3 uid="uid://cnlaoyuxavoys"]
+
+[ext_resource type="PackedScene" uid="uid://bivqmg5mhy4s5" path="res://scenes/components/player_answer.tscn" id="1_cph5a"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8p231"]
+font_size = 24
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="AllAnswers" type="Control" unique_id=470674663]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=210528798]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.85490197, 0.21960784, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=541822600]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=88306416]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=655028495]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Jogadores na sala" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=211796985]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Resposta dos participantes"
+label_settings = SubResource("LabelSettings_8p231")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1922991529]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1649645164]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer2/AspectRatioContainer" unique_id=328281830 instance=ExtResource("1_cph5a")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1784029147]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer2/AspectRatioContainer2" unique_id=44938943 instance=ExtResource("1_cph5a")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1330250618]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer2/AspectRatioContainer3" unique_id=1304507414 instance=ExtResource("1_cph5a")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=36692589]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer2/AspectRatioContainer4" unique_id=96157969 instance=ExtResource("1_cph5a")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AspectRatioContainer5" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1098593493]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer2/AspectRatioContainer5" unique_id=780869512 instance=ExtResource("1_cph5a")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=793459863]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1453096370]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer3/AspectRatioContainer" unique_id=824283149 instance=ExtResource("1_cph5a")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1521738073]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer3/AspectRatioContainer2" unique_id=708084493 instance=ExtResource("1_cph5a")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=46830255]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer3/AspectRatioContainer3" unique_id=1555335966 instance=ExtResource("1_cph5a")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=127873027]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer3/AspectRatioContainer4" unique_id=713987576 instance=ExtResource("1_cph5a")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AspectRatioContainer5" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1784408912]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer3/AspectRatioContainer5" unique_id=987584538 instance=ExtResource("1_cph5a")]
+layout_mode = 2
+size_flags_horizontal = 3
