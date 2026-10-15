@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://cdpe4i65d2edx"]
+
+[ext_resource type="Script" uid="uid://b3g638jkeqlb2" path="res://scripts/show_question.gd" id="1_et4w1"]
+[ext_resource type="Texture2D" uid="uid://dbtl2wfk48288" path="res://assets/images/tela de pergunta.png" id="1_rqs2n"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_megxp"]
+font_size = 60
+outline_size = 7
+outline_color = Color(0, 0, 0, 1)
+
+[node name="ShowQuestion" type="Control" unique_id=1816669097]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_et4w1")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1467023724]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -212.0
+offset_top = -33.0
+offset_right = 212.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_rqs2n")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="." unique_id=859088101]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "A pergunta aparecerá aqui"
+label_settings = SubResource("LabelSettings_megxp")

@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://lbsc0ppjr8gs"]
 
 [ext_resource type="Script" uid="uid://cpac8u4i6x772" path="res://scripts/main_menu.gd" id="1_0fbet"]
-[ext_resource type="Script" uid="uid://cgax6bxtrl3dn" path="res://scenes/join_room_button.gd" id="2_bqqt6"]
 [ext_resource type="Script" uid="uid://du60xx18wxvpw" path="res://scripts/inc_button.gd" id="3_wu84c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bkf4g"]
@@ -24,18 +23,7 @@ func _process(delta: float) -> void:
 	
 func _on_pressed() -> void:
 	print(\"_on_pressed\")
-	# 1. Gera um número PIN aleatório de 4 dígitos (ex: entre 1000 e 9999)
-	var pin_gerado: int = randi_range(1000, 9999)
-	
-	# 2. Exibe o PIN na interface do teu jogo
-	if has_node(\"LabelCodigo\"):
-		$LabelCodigo.text = \"Código da Sala: \" + str(pin_gerado)
-	
-	print(\"Criando sala silenciosa com o PIN: \", pin_gerado)
-	
-	# 3. Chama o Game Center em background com o PIN gerado
-	GameManager.buscar_partida_por_codigo(pin_gerado)
-	#GameManager.request_match()
+	GameManager.request_match()
 "
 
 [node name="MainMenu" type="Control" unique_id=1121190018]
@@ -123,7 +111,6 @@ offset_right = 1201.0
 offset_bottom = 380.0
 theme_override_font_sizes/font_size = 42
 text = "Entre na sala"
-script = ExtResource("2_bqqt6")
 
 [node name="CreateRoomButton" type="Button" parent="." unique_id=1507454871]
 layout_mode = 0
@@ -157,15 +144,5 @@ theme_override_font_sizes/font_size = 50
 text = "Label"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="LabelCodigo" type="Label" parent="." unique_id=1590800027]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.016
-anchor_bottom = 0.016
-offset_left = 501.0
-offset_top = 351.0
-offset_right = 666.52
-offset_bottom = 410.48
 
 [connection signal="pressed" from="IncButton" to="IncButton" method="_on_pressed"]
