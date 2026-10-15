@@ -42,7 +42,7 @@ textures/vram_compression/import_etc2_astc=true
 project/editorState=[{
 "column": 0,
 "current": true,
-"line": 0,
+"line": 142,
 "path": "res://scripts/game_manager.gd",
 "type": "file"
 }, {

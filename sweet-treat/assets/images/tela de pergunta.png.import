@@ -3,11 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dbtl2wfk48288"
-valid=false
+path="res://.godot/imported/tela de pergunta.png-3080985687d3382f4d442dfbe38c5609.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/images/tela de pergunta.png"
+dest_files=["res://.godot/imported/tela de pergunta.png-3080985687d3382f4d442dfbe38c5609.ctex"]
 
 [params]
 
