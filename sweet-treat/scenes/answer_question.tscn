@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://bv1iq7ed3kl36"]
+
+[ext_resource type="Texture2D" uid="uid://cajp4i7hmtsdd" path="res://assets/images/background.png" id="1_ap8lc"]
+[ext_resource type="Script" uid="uid://2cn5ulkh1pek" path="res://scripts/answer_question.gd" id="1_dj7vg"]
+[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="2_ydry8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dj7vg"]
+font_size = 40
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+
+[node name="AnswerQuestion" type="Control" unique_id=714030627]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dj7vg")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1349465536]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ap8lc")
+expand_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=511453427]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1953892265]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=663156588]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Qual a melhor sobremesa?"
+label_settings = SubResource("LabelSettings_dj7vg")
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer" unique_id=265123332]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Digite sua resposta aqui..."
+
+[node name="PlayButton" parent="MarginContainer/VBoxContainer" unique_id=122511985 instance=ExtResource("2_ydry8")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+text = "Enviar"

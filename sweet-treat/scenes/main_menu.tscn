@@ -1,0 +1,185 @@
+[gd_scene format=3 uid="uid://lbsc0ppjr8gs"]
+
+[ext_resource type="Script" uid="uid://cpac8u4i6x772" path="res://scripts/main_menu.gd" id="1_0fbet"]
+[ext_resource type="Texture2D" uid="uid://bqs2j434r25va" path="res://assets/images/iPhone 16 - 14.svg" id="2_wu84c"]
+[ext_resource type="Texture2D" uid="uid://csfue7yiid87f" path="res://assets/images/Frame 53.svg" id="3_8ln24"]
+[ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_rtw2f"]
+[ext_resource type="PackedScene" uid="uid://cqhe6wwbw7q2f" path="res://scenes/components/main_button.tscn" id="4_rtw2f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bkf4g"]
+bg_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ln24"]
+content_margin_left = 20.0
+content_margin_top = 5.0
+content_margin_right = 20.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 12
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(2, 4)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_62e2m"]
+
+[sub_resource type="GDScript" id="GDScript_uchyk"]
+script/source = "extends \"res://scripts/main_menu.gd\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+	
+func _on_pressed() -> void:
+	print(\"_on_pressed\")
+	GameManager.request_match()
+"
+
+[node name="MainMenu" type="Control" unique_id=1121190018]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0fbet")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=760509673]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_wu84c")
+
+[node name="PlayerArea" type="Panel" parent="." unique_id=84918727]
+custom_minimum_size = Vector2(320, 65)
+custom_maximum_size = Vector2(320, 75)
+layout_mode = 0
+offset_top = -1.0
+offset_right = 563.0
+offset_bottom = 170.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bkf4g")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerArea" unique_id=718487916]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Avatar" type="ColorRect" parent="PlayerArea/HBoxContainer" unique_id=76652446]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+color = Color(1, 0, 0.2509804, 1)
+
+[node name="LineEdit" type="LineEdit" parent="PlayerArea/HBoxContainer" unique_id=429601356]
+custom_minimum_size = Vector2(188, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_uneditable_color = Color(1, 1, 1, 1)
+theme_override_colors/font_placeholder_color = Color(0.84313726, 0.84313726, 0.84313726, 1)
+theme_override_fonts/font = ExtResource("3_rtw2f")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_8ln24")
+placeholder_text = "Digite sua resposta aqui..."
+
+[node name="EditButton" type="Button" parent="PlayerArea/HBoxContainer" unique_id=1928702834]
+custom_minimum_size = Vector2(30, 30)
+custom_maximum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+theme_override_icons/icon = SubResource("ViewportTexture_62e2m")
+text = "Editar"
+
+[node name="InfoButton" type="Button" parent="." unique_id=2083137892]
+layout_mode = 0
+offset_left = 651.0
+offset_top = 17.0
+offset_right = 735.0
+offset_bottom = 96.0
+theme_override_font_sizes/font_size = 24
+text = "i"
+
+[node name="SettingsButton" type="Button" parent="." unique_id=1273038552]
+layout_mode = 0
+offset_left = 752.0
+offset_top = 13.0
+offset_right = 836.0
+offset_bottom = 93.0
+theme_override_font_sizes/font_size = 24
+text = "⚙"
+
+[node name="JoinRoomButton" type="Button" parent="." unique_id=818954755]
+visible = false
+layout_mode = 0
+offset_left = 436.0
+offset_top = 264.0
+offset_right = 926.0
+offset_bottom = 383.0
+theme_override_font_sizes/font_size = 42
+text = "Entre na sala"
+
+[node name="CreateRoomButton" type="Button" parent="." unique_id=1507454871]
+visible = false
+layout_mode = 0
+offset_left = 433.0
+offset_top = 127.0
+offset_right = 919.0
+offset_bottom = 254.0
+theme_override_font_sizes/font_size = 42
+text = "Crie uma sala
+"
+script = SubResource("GDScript_uchyk")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1424116047]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -379.5
+offset_top = -335.0
+offset_right = 379.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 40
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=1800088930]
+layout_mode = 2
+texture = ExtResource("3_8ln24")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=470082235]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 15
+
+[node name="JoinRoomButton" parent="HBoxContainer/VBoxContainer" unique_id=876412539 instance=ExtResource("4_rtw2f")]
+layout_mode = 2
+
+[node name="CreateRoomButton" parent="HBoxContainer/VBoxContainer" unique_id=1383716092 instance=ExtResource("4_rtw2f")]
+layout_mode = 2
+script = ExtResource("1_0fbet")
