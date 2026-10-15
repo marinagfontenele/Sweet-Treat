@@ -1,10 +1,12 @@
-[gd_scene format=3 uid="uid://w7541olgdgge"]
+
+[gd_scene format=3 uid="uid://cr2iw44aw65xb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1n5pu"]
 bg_color = Color(0.7764706, 0.25490198, 1, 1)
 border_width_left = 1
 border_width_right = 2
-border_width_bottom = 6
+
+border_width_bottom = 3
 border_color = Color(0.49411765, 0, 0.7058824, 1)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
@@ -15,8 +17,34 @@ shadow_color = Color(0, 0, 0, 0.26666668)
 shadow_size = 4
 shadow_offset = Vector2(0, 4)
 
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
+bg_color = Color(0.36078432, 0.14117648, 0.45490196, 1)
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.7764706, 0.25490198, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_seen7"]
+bg_color = Color(1, 0.85490197, 0.21960784, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.824529, 0.65778756, 0.004386059, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+corner_detail = 20
+
 [node name="ProgressBar" type="Panel" unique_id=1816925574]
 custom_minimum_size = Vector2(673, 35)
+custom_maximum_size = Vector2(673, -1)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -29,3 +57,25 @@ offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1n5pu")
+
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=179476770]
+custom_minimum_size = Vector2(660, 3)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -330.0
+offset_top = -11.0
+offset_right = 330.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_megxp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_seen7")
+max_value = 3.0
+step = 1.0
+value = 1.0
+show_percentage = false

@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ioirbwh3fm43"
-valid=false
+uid="uid://csfue7yiid87f"
+path="res://.godot/imported/Frame 53.svg-1b7fb24c5d1be341e082472d2cd9ad20.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://icon.svg 08-37-10-018.svg"
+source_file="res://assets/images/Frame 53.svg"
+dest_files=["res://.godot/imported/Frame 53.svg-1b7fb24c5d1be341e082472d2cd9ad20.ctex"]
 
 [params]
 
