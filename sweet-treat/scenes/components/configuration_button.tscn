@@ -483,7 +483,7 @@ cache/0/20/0/glyphs/28/uv_rect = Rect2(86, 1, 13, 16)
 cache/0/20/0/glyphs/28/texture_idx = 0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
-bg_color = Color(1, 0.85490197, 0.21960784, 1)
+bg_color = Color(0.4117647, 0.8039216, 0.9254902, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -515,4 +515,5 @@ theme_override_constants/outline_size = 5
 theme_override_fonts/font = SubResource("FontFile_ay7rh")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_megxp")
+toggle_mode = true
 text = "60s"
