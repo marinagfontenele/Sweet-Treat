@@ -5,13 +5,12 @@
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_y5rp4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2nqww"]
-content_margin_left = 10.0
 content_margin_right = 10.0
 bg_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
-border_width_bottom = 3
+border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
@@ -20,6 +19,49 @@ corner_radius_bottom_left = 16
 corner_detail = 16
 shadow_color = Color(0, 0, 0, 1)
 shadow_size = 2
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trfeb"]
+bg_color = Color(0.011764706, 0.07058824, 0.25882354, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yrolw"]
+bg_color = Color(0.011764706, 0.07058824, 0.25882354, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_seen7"]
+bg_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.2509804)
+shadow_size = 1
+shadow_offset = Vector2(0, 5)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
 bg_color = Color(1, 0.85490197, 0.21960784, 1)
@@ -54,23 +96,45 @@ offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_2nqww")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_trfeb")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yrolw")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1149872698]
-layout_mode = 0
-offset_top = 17.5
-offset_bottom = 61.5
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=2016085397]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 6
+
+[node name="Panel" type="Panel" parent="MarginContainer2" unique_id=689551067]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_seen7")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/Panel" unique_id=1149872698]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1951068193]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2/Panel/MarginContainer" unique_id=1951068193]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer" unique_id=782162049]
+[node name="Panel" type="Panel" parent="MarginContainer2/Panel/MarginContainer/HBoxContainer" unique_id=782162049]
 custom_minimum_size = Vector2(43, 44)
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/Panel" unique_id=1745819823]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2/Panel/MarginContainer/HBoxContainer/Panel" unique_id=1745819823]
 custom_minimum_size = Vector2(5.9, 6.6)
 custom_maximum_size = Vector2(30.78, 30.78)
 layout_mode = 1
@@ -87,7 +151,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_vx0oh")
 
-[node name="Label2" parent="MarginContainer/HBoxContainer" unique_id=625587219 instance=ExtResource("2_gg0bn")]
+[node name="Label2" parent="MarginContainer2/Panel/MarginContainer/HBoxContainer" unique_id=625587219 instance=ExtResource("2_gg0bn")]
 layout_mode = 2
 text = "Entrar na sala"
 label_settings = SubResource("LabelSettings_bexny")

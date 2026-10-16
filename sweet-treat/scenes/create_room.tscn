@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://bua5ylfrdlxad" path="res://scripts/create_room.gd" id="1_78kgv"]
 [ext_resource type="PackedScene" uid="uid://y3y604jq3l4a" path="res://scenes/components/configuration_button.tscn" id="2_g5yfu"]
 [ext_resource type="Texture2D" uid="uid://ijn0ahavykdm" path="res://assets/images/Config Partida (Host).svg" id="2_iju0h"]
-[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="3_78kgv"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="3_hdjgt"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="4_qg0me"]
 
@@ -51,6 +50,18 @@ font_size = 15
 font_size = 20
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_hugna"]
+resource_local_to_scene = false
+resource_name = "questions_configuration"
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_iju0h"]
+resource_local_to_scene = false
+resource_name = "questions_configuration"
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_hdjgt"]
+resource_local_to_scene = false
+resource_name = "questions_configuration"
 
 [node name="CreateRoom" type="Control" unique_id=2120241287]
 layout_mode = 3
@@ -155,20 +166,23 @@ layout_mode = 2
 text = "Perguntas por jogador"
 label_settings = SubResource("LabelSettings_seen7")
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1774395063]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1774395063]
 layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="ConfigurationButtonButton" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=122511985 instance=ExtResource("2_g5yfu")]
+[node name="ConfigurationButtonButton" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=122511985 instance=ExtResource("2_g5yfu")]
 layout_mode = 2
+button_group = SubResource("ButtonGroup_hugna")
 text = "1"
 
-[node name="ConfigurationButtonButton2" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=957145932 instance=ExtResource("2_g5yfu")]
+[node name="ConfigurationButtonButton2" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=957145932 instance=ExtResource("2_g5yfu")]
 layout_mode = 2
+button_group = SubResource("ButtonGroup_iju0h")
 text = "2"
 
-[node name="ConfigurationButtonButton3" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=2100345248 instance=ExtResource("2_g5yfu")]
+[node name="ConfigurationButtonButton3" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=2100345248 instance=ExtResource("2_g5yfu")]
 layout_mode = 2
+button_group = SubResource("ButtonGroup_hdjgt")
 text = "3"
 
 [node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=146400954]
@@ -176,18 +190,18 @@ layout_mode = 2
 text = "Tempo de resposta"
 label_settings = SubResource("LabelSettings_seen7")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1111868025]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1111868025]
 layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="ConfigurationButtonButton" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=972421051 instance=ExtResource("2_g5yfu")]
+[node name="ConfigurationButtonButton" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=972421051 instance=ExtResource("2_g5yfu")]
 layout_mode = 2
 text = "30s"
 
-[node name="ConfigurationButtonButton2" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=938037032 instance=ExtResource("2_g5yfu")]
+[node name="ConfigurationButtonButton2" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=938037032 instance=ExtResource("2_g5yfu")]
 layout_mode = 2
 
-[node name="ConfigurationButtonButton3" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=638741882 instance=ExtResource("2_g5yfu")]
+[node name="ConfigurationButtonButton3" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=638741882 instance=ExtResource("2_g5yfu")]
 layout_mode = 2
 text = "90s"
 
@@ -196,21 +210,17 @@ layout_mode = 2
 text = "Tempo de votação"
 label_settings = SubResource("LabelSettings_seen7")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1422987464]
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1422987464]
 layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="ConfigurationButtonButton" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1430046057 instance=ExtResource("2_g5yfu")]
+[node name="ConfigurationButtonButton" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=1430046057 instance=ExtResource("2_g5yfu")]
 layout_mode = 2
 text = "30s"
 
-[node name="ConfigurationButtonButton2" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1377326788 instance=ExtResource("2_g5yfu")]
+[node name="ConfigurationButtonButton2" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=1377326788 instance=ExtResource("2_g5yfu")]
 layout_mode = 2
 
-[node name="ConfigurationButtonButton3" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=787289198 instance=ExtResource("2_g5yfu")]
+[node name="ConfigurationButtonButton3" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=787289198 instance=ExtResource("2_g5yfu")]
 layout_mode = 2
 text = "90s"
-
-[node name="PlayButton" parent="VBoxContainer" unique_id=1859471613 instance=ExtResource("3_78kgv")]
-visible = false
-layout_mode = 2

@@ -28,12 +28,8 @@ extends Node
 func _ready() -> void:
 	# Autentica no Game Center ao abrir o menu
 	GameManager.authenticate()
-
-	$CountLabel.text = "0"
-
-	# Conecta o botão "Crie uma sala" para solicitar a partida no Game Center
-	if $CreateRoomButton:
-		$CreateRoomButton.pressed.connect(_on_create_room_pressed)
+	
+	$MarginContainer/HBoxContainer/VBoxContainer/CreateRoomButton.pressed.connect(_on_create_room_pressed)
 
 	print("Main menu ready! Waiting for player input...")
 
