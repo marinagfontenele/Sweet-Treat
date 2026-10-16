@@ -3,22 +3,10 @@ extends RefCounted
 
 
 var question: QuestionData
-
-# Chave: peer_id do jogador
-# Valor: texto da resposta
 var answers: Dictionary = {}
-
-# Chave: peer_id de quem votou
-# Valor: peer_id de quem recebeu o voto
 var votes: Dictionary = {}
-
-# Quantidade de votos recebidos por jogador
 var vote_counts: Dictionary = {}
-
-# Jogadores empatados ou vencedores da votação
 var most_voted_player_ids: Array[int] = []
-
-# Indica se os resultados já foram processados
 var has_been_processed: bool = false
 
 
