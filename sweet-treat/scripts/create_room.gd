@@ -1,5 +1,8 @@
 extends Node
 
+# Aponta para o Label onde aparece o código
+@onready var room_code_label: Label = $VBoxContainer/HBoxContainer/Panel/VBoxContainer/Panel/RoomCodeLabel
+
 @onready var botao_quest1 = $VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ConfigurationButtonButton
 @onready var botao_quest2 = $VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ConfigurationButtonButton2
 @onready var botao_quest3 = $VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ConfigurationButtonButton3
@@ -12,15 +15,25 @@ extends Node
 @onready var botao_vote2 = $VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3/ConfigurationButtonButton2
 @onready var botao_vote3 = $VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3/ConfigurationButtonButton3
 
+@onready var play_button = $VBoxContainer/HBoxContainer/PlayButton
+
 func _ready() -> void:
-	
+	# 1. Exibe o código da sala gerado pelo sistema na tela de configuração
+	if room_code_label:
+		room_code_label.text = "%d" % GameManager.current_room_code
+		print("Código da sala exibido na tela de configuração com sucesso!")
+	else:
+		print("Aviso: RoomCodeLabel não foi encontrado no caminho especificado.")
+
 	configure_quest_buttons()
 	configure_resp_buttons()
 	configure_vote_buttons()
 
-	#$VBoxContainer/HBoxContainer/PlayButton.pressed.connect(go_to_lobby)
+	if play_button:
+		play_button.pressed.connect(go_to_lobby)
+		print("PlayButton conectado com sucesso!")
 
-	print("Botão de ir para lobby clicado")
+	print("Tela de configuração pronta!")
 
 func configure_quest_buttons():
 	botao_quest1.toggled.connect(func(pressionado):
@@ -82,8 +95,18 @@ func configure_vote_buttons():
 
 
 func go_to_lobby() -> void:
+	print("Botão de ir para lobby clicado! Salvando configurações...")
+	
+	# Exemplo de lógica para definir os valores com base no botão marcado
+	var questions = 1
+	if botao_quest2.button_pressed: questions = 2
+	elif botao_quest3.button_pressed: questions = 3
+	
+	# Aqui você pode salvar no GameManager se precisar enviar para os outros depois
+	# GameManager.config_questions = questions
 	
 	GameManager.change_scene("res://scenes/lobby_room.tscn")
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

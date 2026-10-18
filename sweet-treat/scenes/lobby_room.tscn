@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ijn0ahavykdm" path="res://assets/images/Config Partida (Host).svg" id="2_ovwvm"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="3_ejmfx"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="4_0idps"]
-[ext_resource type="PackedScene" uid="uid://df3i6itbbq8ys" path="res://scenes/components/no_player_lobby.tscn" id="5_ejmfx"]
+[ext_resource type="PackedScene" uid="uid://bbo45u5biii4b" path="res://scenes/components/no_player_lobby.tscn" id="5_ejmfx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0idps"]
 font = ExtResource("4_0idps")
@@ -153,9 +153,9 @@ layout_mode = 2
 [node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=85182406]
 layout_mode = 2
 
-[node name="Label" parent="MarginContainer/VBoxContainer/HBoxContainer4" unique_id=1255687413 instance=ExtResource("3_ejmfx")]
+[node name="RoomCodeLabel" parent="MarginContainer/VBoxContainer/HBoxContainer4" unique_id=1255687413 instance=ExtResource("3_ejmfx")]
 layout_mode = 2
-text = "Código: 023473"
+text = "Código: 00000"
 label_settings = SubResource("LabelSettings_0idps")
 
 [node name="PlayButton" parent="MarginContainer/VBoxContainer/HBoxContainer4" unique_id=122511985 instance=ExtResource("2_7a3ii")]

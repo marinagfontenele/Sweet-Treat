@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bv1iq7ed3kl36"]
 
-[ext_resource type="Texture2D" uid="uid://cajp4i7hmtsdd" path="res://assets/images/background.png" id="1_ap8lc"]
 [ext_resource type="Script" uid="uid://2cn5ulkh1pek" path="res://scripts/answer_question.gd" id="1_dj7vg"]
+[ext_resource type="Texture2D" uid="uid://bkri1wimsir0s" path="res://assets/images/background.svg" id="2_dj7vg"]
 [ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="2_ydry8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dj7vg"]
@@ -25,7 +25,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_ap8lc")
+texture = ExtResource("2_dj7vg")
 expand_mode = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=511453427]
