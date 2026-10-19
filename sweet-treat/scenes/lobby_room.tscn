@@ -63,9 +63,9 @@ text = "Jogadores na sala"
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = -70
-alignment = 1
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=2047519284]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -74,6 +74,7 @@ layout_mode = 2
 size_flags_vertical = 1
 
 [node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1406249550]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -82,6 +83,7 @@ layout_mode = 2
 size_flags_vertical = 1
 
 [node name="AspectRatioContainer3" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1224005179]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -90,6 +92,7 @@ layout_mode = 2
 size_flags_vertical = 1
 
 [node name="AspectRatioContainer6" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1863691303]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -98,6 +101,7 @@ layout_mode = 2
 size_flags_vertical = 1
 
 [node name="AspectRatioContainer7" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1910069061]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -112,6 +116,7 @@ theme_override_constants/separation = -70
 alignment = 1
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1868838488]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -120,6 +125,7 @@ layout_mode = 2
 size_flags_vertical = 1
 
 [node name="AspectRatioContainer5" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=922363789]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -128,6 +134,7 @@ layout_mode = 2
 size_flags_vertical = 1
 
 [node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=2024498758]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -136,6 +143,7 @@ layout_mode = 2
 size_flags_vertical = 1
 
 [node name="AspectRatioContainer3" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=229743628]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -144,6 +152,7 @@ layout_mode = 2
 size_flags_vertical = 1
 
 [node name="AspectRatioContainer4" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=846123022]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
