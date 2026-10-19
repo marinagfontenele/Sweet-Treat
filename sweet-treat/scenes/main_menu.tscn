@@ -6,6 +6,8 @@
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_rtw2f"]
 [ext_resource type="PackedScene" uid="uid://du50c2vu78lg7" path="res://scenes/components/info_button.tscn" id="4_oa1go"]
 [ext_resource type="PackedScene" uid="uid://cqhe6wwbw7q2f" path="res://scenes/components/main_button.tscn" id="4_rtw2f"]
+[ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="7_tbmy8"]
+[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="8_jk1qb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bkf4g"]
 bg_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
@@ -59,6 +61,47 @@ corner_radius_bottom_left = 100
 corner_detail = 20
 shadow_color = Color(0, 0, 0, 1)
 shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tbmy8"]
+bg_color = Color(0, 0, 0, 0.627451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_seen7"]
+bg_color = Color(0.09019608, 0.27450982, 0.8862745, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.015686275, 0.6784314, 0.9254902, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 12
+shadow_color = Color(0.4117647, 0.8039216, 0.9254902, 0.3019608)
+shadow_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_5dd4i"]
+font = ExtResource("3_rtw2f")
+font_size = 30
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0.95, 1.91)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0havr"]
+content_margin_left = 30.0
+bg_color = Color(0, 0, 0, 0.39215687)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+corner_detail = 20
 
 [node name="MainMenu" type="Control" unique_id=1121190018]
 layout_mode = 3
@@ -198,25 +241,69 @@ layout_mode = 2
 [node name="CreateRoomButton" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1383716092 instance=ExtResource("4_rtw2f")]
 layout_mode = 2
 
-[node name="CodeModalPanel" type="Panel" parent="." unique_id=1209536741]
-layout_mode = 0
-offset_left = 207.0
-offset_top = 75.0
-offset_right = 636.0
-offset_bottom = 277.0
+[node name="CodeModalPanel" type="Panel" parent="." unique_id=1402632696]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tbmy8")
 
-[node name="RoomCodeInput" type="LineEdit" parent="CodeModalPanel" unique_id=799578650]
-layout_mode = 0
-offset_left = 56.0
-offset_top = 87.0
-offset_right = 376.0
-offset_bottom = 127.0
-placeholder_text = "Digite o código da sala"
+[node name="BluePanel" type="Panel" parent="CodeModalPanel" unique_id=1209536741]
+custom_minimum_size = Vector2(471, 295)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -235.5
+offset_top = -147.5
+offset_right = 235.5
+offset_bottom = 147.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_seen7")
 
-[node name="ConfirmJoinButton" type="Button" parent="CodeModalPanel" unique_id=651235912]
-layout_mode = 0
-offset_left = 174.0
-offset_top = 149.0
-offset_right = 261.0
-offset_bottom = 180.0
+[node name="MarginContainer" type="MarginContainer" parent="CodeModalPanel/BluePanel" unique_id=313067430]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 32
+
+[node name="InfoButton" parent="CodeModalPanel/BluePanel/MarginContainer" unique_id=1197119529 instance=ExtResource("4_oa1go")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label" parent="CodeModalPanel/BluePanel/MarginContainer" unique_id=625587219 instance=ExtResource("7_tbmy8")]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+text = "Insira o código da sala"
+label_settings = SubResource("LabelSettings_5dd4i")
+
+[node name="RoomCodeInput" type="LineEdit" parent="CodeModalPanel/BluePanel/MarginContainer" unique_id=799578650]
+custom_minimum_size = Vector2(277, 94)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 0.627451)
+theme_override_fonts/font = ExtResource("3_rtw2f")
+theme_override_font_sizes/font_size = 49
+theme_override_styles/normal = SubResource("StyleBoxFlat_0havr")
+
+[node name="ConfirmJoinButton" parent="CodeModalPanel/BluePanel/MarginContainer" unique_id=122511985 instance=ExtResource("8_jk1qb")]
+custom_minimum_size = Vector2(155, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
 text = "Confirmar"
