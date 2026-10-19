@@ -25,6 +25,13 @@ var my_created_questions: Array = []
 # Armazenamento para receber as perguntas enviadas pelos outros jogadores via rede
 var all_received_questions: Array = []
 
+# Lista final com todas as perguntas da partida misturadas
+var game_questions: Array = []
+var current_question_index: int = 0
+
+# Contador para saber quantos jogadores já enviaram as perguntas
+var players_submitted_questions: int = 0
+
 func _ready() -> void:
 	pass
 
@@ -99,10 +106,32 @@ func _configurar_partida(game_match: GKMatch) -> void:
 	current_match = game_match
 	RenderingServer.set_default_clear_color(Color("#1e7e34"))
 	
+	# Evento que recebe dados enviados por qualquer jogador
 	game_match.data_received.connect(func(data: PackedByteArray, _from_player: GKPlayer) -> void:
-		print("Received data from Player")
-		print(data.get_string_from_utf8())
-		set_count(data.get_string_from_utf8().to_int())
+		print("Dados brutos recebidos da rede...")
+		
+		# --- CONVERTE E TRATA OS DADOS RECEBIDOS AQUI ---
+		var text = data.get_string_from_utf8()
+		var json = JSON.new()
+		var error = json.parse(text)
+		
+		if error == OK:
+			var dict = json.get_data()
+			if dict is Dictionary and dict.has("type"):
+				
+				# 1. Se for o pacote de perguntas enviadas por um jogador
+				if dict["type"] == "player_questions":
+					var remote_questions = dict["questions"]
+					for q in remote_questions:
+						if not game_questions.has(q):
+							game_questions.append(q)
+					print("Perguntas recebidas! Total acumulado: %d" % game_questions.size())
+				
+				# 2. Se for a lista oficial embaralhada enviada pelo Host (O trecho que você perguntou!)
+				elif dict["type"] == "official_game_questions":
+					game_questions = dict["questions"]
+					print("Convidado recebeu a lista oficial sincronizada!")
+					
 	)
 	
 	game_match.data_received_for_recipient_from_player.connect(func(data: PackedByteArray, _for_recipient: GKPlayer, _from_remote_player: GKPlayer) -> void:
@@ -139,3 +168,92 @@ func increment() -> void:
 	if current_match == null:
 		return
 	current_match.send_data_to_all_players(data, GKMatch.SendDataMode.RELIABLE)
+
+## 1. Envia as perguntas criadas pelo jogador local para todos na sala
+func send_my_questions_to_others() -> void:
+	if current_match == null:
+		# Se estiveres a testar sozinho localmente sem rede ativa, usa logo as tuas próprias perguntas
+		game_questions = my_created_questions.duplicate()
+		game_questions.shuffle()
+		return
+
+	# Cria um dicionário com o pacote de dados
+	var packet = {
+		"type": "player_questions",
+		"questions": my_created_questions
+	}
+	
+	var json_string = JSON.stringify(packet)
+	var data: PackedByteArray = json_string.to_utf8_buffer()
+	
+	# Envia de forma confiável para todos os jogadores da partida
+	current_match.send_data_to_all_players(data, GKMatch.SendDataMode.RELIABLE)
+	
+	# Adiciona também as do próprio host/jogador local à lista geral
+	for q in my_created_questions:
+		if not game_questions.has(q):
+			game_questions.append(q)
+
+
+## 2. Processa os dados que chegam da rede (adiciona dentro do teu data_received)
+# Quando receber dados, verificamos se o tipo é "player_questions"
+func handle_received_data(data: PackedByteArray) -> void:
+	var text = data.get_string_from_utf8()
+	var json = JSON.new()
+	var error = json.parse(text)
+	
+	if error == OK:
+		var dict = json.get_data()
+		if dict is Dictionary and dict.has("type") and dict["type"] == "player_questions":
+			var remote_questions = dict["questions"]
+			for q in remote_questions:
+				if not game_questions.has(q):
+					game_questions.append(q)
+			
+			print("Perguntas recebidas de um jogador remoto! Total acumulado: %d" % game_questions.size())
+			
+# Chamado quando todos os jogadores terminarem de enviar as perguntas
+func host_finalize_and_shuffle_questions() -> void:
+	if not is_host:
+		return # Apenas o Host faz isso para evitar conflitos de ordem!
+		
+	# Embaralha a lista oficial no dispositivo do Host
+	game_questions.shuffle()
+	print("Host embaralhou a lista oficial de perguntas: ", game_questions)
+	
+	# Cria um pacote para enviar a lista embaralhada para os convidados
+	var packet = {
+		"type": "official_game_questions",
+		"questions": game_questions
+	}
+	
+	var json_string = JSON.stringify(packet)
+	var data: PackedByteArray = json_string.to_utf8_buffer()
+	
+	# Envia a ordem exata para todo mundo na sala
+	if current_match:
+		current_match.send_data_to_all_players(data, GKMatch.SendDataMode.RELIABLE)
+		
+		# Retorna a pergunta da rodada atual com segurança
+func get_current_question() -> String:
+	if game_questions.is_empty():
+		return "Qual a melhor sobremesa?"
+		
+	if current_question_index < game_questions.size():
+		return game_questions[current_question_index]
+	
+	return game_questions[0]
+
+
+# Retorna as respostas da rodada atual para preencher a tela AllAnswers
+func get_current_round_answers() -> Array:
+	# Por enquanto, podes retornar uma estrutura de teste (mock) ou a lista real de respostas recolhidas
+	# Exemplo estruturado: [{ "player": "Nome do Jogador", "answer": "Resposta digitada" }]
+	
+	# Mock temporário para testes visuais na cena AllAnswers:
+	return [
+		{ "player": "Jogador 1", "answer": "Abóbora com ketchup" },
+		{ "player": "Jogador 2", "answer": "Pizza de chocolate com pimenta" },
+		{ "player": "Você", "answer": "Sorvete derretido" }
+	]
+		

@@ -44,7 +44,7 @@ theme_override_constants/margin_bottom = 50
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=663156588]
+[node name="QuestionLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=663156588]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Qual a melhor sobremesa?"
