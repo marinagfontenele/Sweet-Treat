@@ -24,10 +24,8 @@ func go_to_all_answers() -> void:
 	if answer_input:
 		user_answer = answer_input.text
 		
-	print("Resposta digitada pelo jogador local: ", user_answer)
-	
-	# Aqui você pode salvar a resposta do jogador local no GameManager se precisar, por exemplo:
-	# GameManager.save_local_player_answer(user_answer)
+	# Envia a resposta para o GameManager (que despacha para a rede)
+	GameManager.send_my_answer(user_answer)
 	
 	# Avança para a cena de todas as respostas
 	GameManager.change_scene("res://scenes/all_answers.tscn")

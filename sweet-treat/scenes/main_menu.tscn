@@ -127,7 +127,7 @@ grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="LineEdit" type="LineEdit" parent="PlayerArea/MarginContainer/HBoxContainer" unique_id=429601356]
+[node name="PlayerNameInput" type="LineEdit" parent="PlayerArea/MarginContainer/HBoxContainer" unique_id=429601356]
 custom_minimum_size = Vector2(188, 32)
 layout_mode = 2
 size_flags_horizontal = 3

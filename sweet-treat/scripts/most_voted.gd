@@ -17,15 +17,14 @@ func _ready() -> void:
 		next_button.pressed.connect(advance_to_next_round)
 
 	print("Tela de mais votados pronta!")
+	
 
 # Lógica para avançar para a próxima rodada ou finalizar a partida
 func advance_to_next_round() -> void:
 	GameManager.current_question_index += 1
+	GameManager.clear_round_answers() # Limpa as respostas da rodada anterior!
 	
-	# Verifica se ainda existem perguntas na lista global
 	if GameManager.current_question_index < GameManager.game_questions.size():
-		print("Indo para a próxima rodada...")
 		GameManager.change_scene("res://scenes/show_question.tscn")
 	else:
-		print("O jogo acabou! Todas as perguntas foram respondidas.")
 		GameManager.change_scene("res://scenes/final_score.tscn")

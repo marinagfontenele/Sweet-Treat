@@ -23,8 +23,7 @@ func _collect_answer_containers(node: Node) -> void:
 
 # Preenche os slots com as respostas reais
 func update_answers_ui() -> void:
-	# Mock ou lista de respostas da rodada atual vindas do GameManager
-	var current_round_answers = GameManager.get_current_round_answers() 
+	var current_round_answers = GameManager.get_current_round_answers()
 	
 	for i in range(answer_slots.size()):
 		var container = answer_slots[i]
@@ -34,12 +33,17 @@ func update_answers_ui() -> void:
 			var data = current_round_answers[i]
 			container.visible = true
 			
-			# Procura o componente de texto (Label) dentro do PlayerAnswer para mostrar a resposta
-			var text_label = _find_label_in_node(player_answer_node)
-			if text_label:
-				text_label.text = data["answer"]
+			# 1. Pega os nós específicos de nome e resposta no PlayerAnswer
+			var player_name_label: Label = player_answer_node.get_node_or_null("VBoxContainer/Label")
+			var answer_label: Label = player_answer_node.get_node_or_null("VBoxContainer/MarginContainer/AspectRatioContainer/Panel/Label")
+			
+			# 2. Atualiza os textos na tela
+			if player_name_label:
+				player_name_label.text = data.get("player", "Jogador")
+			if answer_label:
+				answer_label.text = data.get("answer", "")
 				
-			# Configura o clique no botão para registrar o voto
+			# 3. Configura o clique no botão para registrar o voto
 			if player_answer_node is BaseButton:
 				if not player_answer_node.pressed.is_connected(_on_vote_pressed):
 					player_answer_node.pressed.connect(func(): _on_vote_pressed(data["player"]))
@@ -52,19 +56,8 @@ func update_answers_ui() -> void:
 func _on_vote_pressed(target_player: String) -> void:
 	print("Você votou na resposta de: %s" % target_player)
 	
-	# Aqui podes salvar o voto no GameManager se precisares
+	# Registra o voto se necessário
 	# GameManager.register_vote(target_player)
 	
-	# Avança para a próxima etapa (ex: mostrar quem ganhou mais votos)
+	# Avança para a próxima etapa
 	GameManager.change_scene("res://scenes/most_voted.tscn")
-
-
-# Função auxiliar para achar uma Label dentro do componente
-func _find_label_in_node(node: Node) -> Label:
-	if node is Label:
-		return node
-	for child in node.get_children():
-		var found = _find_label_in_node(child)
-		if found:
-			return found
-	return null

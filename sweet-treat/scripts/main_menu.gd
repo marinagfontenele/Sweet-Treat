@@ -42,9 +42,23 @@ func _find_node_by_name(node: Node, node_name: String) -> Node:
 	return null
 
 
+# Função interna para capturar o nome digitado no PlayerNameInput
+func _salvar_nome_jogador() -> void:
+	var name_input = _find_node_by_name(self, "PlayerNameInput") as LineEdit
+	if name_input and name_input.text.strip_edges() != "":
+		GameManager.player_name = name_input.text.strip_edges()
+	else:
+		# Se deixar vazio, atribui um nome padrão para evitar erros
+		GameManager.player_name = "Jogador_%d" % randi_range(10, 99)
+	
+	print("Nome do jogador definido como: ", GameManager.player_name)
+
+
 ## HOST: Cria a sala, gera o código numérico e vai para a configuração
 func _on_create_room_pressed() -> void:
 	print("Criar Sala pressionado! Gerando código da sala...")
+	
+	_salvar_nome_jogador() # Salva o nome antes de prosseguir
 	
 	var generated_code: int = randi_range(10000, 99999)
 	print("Código gerado para a sala: %d" % generated_code)
@@ -73,6 +87,8 @@ func _on_confirm_join_pressed() -> void:
 		if typed_text.is_valid_int() and typed_text.to_int() > 0:
 			var entered_code: int = typed_text.to_int()
 			print("Entrando na sala com o código: %d" % entered_code)
+			
+			_salvar_nome_jogador() # Salva o nome antes de prosseguir
 			
 			GameManager.current_room_code = entered_code
 			if code_modal:

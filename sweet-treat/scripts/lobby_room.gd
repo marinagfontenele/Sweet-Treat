@@ -57,13 +57,16 @@ func update_lobby_ui() -> void:
 			
 			var name_label = _find_label_in_node(player_lobby_node)
 			if name_label:
-				# Pega o nome do player (GKPlayer ou GKLocalPlayer)
-				if "display_name" in player and player.display_name:
+				# Se este jogador na lista for o jogador local E nós definimos um nome no menu, usa ele!
+				if player == GameManager.local and GameManager.player_name != "":
+					name_label.text = GameManager.player_name
+				elif "display_name" in player and player.display_name:
 					name_label.text = player.display_name
 				else:
 					name_label.text = "Host / Jogador"
+			
+			print("Slot %d preenchido com sucesso." % i)
 				
-				print("Slot %d preenchido com sucesso." % i)
 		else:
 			# Se o slot estiver vazio, esconde o container inteiro da grade
 			container.visible = false
