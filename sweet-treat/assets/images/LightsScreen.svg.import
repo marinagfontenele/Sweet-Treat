@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bapklt30owdkh"
-path="res://.godot/imported/Group 39.png-59d15ece0f2dc307074dd6b471ea439e.ctex"
+uid="uid://6yc7ikry2a5r"
+path="res://.godot/imported/LightsScreen.svg-09d9f8c12c511b3e9b5f87d100bb90a1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/Group 39.png"
-dest_files=["res://.godot/imported/Group 39.png-59d15ece0f2dc307074dd6b471ea439e.ctex"]
+source_file="res://assets/images/LightsScreen.svg"
+dest_files=["res://.godot/imported/LightsScreen.svg-09d9f8c12c511b3e9b5f87d100bb90a1.ctex"]
 
 [params]
 
@@ -38,3 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false
