@@ -197,3 +197,26 @@ layout_mode = 2
 
 [node name="CreateRoomButton" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1383716092 instance=ExtResource("4_rtw2f")]
 layout_mode = 2
+
+[node name="CodeModalPanel" type="Panel" parent="." unique_id=1209536741]
+layout_mode = 0
+offset_left = 207.0
+offset_top = 75.0
+offset_right = 636.0
+offset_bottom = 277.0
+
+[node name="RoomCodeInput" type="LineEdit" parent="CodeModalPanel" unique_id=799578650]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 87.0
+offset_right = 376.0
+offset_bottom = 127.0
+placeholder_text = "Digite o código da sala"
+
+[node name="ConfirmJoinButton" type="Button" parent="CodeModalPanel" unique_id=651235912]
+layout_mode = 0
+offset_left = 174.0
+offset_top = 149.0
+offset_right = 261.0
+offset_bottom = 180.0
+text = "Confirmar"

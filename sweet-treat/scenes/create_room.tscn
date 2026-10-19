@@ -137,7 +137,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_seen7")
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Panel/VBoxContainer/Panel" unique_id=618175707]
+[node name="RoomCodeLabel" type="Label" parent="VBoxContainer/HBoxContainer/Panel/VBoxContainer/Panel" unique_id=618175707]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -224,3 +224,7 @@ layout_mode = 2
 [node name="ConfigurationButtonButton3" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=787289198 instance=ExtResource("2_g5yfu")]
 layout_mode = 2
 text = "90s"
+
+[node name="PlayButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1676456663]
+layout_mode = 2
+text = "Salvar"
