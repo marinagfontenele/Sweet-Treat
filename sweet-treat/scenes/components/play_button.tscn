@@ -3,39 +3,39 @@
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="1_yrolw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oewwn"]
-bg_color = Color(0.7764706, 0.25490198, 1, 1)
+bg_color = Color(1, 0.85490197, 0.21960784, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
+border_width_bottom = 4
+border_color = Color(0.8136164, 0.6827442, 3.85046e-07, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 shadow_color = Color(0, 0, 0, 1)
-shadow_size = 1
+shadow_size = 2
 shadow_offset = Vector2(1, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n1i85"]
-bg_color = Color(0.61960787, 0.20392157, 0.8, 1)
+bg_color = Color(1, 0.85490197, 0.21960784, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
+border_width_bottom = 4
+border_color = Color(0.8117647, 0.68235296, 0, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yrolw"]
-bg_color = Color(0.61960787, 0.20392157, 0.8, 1)
+bg_color = Color(1, 0.85490197, 0.21960784, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
+border_width_bottom = 4
+border_color = Color(0.8117647, 0.68235296, 0, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -58,6 +58,7 @@ offset_bottom = 44.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_yrolw")
 theme_override_font_sizes/font_size = 24

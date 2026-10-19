@@ -4,6 +4,8 @@ extends RefCounted
 
 var player_id: int
 var player_name: String
+var avatar_index: int = 0
+var background_index: int = 0
 var is_host: bool = false
 
 var questions_created: Array[QuestionData] = []

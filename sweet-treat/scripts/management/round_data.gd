@@ -1,7 +1,6 @@
 class_name RoundData
 extends RefCounted
 
-
 var question: QuestionData
 var answers: Dictionary = {}
 var votes: Dictionary = {}
@@ -9,10 +8,8 @@ var vote_counts: Dictionary = {}
 var most_voted_player_ids: Array[int] = []
 var has_been_processed: bool = false
 
-
 func _init(round_question: QuestionData) -> void:
 	question = round_question
-
 
 func submit_answer(
 	player_id: int,
@@ -23,7 +20,6 @@ func submit_answer(
 
 	answers[player_id] = answer_text
 	return true
-
 
 func submit_vote(
 	voter_id: int,
