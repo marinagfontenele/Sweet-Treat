@@ -97,14 +97,18 @@ func configure_vote_buttons():
 func go_to_lobby() -> void:
 	print("Botão de ir para lobby clicado! Salvando configurações...")
 	
-	# Exemplo de lógica para definir os valores com base no botão marcado
+	# Lógica para definir os valores com base no botão marcado
 	var questions = 1
-	if botao_quest2.button_pressed: questions = 2
-	elif botao_quest3.button_pressed: questions = 3
+	if botao_quest2.button_pressed: 
+		questions = 2
+	elif botao_quest3.button_pressed: 
+		questions = 3
 	
-	# Aqui você pode salvar no GameManager se precisar enviar para os outros depois
-	# GameManager.config_questions = questions
+	# CORRIGIDO: Usando o nome exato da variável global do GameManager
+	GameManager.config_questions_per_player = questions
+	print("Quantidade de perguntas salva no GameManager: %d" % GameManager.config_questions_per_player)
 	
+	# Avança para o lobby
 	GameManager.change_scene("res://scenes/lobby_room.tscn")
 
 

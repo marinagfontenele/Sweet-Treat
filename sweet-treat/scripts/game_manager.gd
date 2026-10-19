@@ -14,6 +14,17 @@ var current_room_code: int = 0
 var score: int = 0
 var player_name: String = ""
 
+# Configurações da Sala (definidas pelo Host)
+var config_questions_per_player: int = 1
+var config_answer_time: int = 30
+var config_vote_time: int = 15
+
+# Armazenamento das perguntas criadas pelo jogador local nesta partida
+var my_created_questions: Array = []
+
+# Armazenamento para receber as perguntas enviadas pelos outros jogadores via rede
+var all_received_questions: Array = []
+
 func _ready() -> void:
 	pass
 
