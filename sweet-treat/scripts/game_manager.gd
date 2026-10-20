@@ -1,120 +1,14 @@
-#extends Node
-#
-#var tomato: int = 0
-#
-## Called when the node enters the scene tree for the first time.
-#func _ready() -> void:
-	#pass # Replace with function body.
-#
-#func change_scene(scene: String) -> void:
-	#get_tree().change_scene_to_file(scene)
-#
-#func add_score(quant: int) -> void:
-	#tomato += quant
-#
-#
-### INCREMENTAÇÃO PARA LÓGICA DE TESTE
-## Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-	#pass
-#
-#var count: int = 0
-#
-#var game_center: GameCenterManager
-#var local: GKLocalPlayer
-#
-#var matchmaker := GKMatchmaker.new()
-#
-#var current_match: GKMatch
-#
-#var score: int = 0
-#var player_name: String = ""
-#
-#func authenticate() -> void:
-	#game_center = GameCenterManager.new()
-#
-	#game_center.authentication_error.connect(func(error: String) -> void:
-		#print("Received error %s" % error)
-	#)
-	#game_center.authentication_result.connect(func(status: bool) -> void:
-		#print("Authentication updated, status: %s" % status)
-		#local = game_center.local_player
-		#local.register_listener()
-		#local.invite_accepted.connect(func(_player: GKPlayer, invite: GKInvite) -> void:
-			#matchmaker.match_for_invite(invite, func(match: GKMatch, error: Variant) -> void:
-				#if error:
-					#print("Invite match error: %s" % error)
-				#else:
-					#print("Joined invited match")
-					#current_match = match
-					#current_match.data_received.connect(func (data: PackedByteArray, _from_player: GKPlayer)->void:
-						#print("Received data from Player")
-						#print(data.get_string_from_utf8())
-						#set_count(data.get_string_from_utf8().to_int())
-					#)
-					#current_match.data_received_for_recipient_from_player.connect(func(data: PackedByteArray, _for_recipient: GKPlayer, _from_remote_player: GKPlayer)->void: 
-						#print("Received data from a player to another player")
-						#print(data.get_string_from_utf8())
-						#set_count(data.get_string_from_utf8().to_int())
-					#)
-					#RenderingServer.set_default_clear_color(Color("#1e7e34"))
-			#)
-		#)
-	#)
-#
-	#game_center.authenticate()
-#
-#func request_match() -> void:
-	#var req = GKMatchRequest.new()
-	#req.max_players = 2
-	#req.min_players = 2
-	#GKMatchmakerViewController.request_match(req, func(game_match: GKMatch, error: Variant)->void:
-		#if error:
-			#print("Could not request a match %s" % error)
-		#else:
-			#print("Got a match!")
-			#current_match = game_match
-			#RenderingServer.set_default_clear_color(Color("#1e7e34"))
-			#game_match.data_received.connect(func (data: PackedByteArray, _from_player: GKPlayer)->void:
-				#print("Received data from Player")
-				#print(data.get_string_from_utf8())
-				#set_count(data.get_string_from_utf8().to_int())
-			#)
-			#game_match.data_received_for_recipient_from_player.connect(func(data: PackedByteArray, _for_recipient: GKPlayer, _from_remote_player: GKPlayer)->void: 
-				#print("Received data from a player to another player")
-				#print(data.get_string_from_utf8())
-				#set_count(data.get_string_from_utf8().to_int())
-			#)
-			#game_match.did_fail_with_error.connect(func(_error: String)->void:
-				#print("Match failed with %s" % error)
-			#)
-			#game_match.should_reinvite_disconnected_player = (func(_player: GKPlayer)->bool:
-				## We always reinvite
-				#return true
-			#)
-			#game_match.player_changed.connect(func(_player: GKPlayer, connected: bool)->void: 
-				#print("Status of player changed to %s" % connected)
-			#)
-	#)
-#
-#
-#func set_count(value: int) -> void:
-	#count = value
-	#print(count)
-	#var label := get_tree().current_scene.get_node_or_null("CountLabel") as Label
-	#if label:
-		#label.text = str(count)
-#
-#func increment() -> void:
-	#print("increment")
-	#set_count(count + 1)
-	#var data: PackedByteArray = str(count).to_utf8_buffer()
-	#if current_match == null:
-		#return
-	#current_match.send_data_to_all_players(data, GKMatch.SendDataMode.RELIABLE)
-	#pass
-
 extends Node
+
+## =====================================================================
+## SINAIS DE REDE PARA REATIVIDADE DAS TELAS
+## =====================================================================
+signal lobby_updated
+signal resposta_recebida
+
+## =====================================================================
+## VARIÁVEIS GLOBAIS DE ESTADO E REDE (GAME CENTER)
+## =====================================================================
 
 var tomato: int = 0
 var count: int = 0
@@ -124,10 +18,40 @@ var local: GKLocalPlayer
 
 var matchmaker := GKMatchmaker.new()
 var current_match: GKMatch
-var active_controller: GKMatchmakerViewController = null
+var is_host: bool = false
+var current_room_code: int = 0
 
 var score: int = 0
 var player_name: String = ""
+
+# Dicionário para sincronizar IDs do GameCenter e Nomes: [player_id: nome_exibicao]
+var connected_players_names: Dictionary = {}
+
+## =====================================================================
+## CONFIGURAÇÕES DA SALA (DEFINIDAS PELO HOST)
+## =====================================================================
+
+var config_questions_per_player: int = 1
+var config_answer_time: int = 30
+var config_vote_time: int = 15
+
+## =====================================================================
+## GERENCIAMENTO DE PERGUNTAS E RESPOSTAS DA PARTIDA
+## =====================================================================
+
+var my_created_questions: Array = []
+var all_received_questions: Array = []
+var game_questions: Array = []
+var current_question_index: int = 0
+var players_submitted_questions: int = 0
+
+# Armazena as respostas da rodada atual: [{ "player": "Nome", "answer": "Texto" }]
+var current_round_answers: Array = []
+
+
+## =====================================================================
+## FUNÇÕES PADRÃO DO CICLO DE VIDA E UTILITÁRIOS GERAIS
+## =====================================================================
 
 func _ready() -> void:
 	pass
@@ -138,116 +62,223 @@ func change_scene(scene: String) -> void:
 func add_score(quant: int) -> void:
 	tomato += quant
 
-func _process(_delta: float) -> void:
-	pass
 
+## =====================================================================
+## AUTENTICAÇÃO E GERENCIAMENTO DE SALAS VIA APPLE GAME CENTER
+## =====================================================================
 
 func authenticate() -> void:
 	game_center = GameCenterManager.new()
 
 	game_center.authentication_error.connect(func(error: String) -> void:
-		print("Received error %s" % error)
+		print("Erro de autenticação Game Center: %s" % error)
 	)
 	
 	game_center.authentication_result.connect(func(status: bool) -> void:
-		print("Authentication updated, status: %s" % status)
+		print("Status de autenticação: %s" % status)
 		if status and game_center.local_player:
 			local = game_center.local_player
 			local.register_listener()
-			local.invite_accepted.connect(func(_player: GKPlayer, invite: GKInvite) -> void:
-				matchmaker.match_for_invite(invite, func(match: GKMatch, error: Variant) -> void:
-					if error:
-						print("Invite match error: %s" % error)
-					else:
-						print("Joined invited match")
-						_configurar_partida(match)
-				)
-			)
 	)
-
 	game_center.authenticate()
 
 
-func request_match() -> void:
+func join_room_with_code(room_code: int, am_i_host: bool) -> void:
 	if game_center == null or game_center.local_player == null:
-		print("Erro: O jogador ainda não foi autenticado no Game Center!")
+		print("Erro: Jogador não autenticado no Game Center!")
 		return
 		
-	var req = GKMatchRequest.new()
-	req.max_players = 2
+	is_host = am_i_host
+	current_room_code = room_code
+	connected_players_names.clear()
+	
+	var req := GKMatchRequest.new()
+	req.max_players = 4 
 	req.min_players = 2
-	req.invite_message = "Join me in a quest to fun"
+	req.player_group = room_code
 	
-	print("Iniciando requisição de partida...")
+	print("Buscando/Criando sala no Game Center (Player Group): %d..." % room_code)
 	
-	# Criando a instância explícita do controller para evitar crash
-	active_controller = GKMatchmakerViewController.create_controller(req)
-	
-	if active_controller:
-		active_controller.present()
-		
-		# Quando a Apple encontra a partida com sucesso
-		active_controller.did_find_match.connect(func(game_match: GKMatch) -> void:
-			print("Got a match!")
-			_configurar_partida(game_match)
+	matchmaker = GKMatchmaker.new()
+	matchmaker.find_match(req, func(game_match: GKMatch, error: Variant) -> void:
+		if error != null:
+			print("Matchmaker falhou com erro: %s" % str(error))
+			return
 			
-			# Transiciona automaticamente para a tela mockada de 'create_room'
-			call_deferred("change_scene", "res://scenes/create_room.tscn")
-		)
-		
-		active_controller.failed_with_error.connect(func(error_msg: String) -> void:
-			print("Matchmaker falhou com erro: %s" % error_msg)
-		)
-		
-		active_controller.cancelled.connect(func(_reason: String) -> void:
-			print("Matchmaker cancelado pelo usuário.")
-		)
-	else:
-		print("Erro ao criar o controller do Matchmaker.")
+		if game_match != null:
+			print("Partida estabelecida com sucesso via Game Center!")
+			call_deferred("_configurar_partida", game_match)
+	)
 
 
-# Função auxiliar para conectar os eventos de dados da partida
 func _configurar_partida(game_match: GKMatch) -> void:
 	current_match = game_match
 	RenderingServer.set_default_clear_color(Color("#1e7e34"))
 	
-	game_match.data_received.connect(func(data: PackedByteArray, _from_player: GKPlayer) -> void:
-		print("Received data from Player")
-		print(data.get_string_from_utf8())
-		set_count(data.get_string_from_utf8().to_int())
+	game_match.data_received.connect(func(data: PackedByteArray, from_player: GKPlayer) -> void:
+		call_deferred("_processar_pacote_rede", data, from_player)
 	)
 	
-	game_match.data_received_for_recipient_from_player.connect(func(data: PackedByteArray, _for_recipient: GKPlayer, _from_remote_player: GKPlayer) -> void:
-		print("Received data from a player to another player")
-		print(data.get_string_from_utf8())
-		set_count(data.get_string_from_utf8().to_int())
+	game_match.data_received_for_recipient_from_player.connect(func(data: PackedByteArray, _for_recipient: GKPlayer, from_remote_player: GKPlayer) -> void:
+		call_deferred("_processar_pacote_rede", data, from_remote_player)
 	)
 	
-	game_match.did_fail_with_error.connect(func(err: String) -> void:
-		print("Match failed with: %s" % err)
+	game_match.player_changed.connect(func(_player: GKPlayer, _connected: bool) -> void:
+		_enviar_handshake_nome()
+		call_deferred("_notificar_atualizacao_lobby")
 	)
+
+	# Registra o id e nome local
+	var my_id = local.game_player_id if local else "local_" + str(randi())
+	connected_players_names[my_id] = player_name if player_name != "" else "Jogador"
+
+	# Notifica a rede enviando handshake
+	_enviar_handshake_nome()
+
+	# REGRA CRÍTICA DE NAVEGAÇÃO:
+	# Se for Convidado, transiciona para o lobby ao conectar.
+	# Se for Host, NÃO toca na cena (o Host navega ao clicar no botão de avançar).
+	if not is_host:
+		if get_tree().current_scene and get_tree().current_scene.scene_file_path != "res://scenes/lobby_room.tscn":
+			call_deferred("change_scene", "res://scenes/lobby_room.tscn")
+	else:
+		call_deferred("_notificar_atualizacao_lobby")
+
+
+func _enviar_handshake_nome() -> void:
+	var my_id = local.game_player_id if local else "local"
+	var packet = {
+		"type": "player_info",
+		"id": my_id,
+		"name": player_name if player_name != "" else "Jogador"
+	}
+	_enviar_pacote_json(packet)
+
+
+func _processar_pacote_rede(data: PackedByteArray, _from_player: GKPlayer = null) -> void:
+	var text = data.get_string_from_utf8()
+	var json = JSON.new()
+	var error = json.parse(text)
 	
-	game_match.should_reinvite_disconnected_player = (func(_player: GKPlayer) -> bool:
-		return true
-	)
-	
-	game_match.player_changed.connect(func(_player: GKPlayer, connected: bool) -> void:
-		print("Status of player changed to %s" % connected)
-	)
+	if error == OK:
+		var dict = json.get_data()
+		if dict is Dictionary and dict.has("type"):
+			
+			match dict["type"]:
+				"player_info":
+					var p_id = dict.get("id", "")
+					var p_name = dict.get("name", "Jogador")
+					connected_players_names[p_id] = p_name
+					print("Player conectado identificado via rede: %s" % p_name)
+					emit_signal("lobby_updated")
+
+				"player_questions":
+					var remote_questions = dict["questions"]
+					for q in remote_questions:
+						if not game_questions.has(q):
+							game_questions.append(q)
+					
+				"player_answer":
+					var remote_player = dict.get("player", "Jogador")
+					var remote_answer = dict.get("answer", "")
+					
+					var entry = { "player": remote_player, "answer": remote_answer }
+					
+					var ja_existe = false
+					for ans in current_round_answers:
+						if ans["player"] == remote_player and ans["answer"] == remote_answer:
+							ja_existe = true
+							break
+					
+					if not ja_existe:
+						current_round_answers.append(entry)
+						print("Nova resposta recebida via rede de %s: %s" % [remote_player, remote_answer])
+						emit_signal("resposta_recebida")
+					
+				"official_game_questions":
+					game_questions = dict["questions"]
+					
+				"start_game":
+					print("Host iniciou o jogo! Convidado trocando de cena...")
+					call_deferred("change_scene", "res://scenes/create_questions.tscn")
 
 
-func set_count(value: int) -> void:
-	count = value
-	print(count)
-	var label := get_tree().current_scene.get_node_or_null("CountLabel") as Label
-	if label:
-		label.text = str(count)
+func _notificar_atualizacao_lobby() -> void:
+	emit_signal("lobby_updated")
+	var current_scene = get_tree().current_scene
+	if current_scene and current_scene.has_method("update_lobby_ui"):
+		current_scene.update_lobby_ui()
 
 
-func increment() -> void:
-	print("increment")
-	set_count(count + 1)
-	var data: PackedByteArray = str(count).to_utf8_buffer()
+func _enviar_pacote_json(packet: Dictionary) -> void:
+	if current_match:
+		var json_string = JSON.stringify(packet)
+		var data: PackedByteArray = json_string.to_utf8_buffer()
+		current_match.send_data_to_all_players(data, GKMatch.SendDataMode.RELIABLE)
+
+
+## =====================================================================
+## FLUXO DE ENVIO DE PERGUNTAS E RESPOSTAS
+## =====================================================================
+
+func send_my_questions_to_others() -> void:
 	if current_match == null:
+		game_questions = my_created_questions.duplicate()
+		game_questions.shuffle()
 		return
-	current_match.send_data_to_all_players(data, GKMatch.SendDataMode.RELIABLE)
+
+	_enviar_pacote_json({
+		"type": "player_questions",
+		"questions": my_created_questions
+	})
+	
+	for q in my_created_questions:
+		if not game_questions.has(q):
+			game_questions.append(q)
+
+func host_finalize_and_shuffle_questions() -> void:
+	if not is_host:
+		return
+		
+	game_questions.shuffle()
+	_enviar_pacote_json({
+		"type": "official_game_questions",
+		"questions": game_questions
+	})
+
+func send_my_answer(answer_text: String) -> void:
+	var player_nickname = player_name if player_name != "" else "Jogador"
+	var local_entry = { "player": player_nickname, "answer": answer_text }
+	
+	var ja_existe = false
+	for ans in current_round_answers:
+		if ans["player"] == player_nickname and ans["answer"] == answer_text:
+			ja_existe = true
+			break
+			
+	if not ja_existe:
+		current_round_answers.append(local_entry)
+	
+	_enviar_pacote_json({
+		"type": "player_answer",
+		"player": player_nickname,
+		"answer": answer_text
+	})
+
+
+## =====================================================================
+## MÉTODOS DE APOIO E HELPERS
+## =====================================================================
+
+func get_current_question() -> String:
+	if game_questions.is_empty():
+		return "Qual a melhor sobremesa?"
+	if current_question_index < game_questions.size():
+		return game_questions[current_question_index]
+	return game_questions[0]
+
+func get_current_round_answers() -> Array:
+	return current_round_answers
+
+func clear_round_answers() -> void:
+	current_round_answers.clear()

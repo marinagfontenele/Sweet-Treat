@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ijn0ahavykdm" path="res://assets/images/Config Partida (Host).svg" id="2_ovwvm"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="3_ejmfx"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="4_0idps"]
-[ext_resource type="PackedScene" uid="uid://df3i6itbbq8ys" path="res://scenes/components/no_player_lobby.tscn" id="5_ejmfx"]
+[ext_resource type="PackedScene" uid="uid://bbo45u5biii4b" path="res://scenes/components/no_player_lobby.tscn" id="5_ejmfx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0idps"]
 font = ExtResource("4_0idps")
@@ -63,9 +63,9 @@ text = "Jogadores na sala"
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = -70
-alignment = 1
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=2047519284]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -74,6 +74,7 @@ layout_mode = 2
 size_flags_vertical = 1
 
 [node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1406249550]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -82,6 +83,7 @@ layout_mode = 2
 size_flags_vertical = 1
 
 [node name="AspectRatioContainer3" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1224005179]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -90,6 +92,7 @@ layout_mode = 2
 size_flags_vertical = 1
 
 [node name="AspectRatioContainer6" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1863691303]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -98,6 +101,7 @@ layout_mode = 2
 size_flags_vertical = 1
 
 [node name="AspectRatioContainer7" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1910069061]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -112,6 +116,7 @@ theme_override_constants/separation = -70
 alignment = 1
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1868838488]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -120,6 +125,7 @@ layout_mode = 2
 size_flags_vertical = 1
 
 [node name="AspectRatioContainer5" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=922363789]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -128,6 +134,7 @@ layout_mode = 2
 size_flags_vertical = 1
 
 [node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=2024498758]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -136,6 +143,7 @@ layout_mode = 2
 size_flags_vertical = 1
 
 [node name="AspectRatioContainer3" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=229743628]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -144,6 +152,7 @@ layout_mode = 2
 size_flags_vertical = 1
 
 [node name="AspectRatioContainer4" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=846123022]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -153,9 +162,9 @@ layout_mode = 2
 [node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=85182406]
 layout_mode = 2
 
-[node name="Label" parent="MarginContainer/VBoxContainer/HBoxContainer4" unique_id=1255687413 instance=ExtResource("3_ejmfx")]
+[node name="RoomCodeLabel" parent="MarginContainer/VBoxContainer/HBoxContainer4" unique_id=1255687413 instance=ExtResource("3_ejmfx")]
 layout_mode = 2
-text = "Código: 023473"
+text = "Código: 00000"
 label_settings = SubResource("LabelSettings_0idps")
 
 [node name="PlayButton" parent="MarginContainer/VBoxContainer/HBoxContainer4" unique_id=122511985 instance=ExtResource("2_7a3ii")]

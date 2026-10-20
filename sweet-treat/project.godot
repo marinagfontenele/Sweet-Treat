@@ -22,8 +22,8 @@ GameManager="*uid://b3j3ja3203xj8"
 
 [display]
 
-window/size/viewport_width=852
-window/size/viewport_height=393
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
@@ -40,15 +40,26 @@ textures/vram_compression/import_etc2_astc=true
 [xogot]
 
 project/editorState=[{
-"column": 0,
-"current": true,
-"line": 142,
+"column": 6,
+"line": 48,
 "path": "res://scripts/game_manager.gd",
+"type": "file"
+}, {
+"column": 0,
+"line": 31,
+"path": "res://scripts/main_menu.gd",
+"transient": true,
 "type": "file"
 }, {
 "column": 0,
 "line": 0,
 "path": "res://scripts/button.gd",
+"type": "file"
+}, {
+"column": 23,
+"current": true,
+"line": 55,
+"path": "res://scripts/create_questions.gd",
 "type": "file"
 }]
 project/shaderEditorState=[]
