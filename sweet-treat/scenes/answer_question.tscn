@@ -1,13 +1,50 @@
 [gd_scene format=3 uid="uid://bv1iq7ed3kl36"]
 
-[ext_resource type="Texture2D" uid="uid://cajp4i7hmtsdd" path="res://assets/images/background.png" id="1_ap8lc"]
 [ext_resource type="Script" uid="uid://2cn5ulkh1pek" path="res://scripts/answer_question.gd" id="1_dj7vg"]
+[ext_resource type="Texture2D" uid="uid://edw6s1an43ec" path="res://assets/images/backgrounds/purple_background.png" id="2_dj7vg"]
 [ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="2_ydry8"]
+[ext_resource type="Texture2D" uid="uid://6yc7ikry2a5r" path="res://assets/images/LightsScreen.svg" id="3_uqjji"]
+[ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="4_gkvey"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_dj7vg"]
-font_size = 40
-outline_size = 12
+[sub_resource type="LabelSettings" id="LabelSettings_megxp"]
+font_size = 28
+outline_size = 6
 outline_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gkvey"]
+content_margin_left = 25.0
+bg_color = Color(0.3372549, 0.13725491, 0.3764706, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 12
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(2, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gqe78"]
+bg_color = Color(0.78039217, 0.78039217, 0.78039217, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color(0.49550903, 0.49550915, 0.4955088, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_offset = Vector2(1, 2)
 
 [node name="AnswerQuestion" type="Control" unique_id=714030627]
 layout_mode = 3
@@ -25,7 +62,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_ap8lc")
+texture = ExtResource("2_dj7vg")
 expand_mode = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=511453427]
@@ -40,23 +77,64 @@ theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
+[node name="Label2" type="Label" parent="MarginContainer" unique_id=381667284]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("4_gkvey")
+theme_override_font_sizes/font_size = 35
+text = "0:59"
+label_settings = SubResource("LabelSettings_megxp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1953892265]
 layout_mode = 2
-theme_override_constants/separation = 50
+theme_override_constants/separation = 25
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=663156588]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=1060636394]
+custom_minimum_size = Vector2(457, 210)
+custom_maximum_size = Vector2(457, 210)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Qual a melhor sobremesa?"
-label_settings = SubResource("LabelSettings_dj7vg")
+size_flags_vertical = 0
+texture = ExtResource("3_uqjji")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/TextureRect" unique_id=1974037341]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/TextureRect/MarginContainer" unique_id=262674548]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_gkvey")
+theme_override_font_sizes/font_size = 35
+text = "Qual o melhor sabor de pizza para comer no café da manhã?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer" unique_id=265123332]
+custom_minimum_size = Vector2(735, 57)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 0.43137255)
+theme_override_fonts/font = ExtResource("4_gkvey")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_gkvey")
 placeholder_text = "Digite sua resposta aqui..."
 
 [node name="PlayButton" parent="MarginContainer/VBoxContainer" unique_id=122511985 instance=ExtResource("2_ydry8")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
+theme_override_styles/disabled = SubResource("StyleBoxFlat_gqe78")
 text = "Enviar"

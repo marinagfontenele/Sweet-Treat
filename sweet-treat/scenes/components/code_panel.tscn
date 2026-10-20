@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://drhkn2doc50y5"]
+
+[node name="CodeModalPanel" type="Panel" unique_id=821451056]
+offset_left = 207.0
+offset_top = 75.0
+offset_right = 636.0
+offset_bottom = 277.0
+
+[node name="RoomCodeInput" type="LineEdit" parent="." unique_id=190811665]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 87.0
+offset_right = 376.0
+offset_bottom = 127.0
+placeholder_text = "Digite o código da sala"
+
+[node name="ConfirmJoinButton" type="Button" parent="." unique_id=2140258124]
+layout_mode = 0
+offset_left = 174.0
+offset_top = 149.0
+offset_right = 261.0
+offset_bottom = 180.0
+text = "Confirmar"

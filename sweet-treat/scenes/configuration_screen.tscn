@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://b5wyekog1o2ql"]
+
+[ext_resource type="PackedScene" uid="uid://du50c2vu78lg7" path="res://scenes/components/purple_button.tscn" id="1_6ha1o"]
+[ext_resource type="Texture2D" uid="uid://bi4dbr2rbo0fj" path="res://assets/images/symbols/xmark.svg" id="2_2knr4"]
+[ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="2_a8tt7"]
+[ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_2xdi8"]
+[ext_resource type="Texture2D" uid="uid://cxwtfn08hcafm" path="res://assets/images/check_button.svg" id="4_2xdi8"]
+[ext_resource type="Texture2D" uid="uid://djhw46tpa6tuq" path="res://assets/images/check_active_button.svg" id="6_2knr4"]
+[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="6_30llq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0havr"]
+bg_color = Color(0.09019608, 0.27450982, 0.8862745, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.015686275, 0.6784314, 0.9254902, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 12
+shadow_color = Color(0.4117647, 0.8039216, 0.9254902, 0.3019608)
+shadow_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_30llq"]
+font = ExtResource("3_2xdi8")
+font_size = 32
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0.95, 1.91)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2knr4"]
+font = ExtResource("3_2xdi8")
+font_size = 25
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0.95, 1.91)
+
+[node name="ConfigurationScreen" type="Panel" unique_id=30360144]
+custom_minimum_size = Vector2(575, 348)
+custom_maximum_size = Vector2(575, 348)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0havr")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1242892489]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 20
+
+[node name="InfoButton" parent="MarginContainer" unique_id=247859986 instance=ExtResource("1_6ha1o")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/InfoButton" unique_id=1052020237]
+custom_minimum_size = Vector2(23, 23)
+custom_maximum_size = Vector2(23, 23)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_2knr4")
+
+[node name="Label" parent="MarginContainer" unique_id=625587219 instance=ExtResource("2_a8tt7")]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+text = "Configurações"
+label_settings = SubResource("LabelSettings_30llq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=273279125]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 121
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1218390548]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=2113901413 instance=ExtResource("2_a8tt7")]
+layout_mode = 2
+text = "Sons"
+label_settings = SubResource("LabelSettings_2knr4")
+
+[node name="CheckButton3" type="CheckButton" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=852802607]
+custom_minimum_size = Vector2(77, 33)
+custom_maximum_size = Vector2(100, 33)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_icons/checked = ExtResource("6_2knr4")
+theme_override_icons/unchecked = ExtResource("4_2xdi8")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=84243233]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label2" parent="MarginContainer/HBoxContainer/VBoxContainer2" unique_id=453966590 instance=ExtResource("2_a8tt7")]
+layout_mode = 2
+text = "Vibração"
+label_settings = SubResource("LabelSettings_2knr4")
+
+[node name="CheckButton2" type="CheckButton" parent="MarginContainer/HBoxContainer/VBoxContainer2" unique_id=926246794]
+custom_minimum_size = Vector2(77, 33)
+custom_maximum_size = Vector2(77, 33)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_icons/checked = ExtResource("6_2knr4")
+theme_override_icons/unchecked = ExtResource("4_2xdi8")
+
+[node name="PlayButton" parent="MarginContainer" unique_id=122511985 instance=ExtResource("6_30llq")]
+custom_minimum_size = Vector2(155, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Concluir"

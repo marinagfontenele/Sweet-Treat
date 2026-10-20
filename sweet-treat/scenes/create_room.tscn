@@ -2,10 +2,14 @@
 
 [ext_resource type="Script" uid="uid://bua5ylfrdlxad" path="res://scripts/create_room.gd" id="1_78kgv"]
 [ext_resource type="PackedScene" uid="uid://y3y604jq3l4a" path="res://scenes/components/configuration_button.tscn" id="2_g5yfu"]
-[ext_resource type="Texture2D" uid="uid://ijn0ahavykdm" path="res://assets/images/Config Partida (Host).svg" id="2_iju0h"]
-[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="3_78kgv"]
+[ext_resource type="Texture2D" uid="uid://uyjevn7qqpkc" path="res://assets/images/backgrounds/radial_background.png" id="2_v55s6"]
+[ext_resource type="PackedScene" uid="uid://du50c2vu78lg7" path="res://scenes/components/purple_button.tscn" id="3_8jb3i"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="3_hdjgt"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="4_qg0me"]
+[ext_resource type="Texture2D" uid="uid://bi4dbr2rbo0fj" path="res://assets/images/symbols/xmark.svg" id="4_v55s6"]
+[ext_resource type="Texture2D" uid="uid://dtx4ee3hhi427" path="res://assets/images/lock.png" id="5_hdjgt"]
+[ext_resource type="PackedScene" uid="uid://de8ybwgvlf0q4" path="res://scenes/components/check_button.tscn" id="6_iju0h"]
+[ext_resource type="Texture2D" uid="uid://b4yveq8v8jjql" path="res://assets/images/symbols/checkmark.svg" id="8_qg0me"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
 bg_color = Color(0.02745098, 0.105882354, 0.37254903, 0.34117648)
@@ -29,28 +33,47 @@ shadow_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
 shadow_offset = Vector2(1, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_seen7"]
-bg_color = Color(1, 1, 1, 0.15686275)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.003921569, 0.67058825, 0.91764706, 1)
+bg_color = Color(0, 0, 0, 0.32941177)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lw7gq"]
+
 [sub_resource type="LabelSettings" id="LabelSettings_megxp"]
 font = ExtResource("4_qg0me")
-font_size = 18
+font_size = 23
 
 [sub_resource type="LabelSettings" id="LabelSettings_78kgv"]
+font = ExtResource("4_qg0me")
 font_size = 15
 
-[sub_resource type="LabelSettings" id="LabelSettings_seen7"]
+[sub_resource type="LabelSettings" id="LabelSettings_v55s6"]
+font = ExtResource("4_qg0me")
 font_size = 20
-outline_size = 6
+outline_size = 4
 outline_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(1.2, 1.2)
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_hugna"]
+resource_local_to_scene = false
+resource_name = "questions_configuration"
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_iju0h"]
+resource_local_to_scene = false
+resource_name = "questions_configuration"
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_hdjgt"]
+resource_local_to_scene = false
+resource_name = "questions_configuration"
 
 [node name="CreateRoom" type="Control" unique_id=2120241287]
 layout_mode = 3
@@ -61,44 +84,65 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_78kgv")
 
-[node name="ColorRect" type="TextureRect" parent="." unique_id=956097595]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=956097595]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_iju0h")
+texture = ExtResource("2_v55s6")
+expand_mode = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=887838525]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1651586438]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="InfoButton" parent="MarginContainer" unique_id=247859986 instance=ExtResource("3_8jb3i")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/InfoButton" unique_id=540500823]
+custom_minimum_size = Vector2(23, 23)
+custom_maximum_size = Vector2(23, 23)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -240.0
-offset_top = -68.5
-offset_right = 240.0
-offset_bottom = 68.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 20
+texture = ExtResource("4_v55s6")
 
-[node name="ScreenTitle" parent="VBoxContainer" unique_id=277686982 instance=ExtResource("3_hdjgt")]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=887838525]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 30
+
+[node name="ScreenTitle" parent="MarginContainer/VBoxContainer" unique_id=277686982 instance=ExtResource("3_hdjgt")]
 layout_mode = 2
 text = "Configurações da partida"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=375801431]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=375801431]
 layout_mode = 2
-theme_override_constants/separation = 35
+theme_override_constants/separation = 36
 
-[node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=796115655]
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=796115655]
 custom_minimum_size = Vector2(313, 240)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Panel" unique_id=954787946]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/Panel" unique_id=954787946]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -111,106 +155,156 @@ offset_right = 115.0
 offset_bottom = 93.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 9
 alignment = 1
 
-[node name="Label3" parent="VBoxContainer/HBoxContainer/Panel/VBoxContainer" unique_id=625587219 instance=ExtResource("3_hdjgt")]
+[node name="Label3" parent="MarginContainer/VBoxContainer/HBoxContainer/Panel/VBoxContainer" unique_id=625587219 instance=ExtResource("3_hdjgt")]
 layout_mode = 2
 text = "Código da sala"
 label_settings = SubResource("LabelSettings_8jb3i")
 
-[node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer/Panel/VBoxContainer" unique_id=2142868674]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/Panel/VBoxContainer" unique_id=2069565433]
+custom_minimum_size = Vector2(80, 80)
+custom_maximum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_hdjgt")
+
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer/Panel/VBoxContainer" unique_id=2142868674]
 custom_minimum_size = Vector2(163, 48)
 custom_maximum_size = Vector2(163, -1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_seen7")
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Panel/VBoxContainer/Panel" unique_id=618175707]
+[node name="RoomCodeLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Panel/VBoxContainer/Panel" unique_id=618175707]
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
+anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -32.0
 offset_top = -11.5
-offset_right = 40.0
+offset_right = 32.0
 offset_bottom = 11.5
+grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_lw7gq")
 text = " 023473"
 label_settings = SubResource("LabelSettings_megxp")
 
-[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer/Panel/VBoxContainer" unique_id=984905471]
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Panel/VBoxContainer" unique_id=984905471]
 custom_maximum_size = Vector2(230, -1)
 layout_mode = 2
-text = "Copie o código da sala e compartilhe com os jogadores"
+text = "Compartilhe o código com os outros jogadores"
 label_settings = SubResource("LabelSettings_78kgv")
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1245874847]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1245874847]
 layout_mode = 2
-theme_override_constants/separation = 7
+theme_override_constants/separation = 12
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=917164084]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=2127824818]
 layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1897098542 instance=ExtResource("3_hdjgt")]
+layout_mode = 2
+size_flags_horizontal = 0
 text = "Perguntas por jogador"
-label_settings = SubResource("LabelSettings_seen7")
+label_settings = SubResource("LabelSettings_v55s6")
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1774395063]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1774395063]
 layout_mode = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 6
 
-[node name="ConfigurationButtonButton" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=122511985 instance=ExtResource("2_g5yfu")]
+[node name="ConfigurationButtonButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=122511985 instance=ExtResource("2_g5yfu")]
 layout_mode = 2
+button_group = SubResource("ButtonGroup_hugna")
 text = "1"
 
-[node name="ConfigurationButtonButton2" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=957145932 instance=ExtResource("2_g5yfu")]
+[node name="ConfigurationButtonButton2" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=957145932 instance=ExtResource("2_g5yfu")]
 layout_mode = 2
+button_group = SubResource("ButtonGroup_iju0h")
 text = "2"
 
-[node name="ConfigurationButtonButton3" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=2100345248 instance=ExtResource("2_g5yfu")]
+[node name="ConfigurationButtonButton3" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=2100345248 instance=ExtResource("2_g5yfu")]
 layout_mode = 2
+button_group = SubResource("ButtonGroup_hdjgt")
 text = "3"
 
-[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=146400954]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1553064500]
 layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2" unique_id=1606187128 instance=ExtResource("3_hdjgt")]
+layout_mode = 2
+size_flags_horizontal = 0
 text = "Tempo de resposta"
-label_settings = SubResource("LabelSettings_seen7")
+label_settings = SubResource("LabelSettings_v55s6")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1111868025]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2" unique_id=1111868025]
 layout_mode = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 6
 
-[node name="ConfigurationButtonButton" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=972421051 instance=ExtResource("2_g5yfu")]
+[node name="ConfigurationButtonButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/HBoxContainer" unique_id=972421051 instance=ExtResource("2_g5yfu")]
 layout_mode = 2
 text = "30s"
 
-[node name="ConfigurationButtonButton2" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=938037032 instance=ExtResource("2_g5yfu")]
+[node name="ConfigurationButtonButton2" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/HBoxContainer" unique_id=938037032 instance=ExtResource("2_g5yfu")]
 layout_mode = 2
 
-[node name="ConfigurationButtonButton3" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=638741882 instance=ExtResource("2_g5yfu")]
+[node name="ConfigurationButtonButton3" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/HBoxContainer" unique_id=638741882 instance=ExtResource("2_g5yfu")]
 layout_mode = 2
 text = "90s"
 
-[node name="Label3" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1567700744]
+[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=119865563]
 layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer3" unique_id=1662964218 instance=ExtResource("3_hdjgt")]
+layout_mode = 2
+size_flags_horizontal = 0
 text = "Tempo de votação"
-label_settings = SubResource("LabelSettings_seen7")
+label_settings = SubResource("LabelSettings_v55s6")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1422987464]
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer3" unique_id=1422987464]
 layout_mode = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 6
 
-[node name="ConfigurationButtonButton" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1430046057 instance=ExtResource("2_g5yfu")]
+[node name="ConfigurationButtonButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer3/HBoxContainer3" unique_id=1430046057 instance=ExtResource("2_g5yfu")]
 layout_mode = 2
 text = "30s"
 
-[node name="ConfigurationButtonButton2" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1377326788 instance=ExtResource("2_g5yfu")]
+[node name="ConfigurationButtonButton2" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer3/HBoxContainer3" unique_id=1377326788 instance=ExtResource("2_g5yfu")]
 layout_mode = 2
 
-[node name="ConfigurationButtonButton3" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=787289198 instance=ExtResource("2_g5yfu")]
+[node name="ConfigurationButtonButton3" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer3/HBoxContainer3" unique_id=787289198 instance=ExtResource("2_g5yfu")]
 layout_mode = 2
 text = "90s"
 
-[node name="PlayButton" parent="VBoxContainer" unique_id=1859471613 instance=ExtResource("3_78kgv")]
-visible = false
+[node name="PlayButton" parent="MarginContainer" unique_id=1723046998 instance=ExtResource("6_iju0h")]
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/PlayButton" unique_id=1050239488]
+custom_minimum_size = Vector2(25, 25)
+custom_maximum_size = Vector2(30, 29)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_qg0me")
+expand_mode = 5

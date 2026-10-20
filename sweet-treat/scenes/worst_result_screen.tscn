@@ -1,0 +1,206 @@
+[gd_scene format=3 uid="uid://ch6eixdnek51l"]
+
+[ext_resource type="Texture2D" uid="uid://cl1pohxroxnnu" path="res://assets/images/backgrounds/worst_awards_background.png" id="1_qmjba"]
+[ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="2_lvrtv"]
+[ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_c4fvb"]
+[ext_resource type="Texture2D" uid="uid://bgup2td6iifko" path="res://assets/images/tomato_points.svg" id="4_i14x0"]
+[ext_resource type="Texture2D" uid="uid://ccwvsdud1nh8y" path="res://assets/images/awards/second_place.png" id="5_yj5tl"]
+[ext_resource type="Texture2D" uid="uid://bd7ns2axi2mgm" path="res://assets/images/awards/first_place.png" id="6_12q6a"]
+[ext_resource type="Texture2D" uid="uid://dumxl0swcw4c6" path="res://assets/images/awards/third_place.png" id="7_0wrgx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_todft"]
+font = ExtResource("3_c4fvb")
+font_size = 32
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0.95, 1.91)
+
+[sub_resource type="LabelSettings" id="LabelSettings_j4pe3"]
+font = ExtResource("3_c4fvb")
+font_size = 18
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0.95, 1.91)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_anchq"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+corner_detail = 20
+
+[node name="WorstResultScreen" type="Control" unique_id=5410941]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1269618275]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_qmjba")
+expand_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=919100568]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 68
+
+[node name="Label" parent="MarginContainer" unique_id=625587219 instance=ExtResource("2_lvrtv")]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Os melhores em ser os piores..."
+label_settings = SubResource("LabelSettings_todft")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=966947822]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1488631236]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/separation = 4
+
+[node name="PlayerName" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=548756731 instance=ExtResource("2_lvrtv")]
+layout_mode = 2
+text = "Fulano123"
+label_settings = SubResource("LabelSettings_j4pe3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1797926706]
+layout_mode = 2
+theme_override_constants/separation = -20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer" unique_id=2026608711]
+layout_mode = 2
+theme_override_constants/separation = -15
+
+[node name="AvatarBack" type="Panel" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/VBoxContainer" unique_id=2107040492]
+z_index = 1
+custom_minimum_size = Vector2(78, 78)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_anchq")
+
+[node name="Character" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/VBoxContainer" unique_id=1376445232]
+z_index = 2
+custom_minimum_size = Vector2(54, 26)
+custom_maximum_size = Vector2(54, 26)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_i14x0")
+
+[node name="Pataform" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer" unique_id=308304243]
+custom_minimum_size = Vector2(108, 73)
+custom_maximum_size = Vector2(108, 73)
+layout_mode = 2
+texture = ExtResource("5_yj5tl")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=662242588]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2" unique_id=1158636382 instance=ExtResource("2_lvrtv")]
+layout_mode = 2
+text = "Fulano123"
+label_settings = SubResource("LabelSettings_j4pe3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer2" unique_id=1377288809]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/separation = -30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer2/VBoxContainer" unique_id=684171961]
+layout_mode = 2
+theme_override_constants/separation = -15
+
+[node name="AvatarBack" type="Panel" parent="MarginContainer/HBoxContainer/VBoxContainer2/VBoxContainer/VBoxContainer" unique_id=354455660]
+z_index = 1
+custom_minimum_size = Vector2(78, 78)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_anchq")
+
+[node name="Character" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer2/VBoxContainer/VBoxContainer" unique_id=1902843234]
+z_index = 2
+custom_minimum_size = Vector2(54, 26)
+custom_maximum_size = Vector2(54, 26)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_i14x0")
+
+[node name="Plataform" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer2/VBoxContainer" unique_id=203335516]
+custom_minimum_size = Vector2(108, 121)
+custom_maximum_size = Vector2(108, 121)
+layout_mode = 2
+texture = ExtResource("6_12q6a")
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=479146165]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="PlayerName" parent="MarginContainer/HBoxContainer/VBoxContainer3" unique_id=1088844297 instance=ExtResource("2_lvrtv")]
+layout_mode = 2
+text = "Fulano123"
+label_settings = SubResource("LabelSettings_j4pe3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer3" unique_id=98802012]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/separation = -12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer" unique_id=1580309988]
+layout_mode = 2
+theme_override_constants/separation = -15
+
+[node name="AvatarBack" type="Panel" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer/VBoxContainer" unique_id=1484421069]
+z_index = 1
+custom_minimum_size = Vector2(78, 78)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_anchq")
+
+[node name="Character" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer/VBoxContainer" unique_id=1290568428]
+z_index = 2
+custom_minimum_size = Vector2(54, 26)
+custom_maximum_size = Vector2(54, 26)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_i14x0")
+
+[node name="Plataform" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer" unique_id=1683487085]
+custom_minimum_size = Vector2(108, 56)
+custom_maximum_size = Vector2(108, 56)
+layout_mode = 2
+size_flags_vertical = 10
+texture = ExtResource("7_0wrgx")

@@ -1,4 +1,5 @@
-[gd_scene format=3 uid="uid://cd33dlulo23f3"]
+
+[gd_scene format=3 uid="uid://dno4ldhaoc7fn"]
 
 [ext_resource type="Script" uid="uid://bvq3577axoqo8" path="res://scripts/create_questions.gd" id="1_08ho7"]
 
