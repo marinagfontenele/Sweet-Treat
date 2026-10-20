@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqs2j434r25va"
-path="res://.godot/imported/iPhone 16 - 14.svg-e6b263a4b658d2cb65bf3c6ccb1d2aad.ctex"
+uid="uid://cxwtfn08hcafm"
+path="res://.godot/imported/check_button.svg-d4603cea5d8e27af8fd9b284617d5988.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/iPhone 16 - 14.svg"
-dest_files=["res://.godot/imported/iPhone 16 - 14.svg-e6b263a4b658d2cb65bf3c6ccb1d2aad.ctex"]
+source_file="res://assets/images/check_button.svg"
+dest_files=["res://.godot/imported/check_button.svg-d4603cea5d8e27af8fd9b284617d5988.ctex"]
 
 [params]
 

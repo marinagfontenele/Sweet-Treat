@@ -1,6 +1,8 @@
 extends Node
 
 @onready var code_modal: Control = $CodeModalPanel # Certifique-se de ter esse painel na cena se quiser testar o convidado
+@onready var configuration_panel: Control = $ConfigurationPanel
+@onready var avatar_panel: Control = $AvatarPanel
 
 func _ready() -> void:
 	# Autentica no Game Center ao abrir o menu
@@ -27,6 +29,20 @@ func _ready() -> void:
 	# Esconde o modal ao iniciar
 	if code_modal:
 		code_modal.visible = false
+	
+	var open_configuration_btn = _find_node_by_name(self, "SettingsButton")
+	if open_configuration_btn:
+		open_configuration_btn.pressed.connect(show_settings)
+	
+	if configuration_panel:
+		configuration_panel.visible = false
+		
+	var open_avatar_btn = _find_node_by_name(self, "EditButton")
+	if open_avatar_btn:
+		open_avatar_btn.pressed.connect(show_avatar)
+	
+	if avatar_panel:
+		avatar_panel.visible = false
 
 	print("Main menu ready! Waiting for player input...")
 
@@ -63,6 +79,13 @@ func _on_open_join_modal_pressed() -> void:
 	if code_modal:
 		code_modal.visible = true
 
+func show_avatar() -> void:
+	if avatar_panel:
+		avatar_panel.visible = true
+
+func show_settings() -> void:
+	if configuration_panel:
+		configuration_panel.visible = true
 
 ## GUEST: Confirma o código digitado e entra na sala
 func _on_confirm_join_pressed() -> void:

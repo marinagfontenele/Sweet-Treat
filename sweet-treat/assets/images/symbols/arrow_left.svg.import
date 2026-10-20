@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbtl2wfk48288"
-path="res://.godot/imported/tela de pergunta.png-3080985687d3382f4d442dfbe38c5609.ctex"
+uid="uid://bysnstwv1oryo"
+path="res://.godot/imported/arrow_left.svg-7ce29b22e29545a59095e8f836ff47d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/tela de pergunta.png"
-dest_files=["res://.godot/imported/tela de pergunta.png-3080985687d3382f4d442dfbe38c5609.ctex"]
+source_file="res://assets/images/symbols/arrow_left.svg"
+dest_files=["res://.godot/imported/arrow_left.svg-7ce29b22e29545a59095e8f836ff47d7.ctex"]
 
 [params]
 
@@ -38,3 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=10.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

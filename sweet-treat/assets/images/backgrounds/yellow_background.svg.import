@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ijn0ahavykdm"
-path="res://.godot/imported/Config Partida (Host).svg-6870efb22ce8f8f61495f400ed849892.ctex"
+uid="uid://daksgitxujjt7"
+path="res://.godot/imported/yellow_background.svg-4269a56bae69104242d06eadd0464a12.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/Config Partida (Host).svg"
-dest_files=["res://.godot/imported/Config Partida (Host).svg-6870efb22ce8f8f61495f400ed849892.ctex"]
+source_file="res://assets/images/backgrounds/yellow_background.svg"
+dest_files=["res://.godot/imported/yellow_background.svg-4269a56bae69104242d06eadd0464a12.ctex"]
 
 [params]
 

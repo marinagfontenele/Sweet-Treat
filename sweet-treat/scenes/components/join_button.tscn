@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cqhe6wwbw7q2f"]
 
-[ext_resource type="Texture2D" uid="uid://wntr88q8an71" path="res://assets/images/createIcon.png" id="1_vx0oh"]
+[ext_resource type="Texture2D" uid="uid://cdr6r1mxbsxdo" path="res://assets/images/symbols/export.svg" id="1_wsvwo"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="2_gg0bn"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_y5rp4"]
 
@@ -82,7 +82,7 @@ shadow_size = 4
 shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(0.7, 0.7)
 
-[node name="MainButton" type="Button" unique_id=876412539]
+[node name="JoinButton" type="Button" unique_id=876412539]
 custom_minimum_size = Vector2(327, 79)
 anchors_preset = 8
 anchor_left = 0.5
@@ -135,21 +135,21 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer2/Panel/MarginContainer/HBoxContainer/Panel" unique_id=1745819823]
-custom_minimum_size = Vector2(5.9, 6.6)
-custom_maximum_size = Vector2(30.78, 30.78)
+custom_minimum_size = Vector2(30, 28)
+custom_maximum_size = Vector2(31, 31)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -15.5
+offset_top = -15.5
+offset_right = 15.5
+offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_vx0oh")
+texture = ExtResource("1_wsvwo")
 
 [node name="Label2" parent="MarginContainer2/Panel/MarginContainer/HBoxContainer" unique_id=625587219 instance=ExtResource("2_gg0bn")]
 layout_mode = 2

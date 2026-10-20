@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://dutikdq86qml3"]
 
-[ext_resource type="PackedScene" uid="uid://du50c2vu78lg7" path="res://scenes/components/info_button.tscn" id="1_dsjho"]
+[ext_resource type="PackedScene" uid="uid://du50c2vu78lg7" path="res://scenes/components/purple_button.tscn" id="1_dsjho"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="2_s25gk"]
+[ext_resource type="Texture2D" uid="uid://bi4dbr2rbo0fj" path="res://assets/images/symbols/xmark.svg" id="3_4hp0e"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_vbu0w"]
 [ext_resource type="PackedScene" uid="uid://uo88l1y5l3ud" path="res://scenes/components/avatar_button.tscn" id="4_wvjey"]
 [ext_resource type="PackedScene" uid="uid://svx315tqruom" path="res://scenes/components/character_button.tscn" id="5_dsjho"]
@@ -96,6 +97,19 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/InfoButton" unique_id=785253123]
+custom_minimum_size = Vector2(23, 23)
+custom_maximum_size = Vector2(23, 23)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_4hp0e")
 
 [node name="Label" parent="MarginContainer" unique_id=625587219 instance=ExtResource("2_s25gk")]
 layout_mode = 2

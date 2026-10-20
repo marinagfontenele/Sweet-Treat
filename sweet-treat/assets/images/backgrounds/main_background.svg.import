@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://edw6s1an43ec"
-path="res://.godot/imported/PurpleBackground.png-25ca4605bbe19dda1d1d10b7835b5d72.ctex"
+uid="uid://bqs2j434r25va"
+path="res://.godot/imported/main_background.svg-1b5f8b2e04b7fa512cf52c18a85d15ab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/PurpleBackground.png"
-dest_files=["res://.godot/imported/PurpleBackground.png-25ca4605bbe19dda1d1d10b7835b5d72.ctex"]
+source_file="res://assets/images/backgrounds/main_background.svg"
+dest_files=["res://.godot/imported/main_background.svg-1b5f8b2e04b7fa512cf52c18a85d15ab.ctex"]
 
 [params]
 
@@ -38,3 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

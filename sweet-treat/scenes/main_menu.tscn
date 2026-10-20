@@ -1,29 +1,51 @@
 [gd_scene format=3 uid="uid://lbsc0ppjr8gs"]
 
 [ext_resource type="Script" uid="uid://cpac8u4i6x772" path="res://scripts/main_menu.gd" id="1_0fbet"]
-[ext_resource type="Texture2D" uid="uid://bqs2j434r25va" path="res://assets/images/iPhone 16 - 14.svg" id="2_wu84c"]
+[ext_resource type="Texture2D" uid="uid://bqs2j434r25va" path="res://assets/images/backgrounds/main_background.svg" id="2_wu84c"]
+[ext_resource type="Texture2D" uid="uid://crbrmkxcsis6e" path="res://assets/images/backgrounds/city_panel_backgorund.png" id="3_1ajci"]
 [ext_resource type="Texture2D" uid="uid://csfue7yiid87f" path="res://assets/images/Frame 53.svg" id="3_8ln24"]
+[ext_resource type="Texture2D" uid="uid://dc7wvqxxjgb8h" path="res://assets/images/symbols/pencil.svg" id="3_flqon"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_rtw2f"]
-[ext_resource type="PackedScene" uid="uid://du50c2vu78lg7" path="res://scenes/components/info_button.tscn" id="4_oa1go"]
-[ext_resource type="PackedScene" uid="uid://cqhe6wwbw7q2f" path="res://scenes/components/main_button.tscn" id="4_rtw2f"]
+[ext_resource type="Texture2D" uid="uid://g0s2secdmqy0" path="res://assets/images/player_area.svg" id="4_7b55j"]
+[ext_resource type="PackedScene" uid="uid://du50c2vu78lg7" path="res://scenes/components/purple_button.tscn" id="4_oa1go"]
+[ext_resource type="PackedScene" uid="uid://cqhe6wwbw7q2f" path="res://scenes/components/join_button.tscn" id="4_rtw2f"]
+[ext_resource type="Texture2D" uid="uid://crgtmb0gv472n" path="res://assets/images/symbols/info.svg" id="6_rcqid"]
+[ext_resource type="Texture2D" uid="uid://d170wlhq74rg8" path="res://assets/images/symbols/settings.svg" id="7_1ajci"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="7_tbmy8"]
 [ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="8_jk1qb"]
+[ext_resource type="Texture2D" uid="uid://bi4dbr2rbo0fj" path="res://assets/images/symbols/xmark.svg" id="10_7b55j"]
+[ext_resource type="PackedScene" uid="uid://b87icu65m3fcq" path="res://scenes/components/create_button.tscn" id="12_7b55j"]
+[ext_resource type="PackedScene" uid="uid://b5wyekog1o2ql" path="res://scenes/configuration_screen.tscn" id="16_j7ex8"]
+[ext_resource type="PackedScene" uid="uid://dutikdq86qml3" path="res://scenes/avatar_screen.tscn" id="17_a8gd2"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bkf4g"]
-bg_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
-bg_color = Color(1, 0.8509804, 0.25490198, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8v716"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 100
 corner_radius_top_right = 100
 corner_radius_bottom_right = 100
 corner_radius_bottom_left = 100
 corner_detail = 20
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_62e2m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x3rtj"]
+bg_color = Color(0.7764706, 0.25490198, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+corner_detail = 20
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ln24"]
 content_margin_left = 20.0
@@ -44,23 +66,6 @@ corner_detail = 4
 shadow_color = Color(0, 0, 0, 1)
 shadow_size = 1
 shadow_offset = Vector2(0, 2.5)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_62e2m"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x3rtj"]
-bg_color = Color(0.7764706, 0.25490198, 1, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 100
-corner_radius_top_right = 100
-corner_radius_bottom_right = 100
-corner_radius_bottom_left = 100
-corner_detail = 20
-shadow_color = Color(0, 0, 0, 1)
-shadow_size = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tbmy8"]
 bg_color = Color(0, 0, 0, 0.627451)
@@ -121,13 +126,24 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_wu84c")
 
-[node name="PlayerArea" type="Panel" parent="." unique_id=84918727]
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=374422694]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_1ajci")
+expand_mode = 5
+
+[node name="PlayerArea" type="TextureRect" parent="." unique_id=1297921012]
 custom_minimum_size = Vector2(350, 65)
 custom_maximum_size = Vector2(350, 65)
 layout_mode = 0
 offset_right = 350.0
 offset_bottom = 65.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_bkf4g")
+mouse_filter = 2
+texture = ExtResource("4_7b55j")
 
 [node name="MarginContainer" type="MarginContainer" parent="PlayerArea" unique_id=807785170]
 layout_mode = 1
@@ -136,24 +152,30 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 10
+mouse_filter = 2
+theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PlayerArea/MarginContainer" unique_id=718487916]
 layout_mode = 2
-theme_override_constants/separation = 12
+mouse_filter = 2
+theme_override_constants/separation = 17
 
-[node name="Panel" type="Panel" parent="PlayerArea/MarginContainer/HBoxContainer" unique_id=324594995]
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerArea/MarginContainer/HBoxContainer" unique_id=2006520787]
+layout_mode = 2
+theme_override_constants/separation = -15
+
+[node name="CharacterBackground" type="Button" parent="PlayerArea/MarginContainer/HBoxContainer/HBoxContainer" unique_id=1146920084]
 custom_minimum_size = Vector2(45, 45)
 custom_maximum_size = Vector2(45, 45)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+theme_override_styles/normal = SubResource("StyleBoxFlat_8v716")
 
-[node name="Avatar" type="TextureRect" parent="PlayerArea/MarginContainer/HBoxContainer/Panel" unique_id=1170985412]
+[node name="Avatar" type="TextureRect" parent="PlayerArea/MarginContainer/HBoxContainer/HBoxContainer/CharacterBackground" unique_id=1170985412]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 1
 anchors_preset = 8
@@ -170,10 +192,34 @@ grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
+[node name="EditButton" type="Button" parent="PlayerArea/MarginContainer/HBoxContainer/HBoxContainer" unique_id=1928702834]
+custom_minimum_size = Vector2(23, 23)
+custom_maximum_size = Vector2(23, 23)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 24
+theme_override_icons/icon = SubResource("ViewportTexture_62e2m")
+theme_override_styles/normal = SubResource("StyleBoxFlat_x3rtj")
+
+[node name="TextureRect" type="TextureRect" parent="PlayerArea/MarginContainer/HBoxContainer/HBoxContainer/EditButton" unique_id=1533006404]
+custom_minimum_size = Vector2(12, 14)
+custom_maximum_size = Vector2(12, 14)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_flqon")
+
 [node name="LineEdit" type="LineEdit" parent="PlayerArea/MarginContainer/HBoxContainer" unique_id=429601356]
 custom_minimum_size = Vector2(188, 32)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 2
 size_flags_vertical = 6
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_uneditable_color = Color(1, 1, 1, 1)
@@ -183,16 +229,6 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_8ln24")
 placeholder_text = "Digite seu nome"
 
-[node name="EditButton" type="Button" parent="PlayerArea/MarginContainer/HBoxContainer" unique_id=1928702834]
-custom_minimum_size = Vector2(30, 30)
-custom_maximum_size = Vector2(30, 30)
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 24
-theme_override_icons/icon = SubResource("ViewportTexture_62e2m")
-theme_override_styles/normal = SubResource("StyleBoxFlat_x3rtj")
-
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=99327593]
 layout_mode = 1
 anchors_preset = 15
@@ -200,9 +236,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 20
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 30
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer" unique_id=1917022759]
 layout_mode = 2
@@ -210,15 +246,41 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_constants/separation = 20
 
-[node name="InfoButton2" parent="MarginContainer/HBoxContainer2" unique_id=247859986 instance=ExtResource("4_oa1go")]
+[node name="InfoButton" parent="MarginContainer/HBoxContainer2" unique_id=247859986 instance=ExtResource("4_oa1go")]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 
-[node name="InfoButton3" parent="MarginContainer/HBoxContainer2" unique_id=1835469227 instance=ExtResource("4_oa1go")]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer2/InfoButton" unique_id=1447139361]
+custom_minimum_size = Vector2(10, 34)
+custom_maximum_size = Vector2(10, 34)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_rcqid")
+
+[node name="SettingsButton" parent="MarginContainer/HBoxContainer2" unique_id=1835469227 instance=ExtResource("4_oa1go")]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer2/SettingsButton" unique_id=1048317783]
+custom_minimum_size = Vector2(28, 26)
+custom_maximum_size = Vector2(28, 26)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_1ajci")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1424116047]
 layout_mode = 2
@@ -238,10 +300,11 @@ theme_override_constants/separation = 15
 [node name="JoinRoomButton" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=876412539 instance=ExtResource("4_rtw2f")]
 layout_mode = 2
 
-[node name="CreateRoomButton" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1383716092 instance=ExtResource("4_rtw2f")]
+[node name="CreateRoomButton" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=211068834 instance=ExtResource("12_7b55j")]
 layout_mode = 2
 
 [node name="CodeModalPanel" type="Panel" parent="." unique_id=1402632696]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -283,6 +346,19 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
+[node name="TextureRect" type="TextureRect" parent="CodeModalPanel/BluePanel/MarginContainer/InfoButton" unique_id=1252395420]
+custom_minimum_size = Vector2(23, 23)
+custom_maximum_size = Vector2(23, 23)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_7b55j")
+
 [node name="Label" parent="CodeModalPanel/BluePanel/MarginContainer" unique_id=625587219 instance=ExtResource("7_tbmy8")]
 layout_mode = 2
 size_flags_horizontal = 6
@@ -307,3 +383,57 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Confirmar"
+
+[node name="ConfigurationPanel" type="Panel" parent="." unique_id=310481044]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tbmy8")
+
+[node name="ConfigurationScreen" parent="ConfigurationPanel" unique_id=30360144 instance=ExtResource("16_j7ex8")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -287.5
+offset_top = -174.0
+offset_right = 287.5
+offset_bottom = 174.0
+
+[node name="AvatarPanel" type="Panel" parent="." unique_id=1971045362]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tbmy8")
+
+[node name="AvatarScreen" parent="AvatarPanel" unique_id=1514225271 instance=ExtResource("17_a8gd2")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -287.5
+offset_top = -174.0
+offset_right = 287.5
+offset_bottom = 174.0
+
+[node name="InfoPanel" type="Panel" parent="." unique_id=794113852]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tbmy8")
