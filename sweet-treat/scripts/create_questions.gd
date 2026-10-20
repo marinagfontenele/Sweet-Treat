@@ -52,6 +52,7 @@ func _update_ui() -> void:
 
 
 func _on_submit_question_pressed() -> void:
+	print("_on_submit_question_pressed")
 	if not input_question:
 		return
 		
@@ -71,7 +72,11 @@ func _on_submit_question_pressed() -> void:
 	if current_question_index >= total_questions_needed:
 		# Salva definitivamente no GameManager para uso futuro na partida
 		GameManager.my_created_questions = local_questions.duplicate()
-		print("Todas as perguntas foram inseridas com sucesso! Indo para a tela de espera...")
+		
+		# <--- PARA ENVIAR AS PERGUNTAS À REDE --->
+		GameManager.send_my_questions_to_others()
+		
+		print("Todas as perguntas foram inseridas com sucesso! Enviando para a rede e indo para a tela de espera...")
 		
 		# Avança para a cena de espera informada
 		go_to_question_formulation_wait()
