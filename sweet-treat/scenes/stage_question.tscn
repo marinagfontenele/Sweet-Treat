@@ -1,0 +1,265 @@
+[gd_scene format=3 uid="uid://s06dn4j8ls8a"]
+
+[ext_resource type="Texture2D" uid="uid://d2j26r5jqr5m0" path="res://assets/images/backgrounds/stage_background.png" id="1_kohbv"]
+[ext_resource type="Texture2D" uid="uid://bx6fn2kpppudo" path="res://assets/images/characters/character6.svg" id="2_jhusn"]
+[ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="3_qqyxa"]
+[ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="4_3emov"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
+bg_color = Color(0.003921569, 0.67058825, 0.91764706, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+corner_detail = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_2bp27"]
+font = ExtResource("4_3emov")
+font_size = 22
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0.95, 1.91)
+
+[node name="StageQuestion" type="Control" unique_id=329317488]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1442156504]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_kohbv")
+expand_mode = 5
+
+[node name="Panel" type="Panel" parent="TextureRect" unique_id=932402193]
+layout_mode = 0
+offset_left = 81.0
+offset_top = 55.0
+offset_right = 174.0
+offset_bottom = 150.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect/Panel" unique_id=2113318461]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/Panel/MarginContainer" unique_id=863359789]
+layout_mode = 2
+texture = ExtResource("2_jhusn")
+expand_mode = 3
+
+[node name="Panel2" type="Panel" parent="TextureRect" unique_id=1230194407]
+layout_mode = 0
+offset_left = 676.0
+offset_top = 50.0
+offset_right = 769.0
+offset_bottom = 145.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="MarginContainer2" type="MarginContainer" parent="TextureRect/Panel2" unique_id=625862682]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/Panel2/MarginContainer2" unique_id=1153379422]
+layout_mode = 2
+texture = ExtResource("2_jhusn")
+expand_mode = 3
+
+[node name="Panel3" type="Panel" parent="TextureRect" unique_id=904516662]
+layout_mode = 0
+offset_left = 678.0
+offset_top = 220.0
+offset_right = 767.0
+offset_bottom = 312.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="MarginContainer3" type="MarginContainer" parent="TextureRect/Panel3" unique_id=878677575]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/Panel3/MarginContainer3" unique_id=2114295681]
+layout_mode = 2
+texture = ExtResource("2_jhusn")
+expand_mode = 3
+
+[node name="Panel4" type="Panel" parent="TextureRect" unique_id=914810265]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 223.0
+offset_right = 167.0
+offset_bottom = 308.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="MarginContainer4" type="MarginContainer" parent="TextureRect/Panel4" unique_id=768027253]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/Panel4/MarginContainer4" unique_id=2025841485]
+layout_mode = 2
+texture = ExtResource("2_jhusn")
+expand_mode = 3
+
+[node name="Panel5" type="Panel" parent="TextureRect" unique_id=1095223829]
+layout_mode = 0
+offset_left = 558.0
+offset_top = 215.0
+offset_right = 624.0
+offset_bottom = 283.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="MarginContainer5" type="MarginContainer" parent="TextureRect/Panel5" unique_id=726510578]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/Panel5/MarginContainer5" unique_id=798217218]
+layout_mode = 2
+texture = ExtResource("2_jhusn")
+expand_mode = 3
+
+[node name="Panel6" type="Panel" parent="TextureRect" unique_id=1004631004]
+layout_mode = 0
+offset_left = 226.0
+offset_top = 216.0
+offset_right = 295.0
+offset_bottom = 286.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="MarginContainer6" type="MarginContainer" parent="TextureRect/Panel6" unique_id=1602288690]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/Panel6/MarginContainer6" unique_id=279666610]
+layout_mode = 2
+texture = ExtResource("2_jhusn")
+expand_mode = 3
+
+[node name="Panel7" type="Panel" parent="TextureRect" unique_id=1106700103]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 83.0
+offset_right = 299.0
+offset_bottom = 160.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="MarginContainer7" type="MarginContainer" parent="TextureRect/Panel7" unique_id=1281976070]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/Panel7/MarginContainer7" unique_id=1731882760]
+layout_mode = 2
+texture = ExtResource("2_jhusn")
+expand_mode = 3
+
+[node name="Panel8" type="Panel" parent="TextureRect" unique_id=426791617]
+layout_mode = 0
+offset_left = 553.0
+offset_top = 82.0
+offset_right = 628.0
+offset_bottom = 159.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="MarginContainer8" type="MarginContainer" parent="TextureRect/Panel8" unique_id=1478088672]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/Panel8/MarginContainer8" unique_id=1460826720]
+layout_mode = 2
+texture = ExtResource("2_jhusn")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect" unique_id=1613243127]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -99.0
+offset_top = -102.5
+offset_right = 105.0
+offset_bottom = 56.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Label2" parent="TextureRect/MarginContainer" unique_id=625587219 instance=ExtResource("3_qqyxa")]
+layout_mode = 2
+size_flags_horizontal = 1
+text = "A pergunta aparecerá aqui para o usuário ver"
+label_settings = SubResource("LabelSettings_2bp27")
+autowrap_mode = 2

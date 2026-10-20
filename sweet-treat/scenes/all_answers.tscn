@@ -2,11 +2,61 @@
 
 [ext_resource type="Script" uid="uid://cfuvbs8lughe5" path="res://scripts/all_answers.gd" id="1_8p231"]
 [ext_resource type="PackedScene" uid="uid://bivqmg5mhy4s5" path="res://scenes/components/player_answer.tscn" id="1_cph5a"]
+[ext_resource type="Texture2D" uid="uid://daksgitxujjt7" path="res://assets/images/backgrounds/yellow_background.svg" id="1_p0idi"]
+[ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="2_8orqm"]
+[ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_ieid6"]
+[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="5_cxwln"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_8p231"]
-font_size = 24
-outline_size = 5
+[sub_resource type="LabelSettings" id="LabelSettings_gf8m0"]
+font = ExtResource("3_ieid6")
+font_size = 32
+outline_size = 6
 outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0.95, 1.91)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hr1tq"]
+bg_color = Color(1, 0.20784314, 0.28627452, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color(0.67401284, 0, 0.14065939, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dk81l"]
+bg_color = Color(1, 0.20784314, 0.28627452, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color(0.6745098, 0, 0.14117648, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x3x51"]
+bg_color = Color(1, 0.20784314, 0.28627452, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color(0.6745098, 0, 0.14117648, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_offset = Vector2(1, 2)
 
 [node name="AllAnswers" type="Control" unique_id=470674663]
 layout_mode = 3
@@ -17,14 +67,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8p231")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=210528798]
+[node name="ColorRect" type="TextureRect" parent="." unique_id=132512777]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 0.85490197, 0.21960784, 1)
+texture = ExtResource("1_p0idi")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=541822600]
 layout_mode = 1
@@ -34,37 +84,30 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 20
+theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 15
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=88306416]
 layout_mode = 2
-theme_override_constants/separation = 20
+size_flags_vertical = 4
+theme_override_constants/separation = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=655028495]
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 2
 
-[node name="Jogadores na sala" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=211796985]
+[node name="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=625587219 instance=ExtResource("2_8orqm")]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Resposta dos participantes"
-label_settings = SubResource("LabelSettings_8p231")
+size_flags_horizontal = 6
+text = "Respostas dos Participantes"
+label_settings = SubResource("LabelSettings_gf8m0")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1922991529]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 30
+theme_override_constants/separation = 10
 alignment = 1
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1649645164]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer2/AspectRatioContainer" unique_id=328281830 instance=ExtResource("1_cph5a")]
-layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1784029147]
 layout_mode = 2
@@ -75,6 +118,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="AspectRatioContainer3" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1330250618]
+propagate_maximum_size = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -101,16 +145,8 @@ size_flags_horizontal = 3
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=793459863]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 30
+theme_override_constants/separation = 10
 alignment = 1
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1453096370]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer3/AspectRatioContainer" unique_id=824283149 instance=ExtResource("1_cph5a")]
-layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1521738073]
 layout_mode = 2
@@ -143,3 +179,12 @@ size_flags_horizontal = 3
 [node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer3/AspectRatioContainer5" unique_id=987584538 instance=ExtResource("1_cph5a")]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="PlayButton" parent="MarginContainer/VBoxContainer" unique_id=122511985 instance=ExtResource("5_cxwln")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_hr1tq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_dk81l")
+theme_override_styles/hover = SubResource("StyleBoxFlat_x3x51")
+text = "Votar"

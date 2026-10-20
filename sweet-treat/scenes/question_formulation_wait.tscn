@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://o4wr57j1p703" path="res://scripts/question_formulation_wait.gd" id="1_drh5a"]
 [ext_resource type="Texture2D" uid="uid://gddaokoa2qbh" path="res://assets/images/Group 36.png" id="2_drh5a"]
-[ext_resource type="Texture2D" uid="uid://ijn0ahavykdm" path="res://assets/images/Config Partida (Host).svg" id="2_tpcrq"]
+[ext_resource type="Texture2D" uid="uid://uyjevn7qqpkc" path="res://assets/images/backgrounds/radial_background.png" id="2_tpcrq"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="3_h0six"]
 
 [node name="QuestionFormulationWait" type="Control" unique_id=1949044887]
