@@ -1,5 +1,6 @@
 extends Control
 
+signal customization_confirmed(nickname, character, background)
 
 @onready var avatar_button = $MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer/AvatarButton
 @onready var backgound_button = $MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer/BackgroundButton
@@ -71,14 +72,17 @@ func _ready():
 	
 	print("Avatar válido: ", is_instance_valid(avatar_button))
 	print("Background válido: ", is_instance_valid(backgound_button))
-
+	
+	var close_button = get_node("MarginContainer/CloseButton")
+	close_button.pressed.connect(_on_close_button_pressed)
+	
 	options = line1 + line2
 	
 	name_input.max_length = 12
 	
 	for botao in options:
 		botao.toggle_mode = true
-
+	
 	options[0].set_pressed_no_signal(true)
 	
 	current_character = characters[0]
@@ -101,6 +105,11 @@ func _ready():
 	avatar_button.set_pressed_no_signal(true)
 
 	_update_options()
+	
+	var finish_button = find_child("FinishButton", true, false)
+
+	if finish_button:
+		finish_button.pressed.connect(_on_finish_button_pressed)
 
 
 func _enable_avatar():
@@ -160,6 +169,25 @@ func _update_options():
 			if i == selected_background_index:
 				botao.set_pressed_no_signal(true)
 
+func _on_close_button_pressed() -> void:
+	var avatar_panel = get_tree().root.find_child("AvatarPanel", true, false)
+	
+	if avatar_panel:
+		avatar_panel.visible = false
 
 func _on_finish_button_pressed() -> void:
-	pass # Replace with function body.
+	var nickname = name_input.text.strip_edges()
+
+	if nickname.is_empty():
+		nickname = "Jogador_%d" % randi_range(10, 99)
+
+	customization_confirmed.emit(
+		nickname,
+		current_character,
+		current_backgound
+	)
+
+	var avatar_panel = get_tree().root.find_child("AvatarPanel", true, false)
+
+	if avatar_panel:
+		avatar_panel.visible = false

@@ -124,6 +124,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("2_wu84c")
 
 [node name="TextureRect2" type="TextureRect" parent="." unique_id=374422694]
@@ -133,6 +134,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("3_1ajci")
 expand_mode = 5
 
@@ -165,6 +167,7 @@ theme_override_constants/separation = 17
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PlayerArea/MarginContainer/HBoxContainer" unique_id=2006520787]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = -15
 
 [node name="CharacterBackground" type="Button" parent="PlayerArea/MarginContainer/HBoxContainer/HBoxContainer" unique_id=1146920084]
@@ -176,7 +179,8 @@ size_flags_vertical = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_8v716")
 
 [node name="Avatar" type="TextureRect" parent="PlayerArea/MarginContainer/HBoxContainer/HBoxContainer/CharacterBackground" unique_id=1170985412]
-custom_minimum_size = Vector2(45, 45)
+custom_minimum_size = Vector2(36, 38)
+custom_maximum_size = Vector2(36, 38)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -191,6 +195,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
+mouse_filter = 2
 
 [node name="EditButton" type="Button" parent="PlayerArea/MarginContainer/HBoxContainer/HBoxContainer" unique_id=1928702834]
 custom_minimum_size = Vector2(23, 23)
@@ -216,7 +221,7 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("3_flqon")
 
-[node name="LineEdit" type="LineEdit" parent="PlayerArea/MarginContainer/HBoxContainer" unique_id=429601356]
+[node name="PlayerNameInput" type="LineEdit" parent="PlayerArea/MarginContainer/HBoxContainer" unique_id=429601356]
 custom_minimum_size = Vector2(188, 32)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -236,6 +241,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 30
@@ -384,28 +390,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Confirmar"
 
-[node name="ConfigurationPanel" type="Panel" parent="." unique_id=310481044]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_tbmy8")
-
-[node name="ConfigurationScreen" parent="ConfigurationPanel" unique_id=30360144 instance=ExtResource("16_j7ex8")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -287.5
-offset_top = -174.0
-offset_right = 287.5
-offset_bottom = 174.0
-
 [node name="AvatarPanel" type="Panel" parent="." unique_id=1971045362]
 visible = false
 layout_mode = 1
@@ -417,6 +401,28 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tbmy8")
 
 [node name="AvatarScreen" parent="AvatarPanel" unique_id=1514225271 instance=ExtResource("17_a8gd2")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -287.5
+offset_top = -174.0
+offset_right = 287.5
+offset_bottom = 174.0
+
+[node name="ConfigurationPanel" type="Panel" parent="." unique_id=310481044]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tbmy8")
+
+[node name="ConfigurationScreen" parent="ConfigurationPanel" unique_id=30360144 instance=ExtResource("16_j7ex8")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

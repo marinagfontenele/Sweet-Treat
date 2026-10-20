@@ -3,6 +3,7 @@ extends Node
 @onready var code_modal: Control = $CodeModalPanel # Certifique-se de ter esse painel na cena se quiser testar o convidado
 @onready var configuration_panel: Control = $ConfigurationPanel
 @onready var avatar_panel: Control = $AvatarPanel
+@onready var edit_panel: Control = $AvatarPanel
 
 func _ready() -> void:
 	GameManager.authenticate()
@@ -28,13 +29,22 @@ func _ready() -> void:
 	
 	if configuration_panel:
 		configuration_panel.visible = false
-		
-	var open_avatar_btn = _find_node_by_name(self, "EditButton")
-	if open_avatar_btn:
-		open_avatar_btn.pressed.connect(show_avatar)
 	
 	if avatar_panel:
 		avatar_panel.visible = false
+
+	# Círculo do avatar E botão roxo abrem o painel
+	for node_name in ["CharacterBackground", "EditButton"]:
+		var btn := _find_node_by_name(self, node_name) as BaseButton
+		if btn and not btn.pressed.is_connected(show_avatar):
+			btn.pressed.connect(show_avatar)
+	
+	var avatar_screen = _find_node_by_name(self, "AvatarScreen")
+
+	if avatar_screen:
+		avatar_screen.customization_confirmed.connect(
+			_on_customization_confirmed
+		)
 
 
 func _find_node_by_name(node: Node, node_name: String) -> Node:
@@ -75,13 +85,16 @@ func _on_open_join_modal_pressed() -> void:
 	if code_modal:
 		code_modal.visible = true
 
+
 func show_avatar() -> void:
 	if avatar_panel:
 		avatar_panel.visible = true
 
+
 func show_settings() -> void:
 	if configuration_panel:
 		configuration_panel.visible = true
+
 
 ## GUEST: Confirma o código
 func _on_confirm_join_pressed() -> void:
@@ -105,3 +118,35 @@ func _on_confirm_join_pressed() -> void:
 		else:
 			input_field.placeholder_text = "Código Inválido!"
 			input_field.text = ""
+			
+
+func _on_customization_confirmed(nickname: String, character: Texture2D, background: Color) -> void:
+# Atualiza o nickname no menu
+	var name_input = _find_node_by_name(self, "PlayerNameInput") as LineEdit
+
+	if name_input:
+		name_input.text = nickname
+
+	# Atualiza a imagem do avatar
+	var avatar = _find_node_by_name(self, "Avatar") as TextureRect
+
+	if avatar:
+		avatar.texture = character
+
+	# Atualiza a cor de fundo do círculo
+	var character_background = _find_node_by_name(self, "CharacterBackground") as Button
+
+	if character_background:
+		var style = character_background.get_theme_stylebox("normal").duplicate()
+
+		if style is StyleBoxFlat:
+			style.bg_color = background
+			character_background.add_theme_stylebox_override("normal", style)
+
+	# Guarda o nickname para uso no jogo
+	GameManager.player_name = nickname
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		var c := get_viewport().gui_get_hovered_control()
+		print("Clique em: ", c.get_path() if c else "nada")

@@ -34,6 +34,11 @@ shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(0.95, 1.91)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
 corner_radius_top_left = 200
 corner_radius_top_right = 200
 corner_radius_bottom_right = 200
@@ -93,12 +98,12 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 20
 
-[node name="InfoButton" parent="MarginContainer" unique_id=247859986 instance=ExtResource("1_dsjho")]
+[node name="CloseButton" parent="MarginContainer" unique_id=247859986 instance=ExtResource("1_dsjho")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/InfoButton" unique_id=785253123]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/CloseButton" unique_id=785253123]
 custom_minimum_size = Vector2(23, 23)
 custom_maximum_size = Vector2(23, 23)
 layout_mode = 1
@@ -253,6 +258,6 @@ custom_minimum_size = Vector2(155, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-text = "Concluir"
+text = "Salvar"
 
 [connection signal="pressed" from="MarginContainer/FinishButton" to="." method="_on_finish_button_pressed"]

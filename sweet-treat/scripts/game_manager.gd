@@ -48,7 +48,6 @@ var players_submitted_questions: int = 0
 # Armazena as respostas da rodada atual: [{ "player": "Nome", "answer": "Texto" }]
 var current_round_answers: Array = []
 
-
 ## =====================================================================
 ## FUNÇÕES PADRÃO DO CICLO DE VIDA E UTILITÁRIOS GERAIS
 ## =====================================================================
