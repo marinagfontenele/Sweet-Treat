@@ -227,4 +227,5 @@ text = "90s"
 
 [node name="PlayButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1676456663]
 layout_mode = 2
+focus_mode = 1
 text = "Salvar"

@@ -52,6 +52,7 @@ func _update_ui() -> void:
 
 
 func _on_submit_question_pressed() -> void:
+	print("_on_submit_question_pressed")
 	if not input_question:
 		return
 		

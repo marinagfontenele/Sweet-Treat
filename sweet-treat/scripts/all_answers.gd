@@ -7,7 +7,12 @@ func _ready() -> void:
 	# 1. Coleta todos os containers de resposta na árvore da cena
 	_collect_answer_containers(self)
 
-	# 2. Preenche os cartões com as respostas da rodada atual
+	# 2. Conecta o sinal reativo para atualizar a tela automaticamente
+	# sempre que uma nova resposta chegar pela rede do Game Center
+	if not GameManager.resposta_recebida.is_connected(update_answers_ui):
+		GameManager.resposta_recebida.connect(update_answers_ui)
+
+	# 3. Preenche os cartões com as respostas que já estão salvas na memória
 	update_answers_ui()
 
 	print("Tela de respostas pronta! Total de slots encontrados: %d" % answer_slots.size())
@@ -24,6 +29,7 @@ func _collect_answer_containers(node: Node) -> void:
 # Preenche os slots com as respostas reais
 func update_answers_ui() -> void:
 	var current_round_answers = GameManager.get_current_round_answers()
+	print("Atualizando UI de respostas. Total acumulado até agora: %d" % current_round_answers.size())
 	
 	for i in range(answer_slots.size()):
 		var container = answer_slots[i]
@@ -45,8 +51,11 @@ func update_answers_ui() -> void:
 				
 			# 3. Configura o clique no botão para registrar o voto
 			if player_answer_node is BaseButton:
-				if not player_answer_node.pressed.is_connected(_on_vote_pressed):
-					player_answer_node.pressed.connect(func(): _on_vote_pressed(data["player"]))
+				# Desconecta closures/funções antigas antes de reconectar para evitar votos duplicados
+				if player_answer_node.pressed.is_connected(_on_vote_pressed):
+					player_answer_node.pressed.disconnect(_on_vote_pressed)
+				
+				player_answer_node.pressed.connect(func(): _on_vote_pressed(data["player"]))
 		else:
 			# Esconde slots excedentes se houverem menos respostas que o total de slots
 			container.visible = false
