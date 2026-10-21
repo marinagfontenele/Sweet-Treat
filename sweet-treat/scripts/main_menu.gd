@@ -58,8 +58,7 @@ func _on_player_name_changed(new_name: String) -> void:
 	GameManager.player_name = new_name.strip_edges()
 
 	print("Nome digitado: ", GameManager.player_name)
-
-	GameManager.save_profile()
+	GameManager._save_profile()
 
 	print("Salvamento solicitado.")
 
