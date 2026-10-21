@@ -78,11 +78,12 @@ var backgrounds = [
 	Color("#F23FBF")
 ]
 
-const DEFAULT_CHARACTER: Texture2D = preload("res://assets/images/characters/character1.svg")
-const DEFAULT_BACKGROUND: Color = Color("#FF0040")
+var player_character_index: int = randi_range(0, characters.size() - 1)
+var player_background_index: int = randi_range(0, backgrounds.size() - 1)
 
-var player_character_index: int = 0
-var player_background_index: int = 0
+var DEFAULT_CHARACTER: Texture2D = characters[player_character_index]
+var DEFAULT_BACKGROUND: Color = backgrounds[player_background_index]
+
 var player_character: Texture2D = DEFAULT_CHARACTER
 var player_background: Color = DEFAULT_BACKGROUND
 

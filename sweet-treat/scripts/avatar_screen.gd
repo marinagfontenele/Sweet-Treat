@@ -37,8 +37,8 @@ var current_mode = "avatar"
 var current_character = null
 var current_backgound = null
 
-var selected_character_index = 0
-var selected_background_index = 0
+var selected_character_index = GameManager.player_character_index
+var selected_background_index = GameManager.player_background_index
 
 
 func _ready():

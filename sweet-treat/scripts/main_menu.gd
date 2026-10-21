@@ -46,7 +46,7 @@ func _ready() -> void:
 			_on_customization_confirmed
 		)
 		
-	_aplicar_perfil()
+	_apply_profile()
 
 	var name_input = _find_node_by_name(self, "PlayerNameInput") as LineEdit
 	if name_input:
@@ -66,17 +66,17 @@ func _find_node_by_name(node: Node, node_name: String) -> Node:
 	return null
 
 
-func _salvar_nome_jogador() -> void:
-	var name_input = _find_node_by_name(self, "PlayerNameInput") as LineEdit
-	if name_input and name_input.text.strip_edges() != "":
-		GameManager.player_name = name_input.text.strip_edges()
-	else:
-		GameManager.player_name = "Jogador_%d" % randi_range(10, 99)
+#func _salvar_nome_jogador() -> void:
+	#var name_input = _find_node_by_name(self, "PlayerNameInput") as LineEdit
+	#if name_input and name_input.text.strip_edges() != "":
+		#GameManager.player_name = name_input.text.strip_edges()
+	#else:
+		#GameManager.player_name = "Jogador_%d" % randi_range(10, 99)
 
 
 ## HOST: Gera o código de 1 a 9999
 func _on_create_room_pressed() -> void:
-	_salvar_nome_jogador()
+#	_salvar_nome_jogador()
 	
 	# Gera um código estritamente de 4 dígitos (1000 a 9999)
 	var generated_code: int = randi_range(1000, 9999)
@@ -118,7 +118,7 @@ func _on_confirm_join_pressed() -> void:
 			var entered_code: int = typed_text.to_int()
 			print("Procurando sala com o código: %d" % entered_code)
 			
-			_salvar_nome_jogador()
+			#_salvar_nome_jogador()
 			GameManager.current_room_code = entered_code
 			
 			if code_modal:
@@ -132,7 +132,7 @@ func _on_confirm_join_pressed() -> void:
 			input_field.text = ""
 			
 
-func _aplicar_perfil() -> void:
+func _apply_profile() -> void:
 	var name_input = _find_node_by_name(self, "PlayerNameInput") as LineEdit
 	if name_input:
 		name_input.text = GameManager.player_name
@@ -143,11 +143,13 @@ func _aplicar_perfil() -> void:
 
 	var character_background = _find_node_by_name(self, "CharacterBackground") as Button
 	if character_background:
-		var style = character_background.get_theme_stylebox("normal").duplicate()
-		if style is StyleBoxFlat:
-			style.bg_color = GameManager.player_background
-			character_background.add_theme_stylebox_override("normal", style)
+		for shape in ["normal", "hover", "pressed", "focus"]:
+			var style = character_background.get_theme_stylebox(shape).duplicate()
+
+			if style is StyleBoxFlat:
+				style.bg_color = GameManager.player_background
+				character_background.add_theme_stylebox_override(shape, style)
 
 
 func _on_customization_confirmed(_nickname: String, _character: Texture2D, _background: Color) -> void:
-	_aplicar_perfil()
+	_apply_profile()

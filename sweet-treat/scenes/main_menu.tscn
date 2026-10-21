@@ -30,6 +30,30 @@ corner_radius_bottom_right = 100
 corner_radius_bottom_left = 100
 corner_detail = 20
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a8gd2"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hstxw"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+corner_detail = 20
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_62e2m"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x3rtj"]
@@ -39,6 +63,32 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+corner_detail = 20
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8egab"]
+bg_color = Color(0.7764706, 0.25490198, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gw5y6"]
+bg_color = Color(0.7764706, 0.25490198, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
 corner_radius_top_left = 100
 corner_radius_top_right = 100
 corner_radius_bottom_right = 100
@@ -177,9 +227,11 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_8v716")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_a8gd2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hstxw")
 
 [node name="Avatar" type="TextureRect" parent="PlayerArea/MarginContainer/HBoxContainer/HBoxContainer/CharacterBackground" unique_id=1170985412]
-custom_minimum_size = Vector2(36, 38)
+custom_minimum_size = Vector2(-1, -1)
 custom_maximum_size = Vector2(36, 38)
 layout_mode = 1
 anchors_preset = 8
@@ -196,7 +248,8 @@ grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 mouse_filter = 2
-expand_mode = 3
+expand_mode = 5
+stretch_mode = 5
 
 [node name="EditButton" type="Button" parent="PlayerArea/MarginContainer/HBoxContainer/HBoxContainer" unique_id=1928702834]
 custom_minimum_size = Vector2(23, 23)
@@ -207,6 +260,8 @@ size_flags_vertical = 8
 theme_override_font_sizes/font_size = 24
 theme_override_icons/icon = SubResource("ViewportTexture_62e2m")
 theme_override_styles/normal = SubResource("StyleBoxFlat_x3rtj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8egab")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gw5y6")
 
 [node name="TextureRect" type="TextureRect" parent="PlayerArea/MarginContainer/HBoxContainer/HBoxContainer/EditButton" unique_id=1533006404]
 custom_minimum_size = Vector2(12, 14)
