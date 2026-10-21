@@ -6,24 +6,23 @@ extends Node
 var player_containers: Array = []
 
 func _ready() -> void:
-	# 1. Exibe o código da sala gerado
 	if room_code_label:
 		room_code_label.text = "Código: %d" % GameManager.current_room_code
 
-	# 2. Conecta o botão de iniciar
 	if play_button:
-		play_button.pressed.connect(go_to_create_questions)
+		play_button.visible = GameManager.is_host
+		if GameManager.is_host and not play_button.pressed.is_connected(go_to_create_questions):
+			play_button.pressed.connect(go_to_create_questions)
 
-	# 3. Coleta os containers principais da grade
+	if not GameManager.lobby_updated.is_connected(update_lobby_ui):
+		GameManager.lobby_updated.connect(update_lobby_ui)
+
 	_collect_player_containers(self)
 
-	# 4. Atualiza a interface
+	GameManager._enviar_handshake_nome()
 	update_lobby_ui()
 
-	print("Lobby pronto! Total de slots visuais encontrados: %d" % player_containers.size())
 
-
-# Função recursiva para achar os AspectRatioContainers que contêm os slots de player
 func _collect_player_containers(node: Node) -> void:
 	if node is AspectRatioContainer and node.has_node("PlayerLobby"):
 		player_containers.append(node)
@@ -31,45 +30,27 @@ func _collect_player_containers(node: Node) -> void:
 		_collect_player_containers(child)
 
 
-# Atualiza a interface do lobby garantindo que o host e os conectados apareçam
 func update_lobby_ui() -> void:
-	# Pega a lista oficial de conectados
-	var display_list = []
-	
-	if GameManager.current_match:
-		display_list = GameManager.current_match.get_players()
-	
-	# GARANTIA: Se a lista da partida estiver vazia mas nós somos o host (ou estamos na sala),
-	# adicionamos pelo menos o jogador local (Host) para ele nunca sumir da tela!
-	if display_list.size() == 0 and GameManager.local:
-		display_list.append(GameManager.local)
+	var display_names: Array = []
 
-	print("Total de jogadores para exibir no lobby: %d" % display_list.size())
-	
+	for p_id in GameManager.connected_players_names.keys():
+		var p_name = GameManager.connected_players_names[p_id]
+		if not display_names.has(p_name):
+			display_names.append(p_name)
+
 	for i in range(player_containers.size()):
 		var container = player_containers[i]
 		var player_lobby_node = container.get_node("PlayerLobby")
-		
-		# Se existe um jogador para este slot
-		if i < display_list.size():
-			var player = display_list[i]
-			container.visible = true # Mostra o slot na grade
-			
+
+		if i < display_names.size():
+			container.visible = true
 			var name_label = _find_label_in_node(player_lobby_node)
 			if name_label:
-				# Pega o nome do player (GKPlayer ou GKLocalPlayer)
-				if "display_name" in player and player.display_name:
-					name_label.text = player.display_name
-				else:
-					name_label.text = "Host / Jogador"
-				
-				print("Slot %d preenchido com sucesso." % i)
+				name_label.text = display_names[i]
 		else:
-			# Se o slot estiver vazio, esconde o container inteiro da grade
 			container.visible = false
 
 
-# Função auxiliar para achar uma Label dentro do componente do player
 func _find_label_in_node(node: Node) -> Label:
 	if node is Label:
 		return node
@@ -81,5 +62,8 @@ func _find_label_in_node(node: Node) -> Label:
 
 
 func go_to_create_questions() -> void:
-	print("Host iniciou a partida! Indo para a criação de perguntas...")
-	GameManager.change_scene("res://scenes/create_questions.tscn")
+	if not GameManager.is_host:
+		return
+
+	# Envia room_config + start_game (com a configuração) e troca a cena do Host
+	GameManager.host_start_game()

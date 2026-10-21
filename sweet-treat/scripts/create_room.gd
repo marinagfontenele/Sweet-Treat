@@ -1,117 +1,144 @@
 extends Node
 
-# Aponta para o Label onde aparece o código
-@onready var room_code_label: Label = $VBoxContainer/HBoxContainer/Panel/VBoxContainer/Panel/RoomCodeLabel
+const QUESTION_OPTIONS := [1, 2, 3]
+const ANSWER_OPTIONS := [30, 45, 60]
+const VOTE_OPTIONS := [15, 20, 30]
 
-@onready var botao_quest1 = $VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ConfigurationButtonButton
-@onready var botao_quest2 = $VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ConfigurationButtonButton2
-@onready var botao_quest3 = $VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ConfigurationButtonButton3
+@onready var room_code_label = _get_node_or_find("MarginContainer/VBoxContainer/HBoxContainer/Panel/VBoxContainer/Panel/RoomCodeLabel", "RoomCodeLabel")
+@onready var play_button = _get_node_or_find("MarginContainer/PlayButton", "PlayButton")
 
-@onready var botao_resp1 = $VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/ConfigurationButtonButton
-@onready var botao_resp2 = $VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/ConfigurationButtonButton2
-@onready var botao_resp3 = $VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/ConfigurationButtonButton3
+# groups[0] = perguntas, groups[1] = tempo de resposta, groups[2] = tempo de votação
+var groups: Array = [[], [], []]
+var selected_idx: Array = [0, 0, 0]
 
-@onready var botao_vote1 = $VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3/ConfigurationButtonButton
-@onready var botao_vote2 = $VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3/ConfigurationButtonButton2
-@onready var botao_vote3 = $VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3/ConfigurationButtonButton3
-
-@onready var play_button = $VBoxContainer/HBoxContainer/PlayButton
 
 func _ready() -> void:
-	# 1. Exibe o código da sala gerado pelo sistema na tela de configuração
 	if room_code_label:
-		room_code_label.text = "%d" % GameManager.current_room_code
-		print("Código da sala exibido na tela de configuração com sucesso!")
+		room_code_label.text = "%04d" % GameManager.current_room_code
 	else:
-		print("Aviso: RoomCodeLabel não foi encontrado no caminho especificado.")
+		push_error("RoomCodeLabel não encontrado na cena!")
 
-	configure_quest_buttons()
-	configure_resp_buttons()
-	configure_vote_buttons()
+	_collect_option_buttons()
+	for g in range(3):
+		_setup_group(g)
+	_apply_config()
 
 	if play_button:
+		if play_button.pressed.is_connected(go_to_lobby):
+			play_button.pressed.disconnect(go_to_lobby)
 		play_button.pressed.connect(go_to_lobby)
-		print("PlayButton conectado com sucesso!")
+	else:
+		push_error("PlayButton não encontrado na cena create_room!")
 
-	print("Tela de configuração pronta!")
+	print("create_room pronta. Botões: perguntas=%d, resposta=%d, voto=%d" % [groups[0].size(), groups[1].size(), groups[2].size()])
 
-func configure_quest_buttons():
-	botao_quest1.toggled.connect(func(pressionado):
-		if pressionado:
-			botao_quest2.button_pressed = false
-			botao_quest3.button_pressed = false
-	)
-		
-	botao_quest2.toggled.connect(func(pressionado):
-		if pressionado:
-			botao_quest1.button_pressed = false
-			botao_quest3.button_pressed = false
-	)
-	
-	botao_quest3.toggled.connect(func(pressionado):
-		if pressionado:
-			botao_quest1.button_pressed = false
-			botao_quest2.button_pressed = false
-	)
-	
 
-func configure_resp_buttons():
-	botao_resp1.toggled.connect(func(pressionado):
-		if pressionado:
-			botao_resp2.button_pressed = false
-			botao_resp3.button_pressed = false
-	)
-		
-	botao_resp2.toggled.connect(func(pressionado):
-		if pressionado:
-			botao_resp1.button_pressed = false
-			botao_resp3.button_pressed = false
-	)
-	
-	botao_resp3.toggled.connect(func(pressionado):
-		if pressionado:
-			botao_resp1.button_pressed = false
-			botao_resp2.button_pressed = false
-	)
+func _get_node_or_find(path: String, node_name: String) -> Node:
+	var n = get_node_or_null(path)
+	if n == null:
+		n = find_child(node_name, true, false)
+	return n
 
-func configure_vote_buttons():
-	botao_vote1.toggled.connect(func(pressionado):
-		if pressionado:
-			botao_vote2.button_pressed = false
-			botao_vote3.button_pressed = false
-	)
-		
-	botao_vote2.toggled.connect(func(pressionado):
-		if pressionado:
-			botao_vote1.button_pressed = false
-			botao_vote3.button_pressed = false
-	)
-	
-	botao_vote3.toggled.connect(func(pressionado):
-		if pressionado:
-			botao_vote1.button_pressed = false
-			botao_vote2.button_pressed = false
-	)
+
+# ---------------------------------------------------------------------
+# Descoberta dos botões (não depende do caminho exato na cena)
+# ---------------------------------------------------------------------
+func _collect_option_buttons() -> void:
+	var rows: Dictionary = {}
+	_scan_named(self, rows)
+
+	# Plano B: qualquer linha com 3+ botões (exceto o PlayButton)
+	if rows.size() < 3:
+		rows.clear()
+		_scan_generic(self, rows)
+
+	var ordered: Array = []
+	if rows.has("HBoxContainer") and rows.has("HBoxContainer2") and rows.has("HBoxContainer3"):
+		ordered = [rows["HBoxContainer"], rows["HBoxContainer2"], rows["HBoxContainer3"]]
+	else:
+		for k in rows.keys():
+			ordered.append(rows[k])
+
+	if ordered.size() >= 3:
+		for g in range(3):
+			var arr: Array = ordered[g]
+			arr.sort_custom(func(a, b): return String(a.name) < String(b.name))
+			groups[g] = arr
+	else:
+		push_error("Não achei as 3 linhas de botões de configuração (achei %d)." % ordered.size())
+
+
+func _scan_named(node: Node, rows: Dictionary) -> void:
+	for child in node.get_children():
+		if child is BaseButton and String(child.name).begins_with("ConfigurationButtonButton"):
+			var key := String(node.name)
+			if not rows.has(key):
+				rows[key] = []
+			rows[key].append(child)
+		_scan_named(child, rows)
+
+
+func _scan_generic(node: Node, rows: Dictionary) -> void:
+	var buttons: Array = []
+	for child in node.get_children():
+		if child is BaseButton and String(child.name) != "PlayButton":
+			buttons.append(child)
+	if buttons.size() >= 3:
+		rows[String(node.name) + "_" + str(node.get_instance_id())] = buttons
+	for child in node.get_children():
+		_scan_generic(child, rows)
+
+
+# ---------------------------------------------------------------------
+# Seleção estilo "rádio" baseada no clique (sinal pressed)
+# ---------------------------------------------------------------------
+func _setup_group(g: int) -> void:
+	var buttons: Array = groups[g]
+	if buttons.is_empty():
+		return
+
+	selected_idx[g] = 0
+	for i in range(buttons.size()):
+		if buttons[i].button_pressed:
+			selected_idx[g] = i
+			break
+	_mark_selected(g)
+
+	for i in range(buttons.size()):
+		buttons[i].pressed.connect(_on_option_pressed.bind(g, i))
+
+
+func _on_option_pressed(g: int, i: int) -> void:
+	selected_idx[g] = i
+	_mark_selected(g)
+	_apply_config()
+
+
+func _mark_selected(g: int) -> void:
+	var buttons: Array = groups[g]
+	for j in range(buttons.size()):
+		buttons[j].set_pressed_no_signal(j == selected_idx[g])
+
+
+func _value_for(g: int, options: Array, default_value: int) -> int:
+	var i: int = selected_idx[g]
+	if groups[g].size() > 0 and i < options.size():
+		return options[i]
+	return default_value
+
+
+func _apply_config() -> void:
+	GameManager.config_questions_per_player = _value_for(0, QUESTION_OPTIONS, 1)
+	GameManager.config_answer_time = _value_for(1, ANSWER_OPTIONS, 30)
+	GameManager.config_vote_time = _value_for(2, VOTE_OPTIONS, 15)
+	print("Config atual: %d perguntas/jogador, %ds resposta, %ds voto" % [
+		GameManager.config_questions_per_player,
+		GameManager.config_answer_time,
+		GameManager.config_vote_time
+	])
 
 
 func go_to_lobby() -> void:
-	print("Botão de ir para lobby clicado! Salvando configurações...")
-	
-	# Lógica para definir os valores com base no botão marcado
-	var questions = 1
-	if botao_quest2.button_pressed: 
-		questions = 2
-	elif botao_quest3.button_pressed: 
-		questions = 3
-	
-	# CORRIGIDO: Usando o nome exato da variável global do GameManager
-	GameManager.config_questions_per_player = questions
-	print("Quantidade de perguntas salva no GameManager: %d" % GameManager.config_questions_per_player)
-	
-	# Avança para o lobby
-	GameManager.change_scene("res://scenes/lobby_room.tscn")
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	_apply_config()
+	GameManager._enviar_handshake_nome()
+	GameManager.call_deferred("change_scene", "res://scenes/lobby_room.tscn")

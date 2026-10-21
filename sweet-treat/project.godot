@@ -13,7 +13,7 @@ config_version=5
 config/name="Sweet-Treat"
 run/main_scene="uid://lbsc0ppjr8gs"
 config/features=PackedStringArray("4.7", "Mobile")
-config/icon="res://icon.svg"
+config/icon="uid://dcvycn4akuvci"
 <<<<<<<HEADconfig/name="Sweet-Treat"
 
 [autoload]
@@ -40,15 +40,26 @@ textures/vram_compression/import_etc2_astc=true
 [xogot]
 
 project/editorState=[{
-"column": 0,
-"current": true,
-"line": 142,
+"column": 6,
+"line": 48,
 "path": "res://scripts/game_manager.gd",
+"type": "file"
+}, {
+"column": 0,
+"line": 31,
+"path": "res://scripts/main_menu.gd",
+"transient": true,
 "type": "file"
 }, {
 "column": 0,
 "line": 0,
 "path": "res://scripts/button.gd",
+"type": "file"
+}, {
+"column": 23,
+"current": true,
+"line": 55,
+"path": "res://scripts/create_questions.gd",
 "type": "file"
 }]
 project/shaderEditorState=[]
