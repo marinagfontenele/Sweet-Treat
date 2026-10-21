@@ -13,7 +13,7 @@ config_version=5
 config/name="Sweet-Treat"
 run/main_scene="uid://lbsc0ppjr8gs"
 config/features=PackedStringArray("4.7", "Mobile")
-config/icon="res://icon.svg"
+config/icon="uid://dcvycn4akuvci"
 <<<<<<<HEADconfig/name="Sweet-Treat"
 
 [autoload]

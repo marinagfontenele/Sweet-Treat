@@ -62,8 +62,9 @@ theme_override_constants/margin_right = 60
 theme_override_constants/margin_bottom = 40
 
 [node name="Label2" parent="TextureRect/MarginContainer/TextureRect/MarginContainer" unique_id=625587219 instance=ExtResource("4_6068r")]
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 1
-text = "A pergunta aparecerá aqui para o usuário ver"
+text = ""
 label_settings = SubResource("LabelSettings_gl0tk")
 autowrap_mode = 2
