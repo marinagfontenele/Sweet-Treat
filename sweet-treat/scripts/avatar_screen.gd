@@ -172,6 +172,7 @@ func _on_finish_button_pressed() -> void:
 	GameManager.player_background_index = selected_background_index
 	GameManager.player_character = current_character
 	GameManager.player_background = current_backgound
+	GameManager._save_profile()
 
 	customization_confirmed.emit(nickname, current_character, current_backgound)
 

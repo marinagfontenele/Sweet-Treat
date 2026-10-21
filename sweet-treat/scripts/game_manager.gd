@@ -52,6 +52,8 @@ var current_round_answers: Array = []
 ## FUNÇÕES PADRÃO DO CICLO DE VIDA E UTILITÁRIOS GERAIS
 ## =====================================================================
 
+const SAVE_PATH = "user://player_profile.cfg"
+
 var characters = [
 	preload("res://assets/images/characters/character1.svg"),
 	preload("res://assets/images/characters/character2.svg"),
@@ -92,8 +94,54 @@ var player_background: Color = DEFAULT_BACKGROUND
 ## =====================================================================
 
 func _ready() -> void:
-	if player_name == "":
+	var perfil_carregado = _load_profile()
+
+	if player_name.strip_edges() == "":
 		player_name = "Jogador_%d" % randi_range(10, 99)
+
+	if not perfil_carregado:
+		_save_profile()
+
+
+func _save_profile() -> void:
+	var config = ConfigFile.new()
+
+	config.set_value("perfil", "nome", player_name)
+	config.set_value("perfil", "personagem", player_character_index)
+	config.set_value("perfil", "fundo", player_background_index)
+
+	var error = config.save(SAVE_PATH)
+
+	if error != OK:
+		print("Erro ao salvar perfil: ", error)
+
+
+func _load_profile() -> bool:
+	var config = ConfigFile.new()
+
+	var error = config.load(SAVE_PATH)
+
+	if error != OK:
+		return false
+
+	player_name = config.get_value("perfil", "nome", player_name)
+
+	player_character_index = clampi(
+		config.get_value("perfil", "personagem", player_character_index),
+		0,
+		characters.size() - 1
+	)
+
+	player_background_index = clampi(
+		config.get_value("perfil", "fundo", player_background_index),
+		0,
+		backgrounds.size() - 1
+	)
+
+	player_character = characters[player_character_index]
+	player_background = backgrounds[player_background_index]
+
+	return true
 
 func change_scene(scene: String) -> void:
 	get_tree().change_scene_to_file(scene)

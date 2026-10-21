@@ -51,9 +51,17 @@ func _ready() -> void:
 	var name_input = _find_node_by_name(self, "PlayerNameInput") as LineEdit
 	if name_input:
 		name_input.select_all_on_focus = true
-		name_input.text_changed.connect(func(t: String) -> void:
-			GameManager.player_name = t.strip_edges()
-		)
+		name_input.text_changed.connect(_on_player_name_changed)
+
+
+func _on_player_name_changed(new_name: String) -> void:
+	GameManager.player_name = new_name.strip_edges()
+
+	print("Nome digitado: ", GameManager.player_name)
+
+	GameManager.save_profile()
+
+	print("Salvamento solicitado.")
 
 
 func _find_node_by_name(node: Node, node_name: String) -> Node:
