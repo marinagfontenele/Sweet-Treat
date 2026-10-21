@@ -142,3 +142,16 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 texture = ExtResource("2_s4esf")
+
+[node name="TomatoBadge" type="Label" parent="VBoxContainer/MarginContainer/AspectRatioContainer/Panel" unique_id=918830606]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -34.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.13725491, 0.1764706, 1, 1)

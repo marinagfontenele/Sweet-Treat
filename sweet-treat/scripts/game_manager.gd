@@ -6,6 +6,7 @@ extends Node
 signal lobby_updated
 signal resposta_recebida
 signal questions_synced
+signal vote_received
 
 ## =====================================================================
 ## VARIÁVEIS GLOBAIS DE ESTADO E REDE (GAME CENTER)
@@ -52,6 +53,12 @@ var current_question_index: int = 0
 
 # { indice_da_rodada: { player_id: { "id", "player", "answer" } } }
 var answers_by_round: Dictionary = {}
+
+# [player_id: accumulated_tomatoes_count]
+var player_tomatoes: Dictionary = {}
+
+# { round_index: { voter_id: target_player_id } }
+var votes_by_round: Dictionary = {}
 
 ## =====================================================================
 ## FUNÇÕES PADRÃO DO CICLO DE VIDA E UTILITÁRIOS GERAIS
@@ -165,7 +172,8 @@ func reset_match_state() -> void:
 	questions_finalized = false
 	current_question_index = 0
 	answers_by_round.clear()
-
+	votes_by_round.clear()
+	player_tomatoes.clear()
 
 ## =====================================================================
 ## AUTENTICAÇÃO E SALAS VIA APPLE GAME CENTER
@@ -323,6 +331,12 @@ func _processar_pacote_rede(data: PackedByteArray, _from_player: GKPlayer = null
 				print("Resposta (rodada %d) de %s: %s" % [remote_round, remote_player, remote_answer])
 				emit_signal("resposta_recebida")
 
+		"player_vote":
+			var voter = str(dict.get("voter_id", ""))
+			var target = str(dict.get("target_id", ""))
+			var r_idx = int(dict.get("round", current_question_index))
+			if voter != "":
+				register_vote(voter, target, r_idx)
 
 func _notificar_atualizacao_lobby() -> void:
 	emit_signal("lobby_updated")
@@ -482,6 +496,90 @@ func get_expected_players_count() -> int:
 
 func clear_round_answers() -> void:
 	answers_by_round.erase(current_question_index)
+
+
+## =====================================================================
+## VOTING AND PENALTIES (TOMATO SYSTEM)
+## =====================================================================
+
+func register_vote(voter_id: String, target_id: String, round_idx: int = current_question_index) -> void:
+	if not votes_by_round.has(round_idx):
+		votes_by_round[round_idx] = {}
+	
+	votes_by_round[round_idx][voter_id] = target_id
+	print("Vote registered in round %d: %s -> %s" % [round_idx, voter_id, target_id])
+	emit_signal("vote_received")
+
+
+func send_my_vote(target_player_id: String) -> void:
+	register_vote(_my_id(), target_player_id, current_question_index)
+	
+	_enviar_pacote_json({
+		"type": "player_vote",
+		"voter_id": _my_id(),
+		"target_id": target_player_id,
+		"round": current_question_index
+	})
+
+
+func calculate_round_penalties(round_idx: int = current_question_index) -> Dictionary:
+	var round_penalties: Dictionary = {}
+
+	# Ensure initialization for all players in the room
+	for pid in connected_players_names.keys():
+		if not player_tomatoes.has(pid):
+			player_tomatoes[pid] = 0
+		round_penalties[pid] = 0
+
+	var round_answers: Dictionary = answers_by_round.get(round_idx, {})
+	var round_votes: Dictionary = votes_by_round.get(round_idx, {})
+
+	# 1. Penalty for NOT sending an answer (2 tomatoes)
+	for pid in connected_players_names.keys():
+		if not round_answers.has(pid):
+			round_penalties[pid] += 2
+
+	# 2. Penalty for NOT voting (1 tomato)
+	for pid in connected_players_names.keys():
+		if not round_votes.has(pid):
+			round_penalties[pid] += 1
+
+	# 3. Count votes received by each player
+	var vote_counts: Dictionary = {}
+	for pid in connected_players_names.keys():
+		vote_counts[pid] = 0
+
+	for voter_id in round_votes.keys():
+		var target_id = round_votes[voter_id]
+		if vote_counts.has(target_id):
+			vote_counts[target_id] += 1
+
+	var max_votes := 0
+	for pid in vote_counts.keys():
+		if vote_counts[pid] > max_votes:
+			max_votes = vote_counts[pid]
+
+	# 4. Apply penalties based on votes (only if there are votes)
+	if max_votes > 0:
+		var most_voted_players: Array = []
+		for pid in vote_counts.keys():
+			if vote_counts[pid] == max_votes:
+				most_voted_players.append(pid)
+
+		if most_voted_players.size() == 1:
+			# Single worst answer = 2 tomatoes
+			var worst_player = most_voted_players[0]
+			round_penalties[worst_player] += 2
+		else:
+			# Tie = 1 tomato for each tied player
+			for player_id in most_voted_players:
+				round_penalties[player_id] += 1
+
+	# Accumulate round penalties into global player tomatoes
+	for pid in round_penalties.keys():
+		player_tomatoes[pid] += round_penalties[pid]
+
+	return round_penalties
 
 
 ## =====================================================================
