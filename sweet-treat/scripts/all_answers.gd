@@ -1,24 +1,37 @@
 extends Node
 
-# Array para guardar os containers visuais de cada resposta na tela
+# A votação ainda não existe: ao tocar numa resposta nada acontece.
+const VOTING_ENABLED := false
+
 var answer_slots: Array = []
 
 func _ready() -> void:
-	# 1. Coleta todos os containers de resposta na árvore da cena
 	_collect_answer_containers(self)
 
-	# 2. Conecta o sinal reativo para atualizar a tela automaticamente
-	# sempre que uma nova resposta chegar pela rede do Game Center
 	if not GameManager.resposta_recebida.is_connected(update_answers_ui):
 		GameManager.resposta_recebida.connect(update_answers_ui)
 
-	# 3. Preenche os cartões com as respostas que já estão salvas na memória
 	update_answers_ui()
+	print("all_answers pronta (rodada %d). Slots: %d" % [GameManager.current_question_index, answer_slots.size()])
 
-	print("Tela de respostas pronta! Total de slots encontrados: %d" % answer_slots.size())
+	_run_round_timer()
 
 
-# Função recursiva para achar os AspectRatioContainers que contêm os PlayerAnswer
+# Exibe as respostas por alguns segundos e depois vai para a próxima pergunta.
+# Na última pergunta, permanece nesta tela.
+func _run_round_timer() -> void:
+	var display_seconds: float = float(GameManager.config_vote_time)
+	await get_tree().create_timer(display_seconds).timeout
+	if not is_inside_tree():
+		return
+
+	if GameManager.advance_to_next_question():
+		print("Indo para a pergunta %d" % GameManager.current_question_index)
+		GameManager.change_scene("res://scenes/show_question.tscn")
+	else:
+		print("Fim das perguntas: permanecendo na exibição das últimas respostas.")
+
+
 func _collect_answer_containers(node: Node) -> void:
 	if node is AspectRatioContainer and node.has_node("PlayerAnswer"):
 		answer_slots.append(node)
@@ -26,47 +39,58 @@ func _collect_answer_containers(node: Node) -> void:
 		_collect_answer_containers(child)
 
 
-# Preenche os slots com as respostas reais
+func _collect_labels(node: Node, out: Array) -> void:
+	if node is Label:
+		out.append(node)
+	for child in node.get_children():
+		_collect_labels(child, out)
+
+
 func update_answers_ui() -> void:
-	var current_round_answers = GameManager.get_current_round_answers()
-	print("Atualizando UI de respostas. Total acumulado até agora: %d" % current_round_answers.size())
-	
+	var answers: Array = GameManager.get_current_round_answers()
+
 	for i in range(answer_slots.size()):
 		var container = answer_slots[i]
 		var player_answer_node = container.get_node("PlayerAnswer")
-		
-		if i < current_round_answers.size():
-			var data = current_round_answers[i]
-			container.visible = true
-			
-			# 1. Pega os nós específicos de nome e resposta no PlayerAnswer
-			var player_name_label: Label = player_answer_node.get_node_or_null("VBoxContainer/Label")
-			var answer_label: Label = player_answer_node.get_node_or_null("VBoxContainer/MarginContainer/AspectRatioContainer/Panel/Label")
-			
-			# 2. Atualiza os textos na tela
-			if player_name_label:
-				player_name_label.text = data.get("player", "Jogador")
-			if answer_label:
-				answer_label.text = data.get("answer", "")
-				
-			# 3. Configura o clique no botão para registrar o voto
-			if player_answer_node is BaseButton:
-				# Desconecta closures/funções antigas antes de reconectar para evitar votos duplicados
-				if player_answer_node.pressed.is_connected(_on_vote_pressed):
-					player_answer_node.pressed.disconnect(_on_vote_pressed)
-				
-				player_answer_node.pressed.connect(func(): _on_vote_pressed(data["player"]))
-		else:
-			# Esconde slots excedentes se houverem menos respostas que o total de slots
+
+		if i >= answers.size():
 			container.visible = false
+			continue
+
+		var data: Dictionary = answers[i]
+		container.visible = true
+
+		var player_name_label = player_answer_node.get_node_or_null("VBoxContainer/Label")
+		var answer_label = player_answer_node.get_node_or_null("VBoxContainer/MarginContainer/AspectRatioContainer/Panel/Label")
+
+		if player_name_label == null or answer_label == null:
+			var labels: Array = []
+			_collect_labels(player_answer_node, labels)
+			if labels.size() >= 2:
+				if player_name_label == null:
+					player_name_label = labels[0]
+				if answer_label == null:
+					answer_label = labels[labels.size() - 1]
+			elif labels.size() == 1 and answer_label == null:
+				answer_label = labels[0]
+
+		if player_name_label:
+			player_name_label.text = str(data.get("player", "Jogador"))
+		if answer_label:
+			answer_label.text = str(data.get("answer", ""))
+
+		if player_answer_node is BaseButton:
+			if player_answer_node.has_meta("vote_cb"):
+				var old_cb: Callable = player_answer_node.get_meta("vote_cb")
+				if player_answer_node.pressed.is_connected(old_cb):
+					player_answer_node.pressed.disconnect(old_cb)
+			var cb: Callable = _on_vote_pressed.bind(str(data.get("player", "")))
+			player_answer_node.pressed.connect(cb)
+			player_answer_node.set_meta("vote_cb", cb)
 
 
-# Função executada quando o jogador clica em uma resposta para votar
 func _on_vote_pressed(target_player: String) -> void:
+	if not VOTING_ENABLED:
+		return
 	print("Você votou na resposta de: %s" % target_player)
-	
-	# Registra o voto se necessário
-	# GameManager.register_vote(target_player)
-	
-	# Avança para a próxima etapa
 	GameManager.change_scene("res://scenes/most_voted.tscn")

@@ -129,7 +129,6 @@ theme_override_constants/margin_bottom = 10
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/AspectRatioContainer/Panel/MarginContainer" unique_id=122602241]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Resposta do jogador sobre a pergunta"
 label_settings = SubResource("LabelSettings_seen7")
 horizontal_alignment = 1
 vertical_alignment = 1

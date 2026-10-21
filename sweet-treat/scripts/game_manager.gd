@@ -5,6 +5,7 @@ extends Node
 ## =====================================================================
 signal lobby_updated
 signal resposta_recebida
+signal questions_synced
 
 ## =====================================================================
 ## VARIÁVEIS GLOBAIS DE ESTADO E REDE (GAME CENTER)
@@ -24,8 +25,10 @@ var current_room_code: int = 0
 var score: int = 0
 var player_name: String = ""
 
-# Dicionário para sincronizar IDs do GameCenter e Nomes: [player_id: nome_exibicao]
+# [player_id: nome_exibicao]
 var connected_players_names: Dictionary = {}
+
+var _fallback_id: String = "local_" + str(randi())
 
 ## =====================================================================
 ## CONFIGURAÇÕES DA SALA (DEFINIDAS PELO HOST)
@@ -36,22 +39,20 @@ var config_answer_time: int = 30
 var config_vote_time: int = 15
 
 ## =====================================================================
-## GERENCIAMENTO DE PERGUNTAS E RESPOSTAS DA PARTIDA
+## PERGUNTAS E RESPOSTAS DA PARTIDA
 ## =====================================================================
 
 var my_created_questions: Array = []
-var all_received_questions: Array = []
+# Perguntas agrupadas por jogador: { player_id: [perguntas] }
+var questions_by_player: Dictionary = {}
+# Lista usada pelas telas. Antes do embaralhamento oficial é só um acumulado.
 var game_questions: Array = []
+var questions_finalized: bool = false
 var current_question_index: int = 0
-var players_submitted_questions: int = 0
 
-# Armazena as respostas da rodada atual: [{ "player": "Nome", "answer": "Texto" }]
-var current_round_answers: Array = []
+# { indice_da_rodada: { player_id: { "id", "player", "answer" } } }
+var answers_by_round: Dictionary = {}
 
-
-## =====================================================================
-## FUNÇÕES PADRÃO DO CICLO DE VIDA E UTILITÁRIOS GERAIS
-## =====================================================================
 
 func _ready() -> void:
 	pass
@@ -62,9 +63,25 @@ func change_scene(scene: String) -> void:
 func add_score(quant: int) -> void:
 	tomato += quant
 
+func _my_id() -> String:
+	if local != null and str(local.game_player_id) != "":
+		return str(local.game_player_id)
+	return _fallback_id
+
+func _my_name() -> String:
+	return player_name if player_name != "" else "Jogador"
+
+func reset_match_state() -> void:
+	my_created_questions.clear()
+	questions_by_player.clear()
+	game_questions.clear()
+	questions_finalized = false
+	current_question_index = 0
+	answers_by_round.clear()
+
 
 ## =====================================================================
-## AUTENTICAÇÃO E GERENCIAMENTO DE SALAS VIA APPLE GAME CENTER
+## AUTENTICAÇÃO E SALAS VIA APPLE GAME CENTER
 ## =====================================================================
 
 func authenticate() -> void:
@@ -73,7 +90,7 @@ func authenticate() -> void:
 	game_center.authentication_error.connect(func(error: String) -> void:
 		print("Erro de autenticação Game Center: %s" % error)
 	)
-	
+
 	game_center.authentication_result.connect(func(status: bool) -> void:
 		print("Status de autenticação: %s" % status)
 		if status and game_center.local_player:
@@ -87,24 +104,24 @@ func join_room_with_code(room_code: int, am_i_host: bool) -> void:
 	if game_center == null or game_center.local_player == null:
 		print("Erro: Jogador não autenticado no Game Center!")
 		return
-		
+
 	is_host = am_i_host
 	current_room_code = room_code
 	connected_players_names.clear()
-	
+
 	var req := GKMatchRequest.new()
-	req.max_players = 4 
+	req.max_players = 4
 	req.min_players = 2
 	req.player_group = room_code
-	
+
 	print("Buscando/Criando sala no Game Center (Player Group): %d..." % room_code)
-	
+
 	matchmaker = GKMatchmaker.new()
 	matchmaker.find_match(req, func(game_match: GKMatch, error: Variant) -> void:
 		if error != null:
 			print("Matchmaker falhou com erro: %s" % str(error))
 			return
-			
+
 		if game_match != null:
 			print("Partida estabelecida com sucesso via Game Center!")
 			call_deferred("_configurar_partida", game_match)
@@ -114,30 +131,24 @@ func join_room_with_code(room_code: int, am_i_host: bool) -> void:
 func _configurar_partida(game_match: GKMatch) -> void:
 	current_match = game_match
 	RenderingServer.set_default_clear_color(Color("#1e7e34"))
-	
+
 	game_match.data_received.connect(func(data: PackedByteArray, from_player: GKPlayer) -> void:
 		call_deferred("_processar_pacote_rede", data, from_player)
 	)
-	
+
 	game_match.data_received_for_recipient_from_player.connect(func(data: PackedByteArray, _for_recipient: GKPlayer, from_remote_player: GKPlayer) -> void:
 		call_deferred("_processar_pacote_rede", data, from_remote_player)
 	)
-	
+
 	game_match.player_changed.connect(func(_player: GKPlayer, _connected: bool) -> void:
 		_enviar_handshake_nome()
 		call_deferred("_notificar_atualizacao_lobby")
 	)
 
-	# Registra o id e nome local
-	var my_id = local.game_player_id if local else "local_" + str(randi())
-	connected_players_names[my_id] = player_name if player_name != "" else "Jogador"
-
-	# Notifica a rede enviando handshake
+	connected_players_names[_my_id()] = _my_name()
 	_enviar_handshake_nome()
 
-	# REGRA CRÍTICA DE NAVEGAÇÃO:
-	# Se for Convidado, transiciona para o lobby ao conectar.
-	# Se for Host, NÃO toca na cena (o Host navega ao clicar no botão de avançar).
+	# Convidado vai para o lobby ao conectar; o Host navega pelo botão.
 	if not is_host:
 		if get_tree().current_scene and get_tree().current_scene.scene_file_path != "res://scenes/lobby_room.tscn":
 			call_deferred("change_scene", "res://scenes/lobby_room.tscn")
@@ -146,61 +157,84 @@ func _configurar_partida(game_match: GKMatch) -> void:
 
 
 func _enviar_handshake_nome() -> void:
-	var my_id = local.game_player_id if local else "local"
-	var packet = {
+	_enviar_pacote_json({
 		"type": "player_info",
-		"id": my_id,
-		"name": player_name if player_name != "" else "Jogador"
-	}
-	_enviar_pacote_json(packet)
+		"id": _my_id(),
+		"name": _my_name()
+	})
 
 
 func _processar_pacote_rede(data: PackedByteArray, _from_player: GKPlayer = null) -> void:
 	var text = data.get_string_from_utf8()
 	var json = JSON.new()
 	var error = json.parse(text)
-	
-	if error == OK:
-		var dict = json.get_data()
-		if dict is Dictionary and dict.has("type"):
-			
-			match dict["type"]:
-				"player_info":
-					var p_id = dict.get("id", "")
-					var p_name = dict.get("name", "Jogador")
-					connected_players_names[p_id] = p_name
-					print("Player conectado identificado via rede: %s" % p_name)
-					emit_signal("lobby_updated")
+	if error != OK:
+		return
 
-				"player_questions":
-					var remote_questions = dict["questions"]
-					for q in remote_questions:
-						if not game_questions.has(q):
-							game_questions.append(q)
-					
-				"player_answer":
-					var remote_player = dict.get("player", "Jogador")
-					var remote_answer = dict.get("answer", "")
-					
-					var entry = { "player": remote_player, "answer": remote_answer }
-					
-					var ja_existe = false
-					for ans in current_round_answers:
-						if ans["player"] == remote_player and ans["answer"] == remote_answer:
-							ja_existe = true
-							break
-					
-					if not ja_existe:
-						current_round_answers.append(entry)
-						print("Nova resposta recebida via rede de %s: %s" % [remote_player, remote_answer])
-						emit_signal("resposta_recebida")
-					
-				"official_game_questions":
-					game_questions = dict["questions"]
-					
-				"start_game":
-					print("Host iniciou o jogo! Convidado trocando de cena...")
-					call_deferred("change_scene", "res://scenes/create_questions.tscn")
+	var dict = json.get_data()
+	if not (dict is Dictionary and dict.has("type")):
+		return
+
+	match dict["type"]:
+		"player_info":
+			var p_id = str(dict.get("id", ""))
+			connected_players_names[p_id] = str(dict.get("name", "Jogador"))
+			print("Jogador identificado na sala: %s" % connected_players_names[p_id])
+			emit_signal("lobby_updated")
+
+		"room_config":
+			config_questions_per_player = int(dict.get("questions_per_player", 1))
+			config_answer_time = int(dict.get("answer_time", 30))
+			config_vote_time = int(dict.get("vote_time", 15))
+			print("Configurações via rede: %d perguntas/jogador." % config_questions_per_player)
+
+		"start_game":
+			print("Host iniciou o jogo!")
+			reset_match_state()
+			# A configuração vem junto do comando (não depende da ordem dos pacotes)
+			if dict.has("questions_per_player"):
+				config_questions_per_player = int(dict.get("questions_per_player", 1))
+				config_answer_time = int(dict.get("answer_time", config_answer_time))
+				config_vote_time = int(dict.get("vote_time", config_vote_time))
+				print("Config recebida no start_game: %d perguntas/jogador." % config_questions_per_player)
+			call_deferred("change_scene", "res://scenes/create_questions.tscn")
+
+		"player_questions":
+			var sender_id = str(dict.get("id", ""))
+			var remote_questions = dict.get("questions", [])
+			if sender_id != "" and remote_questions is Array:
+				questions_by_player[sender_id] = remote_questions
+				_rebuild_game_questions()
+				print("Perguntas recebidas de %s. Total acumulado: %d" % [sender_id, get_total_questions_received()])
+			emit_signal("lobby_updated")
+
+		"official_game_questions":
+			var official = dict.get("questions", [])
+			if official is Array and not official.is_empty():
+				game_questions = official
+				questions_finalized = true
+				print("Lista oficial sincronizada: %s" % str(game_questions))
+				emit_signal("questions_synced")
+
+		"start_display_questions":
+			# A lista vem junto do comando para evitar corrida entre pacotes.
+			var official_list = dict.get("questions", [])
+			if official_list is Array and not official_list.is_empty():
+				game_questions = official_list
+				questions_finalized = true
+			current_question_index = 0
+			emit_signal("questions_synced")
+			print("Host liberou a exibição de perguntas!")
+			call_deferred("change_scene", "res://scenes/show_question.tscn")
+
+		"player_answer":
+			var remote_player = str(dict.get("player", "Jogador"))
+			var remote_answer = str(dict.get("answer", ""))
+			var remote_id = str(dict.get("id", remote_player))
+			var remote_round = int(dict.get("round", current_question_index))
+			if _store_answer(remote_round, remote_id, remote_player, remote_answer):
+				print("Resposta (rodada %d) de %s: %s" % [remote_round, remote_player, remote_answer])
+				emit_signal("resposta_recebida")
 
 
 func _notificar_atualizacao_lobby() -> void:
@@ -218,67 +252,170 @@ func _enviar_pacote_json(packet: Dictionary) -> void:
 
 
 ## =====================================================================
-## FLUXO DE ENVIO DE PERGUNTAS E RESPOSTAS
+## FLUXO DE CRIAÇÃO E ENVIO DE PERGUNTAS
 ## =====================================================================
 
+func _rebuild_game_questions() -> void:
+	# Depois da lista oficial (embaralhada) não reconstruímos mais.
+	if questions_finalized:
+		return
+	game_questions.clear()
+	for pid in questions_by_player.keys():
+		for q in questions_by_player[pid]:
+			game_questions.append(q)
+
+func get_total_questions_received() -> int:
+	var total := 0
+	for pid in questions_by_player.keys():
+		total += questions_by_player[pid].size()
+	return total
+
+
 func send_my_questions_to_others() -> void:
+	questions_by_player[_my_id()] = my_created_questions.duplicate()
+	_rebuild_game_questions()
+
 	if current_match == null:
+		# Modo local/teste sem rede
 		game_questions = my_created_questions.duplicate()
 		game_questions.shuffle()
+		questions_finalized = true
+		emit_signal("lobby_updated")
 		return
 
 	_enviar_pacote_json({
 		"type": "player_questions",
+		"id": _my_id(),
 		"questions": my_created_questions
 	})
-	
-	for q in my_created_questions:
-		if not game_questions.has(q):
-			game_questions.append(q)
+	emit_signal("lobby_updated")
+
+
+func host_start_game() -> void:
+	if not is_host:
+		return
+
+	reset_match_state()
+
+	_enviar_pacote_json({
+		"type": "room_config",
+		"questions_per_player": config_questions_per_player,
+		"answer_time": config_answer_time,
+		"vote_time": config_vote_time
+	})
+	_enviar_pacote_json({
+		"type": "start_game",
+		"questions_per_player": config_questions_per_player,
+		"answer_time": config_answer_time,
+		"vote_time": config_vote_time
+	})
+
+	print("Host iniciando jogo com %d perguntas/jogador." % config_questions_per_player)
+	call_deferred("change_scene", "res://scenes/create_questions.tscn")
+
 
 func host_finalize_and_shuffle_questions() -> void:
 	if not is_host:
 		return
-		
+	questions_finalized = false
+	_rebuild_game_questions()
 	game_questions.shuffle()
+	questions_finalized = true
+	current_question_index = 0
+	print("Lista final embaralhada pelo Host: %s" % str(game_questions))
+
+
+func host_start_question_display() -> void:
+	if not is_host:
+		return
+
+	host_finalize_and_shuffle_questions()
+
 	_enviar_pacote_json({
 		"type": "official_game_questions",
 		"questions": game_questions
 	})
+	_enviar_pacote_json({
+		"type": "start_display_questions",
+		"questions": game_questions
+	})
+
+	call_deferred("change_scene", "res://scenes/show_question.tscn")
+
+
+## =====================================================================
+## RESPOSTAS (guardadas por rodada e por jogador)
+## =====================================================================
+
+func _store_answer(round_idx: int, player_id: String, player: String, answer: String) -> bool:
+	if not answers_by_round.has(round_idx):
+		answers_by_round[round_idx] = {}
+	var round_answers: Dictionary = answers_by_round[round_idx]
+	if round_answers.has(player_id):
+		return false
+	round_answers[player_id] = { "id": player_id, "player": player, "answer": answer }
+	return true
+
 
 func send_my_answer(answer_text: String) -> void:
-	var player_nickname = player_name if player_name != "" else "Jogador"
-	var local_entry = { "player": player_nickname, "answer": answer_text }
-	
-	var ja_existe = false
-	for ans in current_round_answers:
-		if ans["player"] == player_nickname and ans["answer"] == answer_text:
-			ja_existe = true
-			break
-			
-	if not ja_existe:
-		current_round_answers.append(local_entry)
-	
+	var nickname := _my_name()
+	_store_answer(current_question_index, _my_id(), nickname, answer_text)
+	emit_signal("resposta_recebida")
+
 	_enviar_pacote_json({
 		"type": "player_answer",
-		"player": player_nickname,
+		"id": _my_id(),
+		"round": current_question_index,
+		"player": nickname,
 		"answer": answer_text
 	})
 
 
+# Respostas da rodada atual, em ordem estável (por id) para todos os aparelhos
+func get_current_round_answers() -> Array:
+	var out: Array = []
+	if answers_by_round.has(current_question_index):
+		var round_answers: Dictionary = answers_by_round[current_question_index]
+		var ids: Array = round_answers.keys()
+		ids.sort()
+		for k in ids:
+			out.append(round_answers[k])
+	return out
+
+
+func get_current_answers_count() -> int:
+	if answers_by_round.has(current_question_index):
+		return answers_by_round[current_question_index].size()
+	return 0
+
+
+func get_expected_players_count() -> int:
+	return maxi(1, connected_players_names.size())
+
+
+func clear_round_answers() -> void:
+	answers_by_round.erase(current_question_index)
+
+
 ## =====================================================================
-## MÉTODOS DE APOIO E HELPERS
+## RODADAS E HELPERS
 ## =====================================================================
+
+func has_next_question() -> bool:
+	return current_question_index + 1 < game_questions.size()
+
+
+# Avança para a próxima pergunta. Retorna false se não houver mais.
+func advance_to_next_question() -> bool:
+	if not has_next_question():
+		return false
+	current_question_index += 1
+	return true
+
 
 func get_current_question() -> String:
 	if game_questions.is_empty():
-		return "Qual a melhor sobremesa?"
+		return ""
 	if current_question_index < game_questions.size():
-		return game_questions[current_question_index]
-	return game_questions[0]
-
-func get_current_round_answers() -> Array:
-	return current_round_answers
-
-func clear_round_answers() -> void:
-	current_round_answers.clear()
+		return str(game_questions[current_question_index])
+	return str(game_questions[0])
