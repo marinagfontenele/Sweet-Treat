@@ -52,8 +52,47 @@ var current_round_answers: Array = []
 ## FUNÇÕES PADRÃO DO CICLO DE VIDA E UTILITÁRIOS GERAIS
 ## =====================================================================
 
+var characters = [
+	preload("res://assets/images/characters/character1.svg"),
+	preload("res://assets/images/characters/character2.svg"),
+	preload("res://assets/images/characters/character3.svg"),
+	preload("res://assets/images/characters/character4.svg"),
+	preload("res://assets/images/characters/character5.svg"),
+	preload("res://assets/images/characters/character6.svg"),
+	preload("res://assets/images/characters/character7.svg"),
+	preload("res://assets/images/characters/character8.svg"),
+	preload("res://assets/images/characters/character9.svg"),
+	preload("res://assets/images/characters/character10.svg")
+]
+
+var backgrounds = [
+	Color("#FF0040"),
+	Color("#47C65F"),
+	Color("#EC92E7"),
+	Color("#45FAFD"),
+	Color("#7E2DF7"),
+	Color("#01ABEA"),
+	Color("#1746E2"),
+	Color("#001046"),
+	Color("#FFDA38"),
+	Color("#F23FBF")
+]
+
+const DEFAULT_CHARACTER: Texture2D = preload("res://assets/images/characters/character1.svg")
+const DEFAULT_BACKGROUND: Color = Color("#FF0040")
+
+var player_character_index: int = 0
+var player_background_index: int = 0
+var player_character: Texture2D = DEFAULT_CHARACTER
+var player_background: Color = DEFAULT_BACKGROUND
+
+## =====================================================================
+## FUNÇÕES PADRÃO DO CICLO DE VIDA E UTILITÁRIOS GERAIS
+## =====================================================================
+
 func _ready() -> void:
-	pass
+	if player_name == "":
+		player_name = "Jogador_%d" % randi_range(10, 99)
 
 func change_scene(scene: String) -> void:
 	get_tree().change_scene_to_file(scene)

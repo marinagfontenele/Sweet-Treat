@@ -45,6 +45,15 @@ func _ready() -> void:
 		avatar_screen.customization_confirmed.connect(
 			_on_customization_confirmed
 		)
+		
+	_aplicar_perfil()
+
+	var name_input = _find_node_by_name(self, "PlayerNameInput") as LineEdit
+	if name_input:
+		name_input.select_all_on_focus = true
+		name_input.text_changed.connect(func(t: String) -> void:
+			GameManager.player_name = t.strip_edges()
+		)
 
 
 func _find_node_by_name(node: Node, node_name: String) -> Node:
@@ -87,6 +96,9 @@ func _on_open_join_modal_pressed() -> void:
 
 
 func show_avatar() -> void:
+	var avatar_screen = _find_node_by_name(self, "AvatarScreen")
+	if avatar_screen:
+		avatar_screen.load_from_saved()
 	if avatar_panel:
 		avatar_panel.visible = true
 
@@ -120,33 +132,22 @@ func _on_confirm_join_pressed() -> void:
 			input_field.text = ""
 			
 
-func _on_customization_confirmed(nickname: String, character: Texture2D, background: Color) -> void:
-# Atualiza o nickname no menu
+func _aplicar_perfil() -> void:
 	var name_input = _find_node_by_name(self, "PlayerNameInput") as LineEdit
-
 	if name_input:
-		name_input.text = nickname
+		name_input.text = GameManager.player_name
 
-	# Atualiza a imagem do avatar
 	var avatar = _find_node_by_name(self, "Avatar") as TextureRect
-
 	if avatar:
-		avatar.texture = character
+		avatar.texture = GameManager.player_character
 
-	# Atualiza a cor de fundo do círculo
 	var character_background = _find_node_by_name(self, "CharacterBackground") as Button
-
 	if character_background:
 		var style = character_background.get_theme_stylebox("normal").duplicate()
-
 		if style is StyleBoxFlat:
-			style.bg_color = background
+			style.bg_color = GameManager.player_background
 			character_background.add_theme_stylebox_override("normal", style)
 
-	# Guarda o nickname para uso no jogo
-	GameManager.player_name = nickname
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed:
-		var c := get_viewport().gui_get_hovered_control()
-		print("Clique em: ", c.get_path() if c else "nada")
+func _on_customization_confirmed(_nickname: String, _character: Texture2D, _background: Color) -> void:
+	_aplicar_perfil()
