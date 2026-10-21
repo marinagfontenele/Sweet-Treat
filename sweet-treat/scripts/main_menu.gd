@@ -3,6 +3,7 @@ extends Node
 @onready var code_modal: Control = $CodeModalPanel # Certifique-se de ter esse painel na cena se quiser testar o convidado
 @onready var configuration_panel: Control = $ConfigurationPanel
 @onready var avatar_panel: Control = $AvatarPanel
+@onready var edit_panel: Control = $AvatarPanel
 
 func _ready() -> void:
 	GameManager.authenticate()
@@ -28,13 +29,38 @@ func _ready() -> void:
 	
 	if configuration_panel:
 		configuration_panel.visible = false
-		
-	var open_avatar_btn = _find_node_by_name(self, "EditButton")
-	if open_avatar_btn:
-		open_avatar_btn.pressed.connect(show_avatar)
 	
 	if avatar_panel:
 		avatar_panel.visible = false
+
+	# Círculo do avatar E botão roxo abrem o painel
+	for node_name in ["CharacterBackground", "EditButton"]:
+		var btn := _find_node_by_name(self, node_name) as BaseButton
+		if btn and not btn.pressed.is_connected(show_avatar):
+			btn.pressed.connect(show_avatar)
+	
+	var avatar_screen = _find_node_by_name(self, "AvatarScreen")
+
+	if avatar_screen:
+		avatar_screen.customization_confirmed.connect(
+			_on_customization_confirmed
+		)
+		
+	_apply_profile()
+
+	var name_input = _find_node_by_name(self, "PlayerNameInput") as LineEdit
+	if name_input:
+		name_input.select_all_on_focus = true
+		name_input.text_changed.connect(_on_player_name_changed)
+
+
+func _on_player_name_changed(new_name: String) -> void:
+	GameManager.player_name = new_name.strip_edges()
+
+	print("Nome digitado: ", GameManager.player_name)
+	GameManager._save_profile()
+
+	print("Salvamento solicitado.")
 
 
 func _find_node_by_name(node: Node, node_name: String) -> Node:
@@ -47,17 +73,17 @@ func _find_node_by_name(node: Node, node_name: String) -> Node:
 	return null
 
 
-func _salvar_nome_jogador() -> void:
-	var name_input = _find_node_by_name(self, "PlayerNameInput") as LineEdit
-	if name_input and name_input.text.strip_edges() != "":
-		GameManager.player_name = name_input.text.strip_edges()
-	else:
-		GameManager.player_name = "Jogador_%d" % randi_range(10, 99)
+#func _salvar_nome_jogador() -> void:
+	#var name_input = _find_node_by_name(self, "PlayerNameInput") as LineEdit
+	#if name_input and name_input.text.strip_edges() != "":
+		#GameManager.player_name = name_input.text.strip_edges()
+	#else:
+		#GameManager.player_name = "Jogador_%d" % randi_range(10, 99)
 
 
 ## HOST: Gera o código de 1 a 9999
 func _on_create_room_pressed() -> void:
-	_salvar_nome_jogador()
+#	_salvar_nome_jogador()
 	
 	# Gera um código estritamente de 4 dígitos (1000 a 9999)
 	var generated_code: int = randi_range(1000, 9999)
@@ -75,13 +101,19 @@ func _on_open_join_modal_pressed() -> void:
 	if code_modal:
 		code_modal.visible = true
 
+
 func show_avatar() -> void:
+	var avatar_screen = _find_node_by_name(self, "AvatarScreen")
+	if avatar_screen:
+		avatar_screen.load_from_saved()
 	if avatar_panel:
 		avatar_panel.visible = true
+
 
 func show_settings() -> void:
 	if configuration_panel:
 		configuration_panel.visible = true
+
 
 ## GUEST: Confirma o código
 func _on_confirm_join_pressed() -> void:
@@ -93,7 +125,7 @@ func _on_confirm_join_pressed() -> void:
 			var entered_code: int = typed_text.to_int()
 			print("Procurando sala com o código: %d" % entered_code)
 			
-			_salvar_nome_jogador()
+			#_salvar_nome_jogador()
 			GameManager.current_room_code = entered_code
 			
 			if code_modal:
@@ -105,3 +137,26 @@ func _on_confirm_join_pressed() -> void:
 		else:
 			input_field.placeholder_text = "Código Inválido!"
 			input_field.text = ""
+			
+
+func _apply_profile() -> void:
+	var name_input = _find_node_by_name(self, "PlayerNameInput") as LineEdit
+	if name_input:
+		name_input.text = GameManager.player_name
+
+	var avatar = _find_node_by_name(self, "Avatar") as TextureRect
+	if avatar:
+		avatar.texture = GameManager.player_character
+
+	var character_background = _find_node_by_name(self, "CharacterBackground") as Button
+	if character_background:
+		for shape in ["normal", "hover", "pressed", "focus"]:
+			var style = character_background.get_theme_stylebox(shape).duplicate()
+
+			if style is StyleBoxFlat:
+				style.bg_color = GameManager.player_background
+				character_background.add_theme_stylebox_override(shape, style)
+
+
+func _on_customization_confirmed(_nickname: String, _character: Texture2D, _background: Color) -> void:
+	_apply_profile()
