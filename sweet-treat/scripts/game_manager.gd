@@ -7,6 +7,7 @@ signal lobby_updated
 signal resposta_recebida
 signal questions_synced
 signal vote_received
+signal force_reveal_results
 
 ## =====================================================================
 ## VARIÁVEIS GLOBAIS DE ESTADO E REDE (GAME CENTER)
@@ -338,6 +339,10 @@ func _processar_pacote_rede(data: PackedByteArray, _from_player: GKPlayer = null
 			if voter != "":
 				register_vote(voter, target, r_idx)
 
+		"reveal_votes":
+			var r_idx = int(dict.get("round", current_question_index))
+			emit_signal("force_reveal_results", r_idx)
+
 func _notificar_atualizacao_lobby() -> void:
 	emit_signal("lobby_updated")
 	var current_scene = get_tree().current_scene
@@ -597,10 +602,16 @@ func advance_to_next_question() -> bool:
 	current_question_index += 1
 	return true
 
-
 func get_current_question() -> String:
 	if game_questions.is_empty():
 		return ""
 	if current_question_index < game_questions.size():
 		return str(game_questions[current_question_index])
 	return str(game_questions[0])
+
+# Envia um comando para todos os jogadores revelarem os resultados e avançarem juntos
+func send_force_reveal_results() -> void:
+	_enviar_pacote_json({
+		"type": "reveal_votes",
+		"round": current_question_index
+	})
