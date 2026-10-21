@@ -1,3 +1,129 @@
 [gd_scene format=3 uid="uid://bmu5y2pb401r8"]
 
-[node name="StageCardPanel" type="Panel" unique_id=1572600580]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0havr"]
+bg_color = Color(0.003921569, 0.67058825, 0.91764706, 1)
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(4.428029e-06, 0.5399748, 0.74345154, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+corner_detail = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+corner_detail = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_seen7"]
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yd5j5"]
+bg_color = Color(0.09019608, 0.27450982, 0.8862745, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 4
+
+[sub_resource type="LabelSettings" id="LabelSettings_jga0a"]
+font_size = 9
+
+[node name="StageCardPanel" type="VBoxContainer" unique_id=1732712691]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -62.0
+offset_right = 56.0
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -12
+
+[node name="BluePanel" type="Panel" parent="." unique_id=491760083]
+custom_minimum_size = Vector2(112, 124)
+custom_maximum_size = Vector2(112, 124)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_styles/panel = SubResource("StyleBoxFlat_0havr")
+
+[node name="MarginContainer" type="MarginContainer" parent="BluePanel" unique_id=1414591478]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 7
+
+[node name="Panel" type="Panel" parent="BluePanel/MarginContainer" unique_id=595916380]
+custom_minimum_size = Vector2(-1, -1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="Panel" type="Panel" parent="BluePanel/MarginContainer/Panel" unique_id=2143636738]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_seen7")
+
+[node name="Avatar" type="TextureRect" parent="BluePanel/MarginContainer/Panel/Panel" unique_id=1074388190]
+custom_minimum_size = Vector2(-1, -1)
+custom_maximum_size = Vector2(58, 58)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.5
+offset_top = -22.5
+offset_right = 22.5
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 2
+expand_mode = 5
+stretch_mode = 5
+
+[node name="PlayerName" type="Label" parent="." unique_id=559567755]
+custom_minimum_size = Vector2(81, 18)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_yd5j5")
+text = "PlayerName"
+label_settings = SubResource("LabelSettings_jga0a")
+horizontal_alignment = 1
+vertical_alignment = 1
