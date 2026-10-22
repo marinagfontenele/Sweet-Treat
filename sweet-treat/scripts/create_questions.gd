@@ -1,5 +1,7 @@
 extends Node
 
+const KeyboardPreview = preload("res://scripts/keyboard_preview.gd")
+
 # Nós da cena (com busca automática caso o caminho exato mude)
 @onready var progress_bar = _find_progress_bar()
 @onready var progress_label = get_node_or_null("MarginContainer/VBoxContainer/VBoxContainer/Label")
@@ -42,6 +44,8 @@ func _ready() -> void:
 	if input_question:
 		input_question.text_submitted.connect(_on_text_submitted)
 		input_question.text_changed.connect(_on_text_changed)
+		# Barra acima do teclado mostrando o que está sendo digitado
+		KeyboardPreview.new().attach_to(self, input_question)
 
 	_refresh()
 	print("create_questions pronta: %d perguntas. Voltar=%s Próxima=%s Enviar=%s" % [

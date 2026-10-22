@@ -1,5 +1,6 @@
 extends Node
 
+@onready var loadingScreen: Control = $LoadingScreen
 @onready var code_modal: Control = $CodeModalPanel # Certifique-se de ter esse painel na cena se quiser testar o convidado
 @onready var configuration_panel: Control = $ConfigurationPanel
 @onready var avatar_panel: Control = $AvatarPanel
@@ -22,6 +23,9 @@ func _ready() -> void:
 
 	if code_modal:
 		code_modal.visible = false
+		
+	if loadingScreen:
+		loadingScreen.visible = false
 	
 	var open_configuration_btn = _find_node_by_name(self, "SettingsButton")
 	if open_configuration_btn:
@@ -73,18 +77,21 @@ func _find_node_by_name(node: Node, node_name: String) -> Node:
 	return null
 
 
-#func _salvar_nome_jogador() -> void:
-	#var name_input = _find_node_by_name(self, "PlayerNameInput") as LineEdit
-	#if name_input and name_input.text.strip_edges() != "":
-		#GameManager.player_name = name_input.text.strip_edges()
-	#else:
-		#GameManager.player_name = "Jogador_%d" % randi_range(10, 99)
+# Procura o modal de "Conectando..." (o nó cujo script tem show_modal)
+func _find_loading_modal(node: Node = null) -> Node:
+	if node == null:
+		node = self
+	for child in node.get_children():
+		if child.has_method("show_modal"):
+			return child
+		var found = _find_loading_modal(child)
+		if found:
+			return found
+	return null
 
 
 ## HOST: Gera o código de 1 a 9999
 func _on_create_room_pressed() -> void:
-#	_salvar_nome_jogador()
-	
 	# Gera um código estritamente de 4 dígitos (1000 a 9999)
 	var generated_code: int = randi_range(1000, 9999)
 	print("Código gerado para a sala: %d" % generated_code)
@@ -125,14 +132,22 @@ func _on_confirm_join_pressed() -> void:
 			var entered_code: int = typed_text.to_int()
 			print("Procurando sala com o código: %d" % entered_code)
 			
-			#_salvar_nome_jogador()
 			GameManager.current_room_code = entered_code
 			
 			if code_modal:
 				code_modal.visible = false
+			
+			#mostrando tela de aguardando entrar na sala
+			if loadingScreen:
+				loadingScreen.visible = true
+
+			# Retorno visual imediato enquanto o Game Center conecta
+			var loading_modal = _find_loading_modal()
+			if loading_modal:
+				loading_modal.show_modal("Conectando à sala %d..." % entered_code)
 				
-			# Inicia a busca no Game Center. 
-			# A TROCA DE CENA PARA O LOBBY FOI REMOVIDA DAQUI E AGORA É FEITA PELO GAMEMANAGER QUANDO A REDE CONECTAR.
+			# Inicia a busca no Game Center.
+			# A troca de cena para o lobby é feita pelo GameManager quando a rede conectar.
 			GameManager.join_room_with_code(entered_code, false)
 		else:
 			input_field.placeholder_text = "Código Inválido!"

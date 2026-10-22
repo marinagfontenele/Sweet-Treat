@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://c5311gpa2i6ll"]
 
+[ext_resource type="Script" uid="uid://4d8jbv8l7xkl" path="res://scripts/loading_join_room.gd" id="1_cieep"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="1_e6k4h"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="2_cieep"]
 [ext_resource type="Texture2D" uid="uid://bdornrvq78kxw" path="res://assets/images/wait_door.svg" id="3_u4h2n"]
@@ -43,6 +44,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0havr")
+script = ExtResource("1_cieep")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1242892489]
 layout_mode = 1

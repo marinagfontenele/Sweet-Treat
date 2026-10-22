@@ -1,5 +1,15 @@
 extends Node
 
+# Quantidade MÍNIMA de cards visíveis no lobby. Os que não tiverem jogador
+# aparecem como "Aguardando...".
+#   2 = o Host + 1 vaga de espera (bom para testar com dois aparelhos)
+#   4 = mostra todas as vagas da sala
+#   0 = não mostra vagas vazias
+const MIN_VISIBLE_CARDS := 2
+
+# Script do card; é anexado automaticamente se o PlayerLobby ainda não o tiver
+const PLAYER_LOBBY_SCRIPT_PATH := "res://scripts/player_lobby.gd"
+
 @onready var room_code_label: Label = $MarginContainer/VBoxContainer/HBoxContainer4/RoomCodeLabel
 @onready var play_button = $MarginContainer/VBoxContainer/HBoxContainer4/PlayButton
 
@@ -19,6 +29,8 @@ func _ready() -> void:
 
 	_collect_player_containers(self)
 
+	# Garante o card do jogador local na hora (o Host não precisa esperar ninguém entrar)
+	GameManager.register_local_player()
 	GameManager._enviar_handshake_nome()
 	update_lobby_ui()
 
@@ -31,24 +43,45 @@ func _collect_player_containers(node: Node) -> void:
 
 
 func update_lobby_ui() -> void:
-	var display_names: Array = []
-
-	for p_id in GameManager.connected_players_names.keys():
-		var p_name = GameManager.connected_players_names[p_id]
-		if not display_names.has(p_name):
-			display_names.append(p_name)
+	var players: Array = GameManager.get_lobby_players()
+	print("Lobby: %d jogador(es), %d vaga(s) na cena" % [players.size(), player_containers.size()])
+	var visible_cards: int = mini(maxi(players.size(), MIN_VISIBLE_CARDS), player_containers.size())
 
 	for i in range(player_containers.size()):
 		var container = player_containers[i]
-		var player_lobby_node = container.get_node("PlayerLobby")
+		var card = container.get_node("PlayerLobby")
+		var card_ready: bool = _ensure_card_script(card)
 
-		if i < display_names.size():
+		if i < players.size():
 			container.visible = true
-			var name_label = _find_label_in_node(player_lobby_node)
-			if name_label:
-				name_label.text = display_names[i]
+			if card_ready:
+				card.set_profile(players[i])
+			else:
+				_fill_name_only(card, players[i])
+		elif i < visible_cards and card_ready:
+			container.visible = true
+			card.set_waiting()
 		else:
 			container.visible = false
+
+
+# Garante que o card tenha set_profile/set_waiting (anexa o player_lobby.gd se faltar)
+func _ensure_card_script(card: Node) -> bool:
+	if card.has_method("set_profile") and card.has_method("set_waiting"):
+		return true
+
+	if ResourceLoader.exists(PLAYER_LOBBY_SCRIPT_PATH):
+		card.set_script(load(PLAYER_LOBBY_SCRIPT_PATH))
+		return card.has_method("set_profile")
+
+	push_warning("Não achei %s: salve o player_lobby.gd nessa pasta." % PLAYER_LOBBY_SCRIPT_PATH)
+	return false
+
+
+func _fill_name_only(card: Node, profile: Dictionary) -> void:
+	var name_label = _find_label_in_node(card)
+	if name_label:
+		name_label.text = str(profile.get("name", "Jogador"))
 
 
 func _find_label_in_node(node: Node) -> Label:
@@ -65,5 +98,4 @@ func go_to_create_questions() -> void:
 	if not GameManager.is_host:
 		return
 
-	# Envia room_config + start_game (com a configuração) e troca a cena do Host
 	GameManager.host_start_game()
