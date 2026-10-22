@@ -1,3 +1,4 @@
+#all_answers.gd
 extends Node
 
 var answer_slots: Array = []

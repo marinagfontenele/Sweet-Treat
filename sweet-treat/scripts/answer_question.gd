@@ -1,3 +1,4 @@
+#answer_question.gd
 extends Node
 
 const WAIT_SCENE := "res://scenes/answer_formulation_wait.tscn"
