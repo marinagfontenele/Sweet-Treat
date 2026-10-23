@@ -1,5 +1,7 @@
 extends Node
 
+const KeyboardPreview = preload("res://scripts/keyboard_preview.gd")
+
 const WAIT_SCENE := "res://scenes/answer_formulation_wait.tscn"
 
 @onready var question_label = _find_question_label()
@@ -36,6 +38,8 @@ func _ready() -> void:
 
 	if answer_input and not answer_input.text_submitted.is_connected(_on_text_submitted):
 		answer_input.text_submitted.connect(_on_text_submitted)
+		# Barra acima do teclado mostrando o que está sendo digitado
+		KeyboardPreview.new().attach_to(self, answer_input)
 
 	print("Responder pronta (rodada %d, %ds): %s" % [GameManager.current_question_index, GameManager.config_answer_time, GameManager.get_current_question()])
 

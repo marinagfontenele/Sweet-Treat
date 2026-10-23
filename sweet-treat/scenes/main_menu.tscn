@@ -502,7 +502,14 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tbmy8")
 
-[node name="LoadingScreen" parent="." unique_id=1093731414 instance=ExtResource("18_a8gd2")]
-visible = false
-layout_mode = 0
-anchors_preset = 0
+[node name="LoadingScreen" parent="." unique_id=1678902836 instance=ExtResource("18_a8gd2")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -193.0
+offset_top = -145.5
+offset_right = 193.0
+offset_bottom = 145.5
