@@ -1,14 +1,11 @@
 [gd_scene format=3 uid="uid://wcqdx3yelg0u"]
 
 [ext_resource type="Texture2D" uid="uid://3eua1uy2l44" path="res://assets/images/backgrounds/best_awards_background.png" id="1_yhj0v"]
-[ext_resource type="Texture2D" uid="uid://bgup2td6iifko" path="res://assets/images/tomato_points.svg" id="2_qf32t"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="2_u2eyx"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_dusw5"]
-[ext_resource type="Texture2D" uid="uid://ccwvsdud1nh8y" path="res://assets/images/awards/second_place.png" id="3_u2eyx"]
-[ext_resource type="Texture2D" uid="uid://bd7ns2axi2mgm" path="res://assets/images/awards/first_place.png" id="4_dusw5"]
-[ext_resource type="Texture2D" uid="uid://dumxl0swcw4c6" path="res://assets/images/awards/third_place.png" id="5_eicj4"]
+[ext_resource type="PackedScene" uid="uid://c8781a8h81ums" path="res://scenes/components/podium_player.tscn" id="4_3x2ty"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_eicj4"]
+[sub_resource type="LabelSettings" id="LabelSettings_yhj0v"]
 font = ExtResource("3_dusw5")
 font_size = 32
 outline_size = 6
@@ -16,28 +13,6 @@ outline_color = Color(0, 0, 0, 1)
 shadow_size = 4
 shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(0.95, 1.91)
-
-[sub_resource type="LabelSettings" id="LabelSettings_ow20b"]
-font = ExtResource("3_dusw5")
-font_size = 18
-outline_size = 6
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 4
-shadow_color = Color(0, 0, 0, 1)
-shadow_offset = Vector2(0.95, 1.91)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 100
-corner_radius_top_right = 100
-corner_radius_bottom_right = 100
-corner_radius_bottom_left = 100
-corner_detail = 20
 
 [node name="BestResultScreen" type="Control" unique_id=241234735]
 layout_mode = 3
@@ -57,7 +32,7 @@ grow_vertical = 2
 texture = ExtResource("1_yhj0v")
 expand_mode = 5
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=749469154]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=229546849]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -67,140 +42,25 @@ grow_vertical = 2
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 68
+theme_override_constants/margin_bottom = 90
 
 [node name="Label" parent="MarginContainer" unique_id=625587219 instance=ExtResource("2_u2eyx")]
 layout_mode = 2
 size_flags_vertical = 0
-text = "Os melhores da vez..."
-label_settings = SubResource("LabelSettings_eicj4")
+text = "Os melhores da vez.."
+label_settings = SubResource("LabelSettings_yhj0v")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=2054937448]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1987849831]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 8
 theme_override_constants/separation = 40
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=738164290]
+[node name="PodiumPlayer" parent="MarginContainer/HBoxContainer" unique_id=1732712691 instance=ExtResource("4_3x2ty")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_constants/separation = 4
 
-[node name="PlayerName" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=803137311 instance=ExtResource("2_u2eyx")]
+[node name="PodiumPlayer2" parent="MarginContainer/HBoxContainer" unique_id=1675091475 instance=ExtResource("4_3x2ty")]
 layout_mode = 2
-text = "Fulano123"
-label_settings = SubResource("LabelSettings_ow20b")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1767885052]
+[node name="PodiumPlayer3" parent="MarginContainer/HBoxContainer" unique_id=1356680779 instance=ExtResource("4_3x2ty")]
 layout_mode = 2
-theme_override_constants/separation = -20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer" unique_id=627560023]
-layout_mode = 2
-theme_override_constants/separation = -15
-
-[node name="AvatarBack" type="Panel" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/VBoxContainer" unique_id=1644890620]
-z_index = 1
-custom_minimum_size = Vector2(78, 78)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
-
-[node name="Character" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/VBoxContainer" unique_id=91669133]
-z_index = 2
-custom_minimum_size = Vector2(54, 26)
-custom_maximum_size = Vector2(54, 26)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("2_qf32t")
-
-[node name="Pataform" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer" unique_id=2121052874]
-custom_minimum_size = Vector2(108, 73)
-custom_maximum_size = Vector2(108, 73)
-layout_mode = 2
-texture = ExtResource("3_u2eyx")
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=41237711]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-
-[node name="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2" unique_id=940993027 instance=ExtResource("2_u2eyx")]
-layout_mode = 2
-text = "Fulano123"
-label_settings = SubResource("LabelSettings_ow20b")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer2" unique_id=990279894]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_constants/separation = -30
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer2/VBoxContainer" unique_id=338327857]
-layout_mode = 2
-theme_override_constants/separation = -15
-
-[node name="AvatarBack" type="Panel" parent="MarginContainer/HBoxContainer/VBoxContainer2/VBoxContainer/VBoxContainer" unique_id=1325750264]
-z_index = 1
-custom_minimum_size = Vector2(78, 78)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
-
-[node name="Character" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer2/VBoxContainer/VBoxContainer" unique_id=1778000239]
-z_index = 2
-custom_minimum_size = Vector2(54, 26)
-custom_maximum_size = Vector2(54, 26)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("2_qf32t")
-
-[node name="Plataform" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer2/VBoxContainer" unique_id=108215090]
-custom_minimum_size = Vector2(108, 121)
-custom_maximum_size = Vector2(108, 121)
-layout_mode = 2
-texture = ExtResource("4_dusw5")
-
-[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=945236222]
-layout_mode = 2
-size_flags_vertical = 8
-
-[node name="PlayerName" parent="MarginContainer/HBoxContainer/VBoxContainer3" unique_id=1824529215 instance=ExtResource("2_u2eyx")]
-layout_mode = 2
-text = "Fulano123"
-label_settings = SubResource("LabelSettings_ow20b")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer3" unique_id=1264307029]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_constants/separation = -12
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer" unique_id=849942371]
-layout_mode = 2
-theme_override_constants/separation = -15
-
-[node name="AvatarBack" type="Panel" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer/VBoxContainer" unique_id=1510518780]
-z_index = 1
-custom_minimum_size = Vector2(78, 78)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
-
-[node name="Character" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer/VBoxContainer" unique_id=2028551071]
-z_index = 2
-custom_minimum_size = Vector2(54, 26)
-custom_maximum_size = Vector2(54, 26)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("2_qf32t")
-
-[node name="Plataform" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer" unique_id=895741687]
-custom_minimum_size = Vector2(108, 56)
-custom_maximum_size = Vector2(108, 56)
-layout_mode = 2
-size_flags_vertical = 10
-texture = ExtResource("5_eicj4")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cl1pohxroxnnu"
-path="res://.godot/imported/worst_awards_background.png-766ab42ffe871d686c31b27925de1809.ctex"
+uid="uid://bnbjq2p3mr25s"
+path="res://.godot/imported/tomato_points.png-13a45bcbe4e29573d204e73c4c36f3b3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/backgrounds/worst_awards_background.png"
-dest_files=["res://.godot/imported/worst_awards_background.png-766ab42ffe871d686c31b27925de1809.ctex"]
+source_file="res://assets/images/tomato_points.png"
+dest_files=["res://.godot/imported/tomato_points.png-13a45bcbe4e29573d204e73c4c36f3b3.ctex"]
 
 [params]
 
