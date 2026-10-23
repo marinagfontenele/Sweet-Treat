@@ -1,0 +1,151 @@
+[gd_scene format=3 uid="uid://crxl2csnks6g1"]
+
+[ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="1_iqwe7"]
+[ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="2_umxsw"]
+[ext_resource type="Texture2D" uid="uid://bnbjq2p3mr25s" path="res://assets/images/tomato_points.png" id="3_8nlkd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5kyop"]
+bg_color = Color(0.09019608, 0.27450982, 0.8862745, 1)
+border_width_bottom = 4
+border_color = Color(0.03210865, 0.15964329, 0.6394166, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(2, 4)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lwfx3"]
+font = ExtResource("2_umxsw")
+font_size = 32
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0.95, 1.91)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+corner_detail = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_d7gbg"]
+font = ExtResource("2_umxsw")
+font_size = 20
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_utu17"]
+font = ExtResource("2_umxsw")
+font_size = 14
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0.94, 0.94)
+
+[node name="RankingPlayer" type="Panel" unique_id=760479635]
+custom_minimum_size = Vector2(534, 76)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_styles/panel = SubResource("StyleBoxFlat_5kyop")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=985825224]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=652572163]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" parent="MarginContainer/HBoxContainer" unique_id=625587219 instance=ExtResource("1_iqwe7")]
+layout_mode = 2
+text = "1º"
+label_settings = SubResource("LabelSettings_lwfx3")
+
+[node name="AvatarBackground" type="Panel" parent="MarginContainer/HBoxContainer" unique_id=2008219604]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="Character" type="TextureRect" parent="MarginContainer/HBoxContainer/AvatarBackground" unique_id=1215159132]
+custom_maximum_size = Vector2(25, 25)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerName" parent="MarginContainer/HBoxContainer" unique_id=187191764 instance=ExtResource("1_iqwe7")]
+layout_mode = 2
+text = "PlayerName"
+label_settings = SubResource("LabelSettings_d7gbg")
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer" unique_id=1317182801]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer" unique_id=1231730245]
+z_index = 1
+custom_maximum_size = Vector2(57, 31)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+texture = ExtResource("3_8nlkd")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/TextureRect" unique_id=1715196283]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -22.5
+offset_bottom = 22.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_top = 13
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 15
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/TextureRect/MarginContainer" unique_id=67295389]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "0"
+label_settings = SubResource("LabelSettings_utu17")
+horizontal_alignment = 1
+vertical_alignment = 1
