@@ -4,7 +4,6 @@ extends Node
 @onready var configuration_panel: Control = $ConfigurationPanel
 @onready var avatar_panel: Control = $AvatarPanel
 @onready var edit_panel: Control = $AvatarPanel
-@onready var loading_panel: Control = $LoadingScreen
 @onready var tutorial_panel: Control = $TutorialPanel
 
 func _ready() -> void:
@@ -24,9 +23,6 @@ func _ready() -> void:
 
 	if code_modal:
 		code_modal.visible = false
-
-	if loading_panel:
-		loading_panel.visible = false
 	
 	var open_configuration_btn = _find_node_by_name(self, "SettingsButton")
 	if open_configuration_btn:
@@ -147,9 +143,6 @@ func _on_confirm_join_pressed() -> void:
 			
 			if code_modal:
 				code_modal.visible = false
-				
-			if loading_panel:
-				loading_panel.visible = true
 				
 			# Inicia a busca no Game Center. 
 			# A TROCA DE CENA PARA O LOBBY FOI REMOVIDA DAQUI E AGORA É FEITA PELO GAMEMANAGER QUANDO A REDE CONECTAR.
