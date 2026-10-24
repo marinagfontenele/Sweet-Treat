@@ -19,14 +19,17 @@ var current_page: int = 0
 
 func _ready() -> void:
 	leftButton.pressed.connect(_previous_page)
+	rightButton.pressed.connect(_on_right_button_pressed)
 	close_button.pressed.connect(_on_close_pressed)
 
-	if current_page == pages.size() - 1:
-		rightButton.pressed.connect(_on_close_pressed)
-	else:
-		rightButton.pressed.connect(_next_page)
-
 	_update_page()
+
+
+func _on_right_button_pressed() -> void:
+	if current_page == pages.size() - 1:
+		_on_close_pressed()
+	else:
+		_next_page()
 
 
 func _next_page() -> void:
@@ -46,15 +49,19 @@ func _update_page() -> void:
 		pages[i].visible = (i == current_page)
 
 	leftButton.visible = current_page > 0
+	close_button.visible = current_page < 4
 
 	if current_page == pages.size() - 1:
 		right_button_texture.texture = final_page_texture
 	else:
 		right_button_texture.texture = preload("res://assets/images/symbols/arrow_right.svg")
+	
 
 
 func _on_close_pressed() ->void:
 	var tutorial_panel = get_tree().root.find_child("TutorialPanel", true, false)
 	if tutorial_panel:
-		print ("fechando panel...")
 		tutorial_panel.visible = false
+	
+	current_page = 0
+	_update_page()

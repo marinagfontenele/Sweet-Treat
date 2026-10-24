@@ -104,7 +104,7 @@ font = ExtResource("4_uwn3i")
 font_size = 18
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ke7ie"]
-content_margin_right = 15.0
+content_margin_right = 10.0
 bg_color = Color(0.003921569, 0.67058825, 0.91764706, 1)
 border_width_left = 2
 border_width_top = 2
@@ -221,16 +221,18 @@ texture = ExtResource("2_vycsw")
 
 [node name="MarginContainer" type="MarginContainer" parent="BluePanel/MarginContainer" unique_id=419715305]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_bottom = 65
 
 [node name="Page1" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer" unique_id=1501143851]
-visible = false
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 18
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page1" unique_id=1958814263]
 layout_mode = 2
 size_flags_vertical = 2
+mouse_filter = 2
 theme_override_constants/separation = 3
 
 [node name="Título" parent="BluePanel/MarginContainer/MarginContainer/Page1/VBoxContainer" unique_id=625587219 instance=ExtResource("3_4vocv")]
@@ -264,10 +266,12 @@ vertical_alignment = 1
 [node name="Page2" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer" unique_id=1082344178]
 visible = false
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 18
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page2" unique_id=1174216508]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 3
 
 [node name="Título" parent="BluePanel/MarginContainer/MarginContainer/Page2/VBoxContainer" unique_id=1021218836 instance=ExtResource("3_4vocv")]
@@ -299,12 +303,15 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Page3" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer" unique_id=1050648125]
+visible = false
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = -10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3" unique_id=859937522]
 layout_mode = 2
 size_flags_vertical = 2
+mouse_filter = 2
 theme_override_constants/separation = 3
 
 [node name="Título" parent="BluePanel/MarginContainer/MarginContainer/Page3/VBoxContainer" unique_id=1115961458 instance=ExtResource("3_4vocv")]
@@ -321,29 +328,38 @@ text = "3. Votação"
 label_settings = SubResource("LabelSettings_5600s")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3" unique_id=1895792189]
-layout_mode = 2
-size_flags_vertical = 2
-theme_override_constants/separation = 22
-
-[node name="VBoxContainer" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer" unique_id=1555057118]
-layout_mode = 2
-size_flags_horizontal = 10
-theme_override_constants/separation = -35
-
-[node name="HBoxContainer" type="HBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer" unique_id=542034196]
+custom_minimum_size = Vector2(0, 190)
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 4
+size_flags_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer" unique_id=1555057118]
+custom_maximum_size = Vector2(-1, 170)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/separation = -60
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer" unique_id=2008135018]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/separation = -200
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=542034196]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_constants/separation = -20
 
-[node name="TextureRect" type="TextureRect" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=575051692]
+[node name="TextureRect" type="TextureRect" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=575051692]
 z_index = 2
-custom_maximum_size = Vector2(101, 79)
+custom_maximum_size = Vector2(101, 86)
 layout_mode = 2
 size_flags_horizontal = 2
 texture = ExtResource("7_vlqji")
 
-[node name="Panel" type="Panel" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=2129527062]
+[node name="Panel" type="Panel" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=2129527062]
 z_index = 1
 custom_minimum_size = Vector2(151, 34)
 custom_maximum_size = Vector2(-1, 34)
@@ -352,7 +368,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_seen7")
 
-[node name="Label" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer/HBoxContainer/Panel" unique_id=1248795408]
+[node name="Label" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer/Panel" unique_id=1248795408]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -368,14 +384,14 @@ grow_vertical = 2
 text = "Hora de julgar!"
 label_settings = SubResource("LabelSettings_0havr")
 
-[node name="Panel" type="Panel" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer" unique_id=1524259289]
+[node name="Panel" type="Panel" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1524259289]
 custom_minimum_size = Vector2(228, 127)
 layout_mode = 2
 size_flags_horizontal = 8
-size_flags_vertical = 3
+size_flags_vertical = 10
 theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
 
-[node name="MarginContainer" type="MarginContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer/Panel" unique_id=169817784]
+[node name="MarginContainer" type="MarginContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer/HBoxContainer/Panel" unique_id=169817784]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -384,7 +400,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_bottom = 27
 
-[node name="Label" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer/Panel/MarginContainer" unique_id=129990898]
+[node name="Label" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer" unique_id=129990898]
 custom_maximum_size = Vector2(211, 99)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -396,24 +412,31 @@ vertical_alignment = 2
 autowrap_mode = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer" unique_id=1496938355]
+custom_maximum_size = Vector2(-1, 170)
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_constants/separation = -35
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2" unique_id=729472813]
+[node name="HBoxContainer2" type="HBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2" unique_id=1201311459]
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 4
-theme_override_constants/separation = -50
+size_flags_vertical = 3
+theme_override_constants/separation = -215
 
-[node name="TextureRect" type="TextureRect" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2/HBoxContainer" unique_id=1678625929]
+[node name="HBoxContainer" type="HBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2/HBoxContainer2" unique_id=729472813]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+theme_override_constants/separation = -53
+
+[node name="TextureRect" type="TextureRect" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2/HBoxContainer2/HBoxContainer" unique_id=1678625929]
 z_index = 2
-custom_maximum_size = Vector2(111, 89)
+custom_maximum_size = Vector2(115, 86)
 layout_mode = 2
 size_flags_horizontal = 2
 texture = ExtResource("8_qxwin")
 
-[node name="Label" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2/HBoxContainer" unique_id=2005894939]
+[node name="Label" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2/HBoxContainer2/HBoxContainer" unique_id=2005894939]
 z_index = 1
 custom_minimum_size = Vector2(200, 34)
 layout_mode = 2
@@ -424,7 +447,7 @@ label_settings = SubResource("LabelSettings_0havr")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Panel" type="Panel" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2/HBoxContainer" unique_id=329213700]
+[node name="Panel" type="Panel" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2/HBoxContainer2/HBoxContainer" unique_id=329213700]
 visible = false
 z_index = 1
 custom_minimum_size = Vector2(180, 34)
@@ -434,14 +457,14 @@ size_flags_horizontal = 6
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_5600s")
 
-[node name="Panel" type="Panel" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2" unique_id=1220970620]
+[node name="Panel" type="Panel" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2/HBoxContainer2" unique_id=1220970620]
 custom_minimum_size = Vector2(228, 127)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_horizontal = 6
+size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
 
-[node name="MarginContainer" type="MarginContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2/Panel" unique_id=592623123]
+[node name="MarginContainer" type="MarginContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2/HBoxContainer2/Panel" unique_id=592623123]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -450,7 +473,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_bottom = 16
 
-[node name="Label" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2/Panel/MarginContainer" unique_id=1689815413]
+[node name="Label" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2/HBoxContainer2/Panel/MarginContainer" unique_id=1689815413]
 custom_maximum_size = Vector2(211, 99)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -464,11 +487,13 @@ autowrap_mode = 2
 [node name="Page4" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer" unique_id=1277488311]
 visible = false
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = -10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page4" unique_id=860550076]
 layout_mode = 2
 size_flags_vertical = 2
+mouse_filter = 2
 theme_override_constants/separation = 3
 
 [node name="Título" parent="BluePanel/MarginContainer/MarginContainer/Page4/VBoxContainer" unique_id=1497030916 instance=ExtResource("3_4vocv")]
@@ -612,10 +637,12 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 theme_override_constants/separation = 18
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page5" unique_id=337819765]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 3
 
 [node name="Título" parent="BluePanel/MarginContainer/MarginContainer/Page5/VBoxContainer" unique_id=1628721422 instance=ExtResource("3_4vocv")]
