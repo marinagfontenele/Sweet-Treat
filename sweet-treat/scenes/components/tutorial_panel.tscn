@@ -1,9 +1,683 @@
 [gd_scene format=3 uid="uid://tbgrjpklhjj5"]
 
-[node name="TutorialPanel" type="Control" unique_id=1812609643]
-layout_mode = 3
+[ext_resource type="PackedScene" uid="uid://du50c2vu78lg7" path="res://scenes/components/purple_button.tscn" id="1_0ntlv"]
+[ext_resource type="Script" uid="uid://cxjpxsdj8kixt" path="res://scripts/tutorial_panel.gd" id="1_qxwin"]
+[ext_resource type="Texture2D" uid="uid://bi4dbr2rbo0fj" path="res://assets/images/symbols/xmark.svg" id="2_vycsw"]
+[ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="3_4vocv"]
+[ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="4_uwn3i"]
+[ext_resource type="Texture2D" uid="uid://dthrtfdvtegax" path="res://assets/images/tutorial/tutorial1_image.png" id="5_oxjtl"]
+[ext_resource type="PackedScene" uid="uid://de8ybwgvlf0q4" path="res://scenes/components/check_button.tscn" id="6_vlqji"]
+[ext_resource type="Texture2D" uid="uid://cf3cwu5i7wdte" path="res://assets/images/tutorial/tutorial2_image.png" id="6_vycsw"]
+[ext_resource type="Texture2D" uid="uid://bysnstwv1oryo" path="res://assets/images/symbols/arrow_left.svg" id="7_qxwin"]
+[ext_resource type="Texture2D" uid="uid://s3gcdrtnc3k0" path="res://assets/images/tutorial/tutorial3_image.png" id="7_vlqji"]
+[ext_resource type="Texture2D" uid="uid://7tjynyl6a73w" path="res://assets/images/symbols/arrow_right.svg" id="8_jrdcf"]
+[ext_resource type="Texture2D" uid="uid://da0t5nu34vwfo" path="res://assets/images/tutorial/tutorial3_image2.png" id="8_qxwin"]
+[ext_resource type="Texture2D" uid="uid://cjek6p0d2sfpb" path="res://assets/images/tutorial/two_tomato_points.png" id="9_jrdcf"]
+[ext_resource type="Texture2D" uid="uid://c4cd8xmyvl76x" path="res://assets/images/one_tomato_point.png" id="10_ch08c"]
+[ext_resource type="Texture2D" uid="uid://bby6l6eh3q5wh" path="res://assets/images/tomato.png" id="12_jrdcf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a8gd2"]
+bg_color = Color(0, 0, 0, 0.627451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ch08c"]
+bg_color = Color(0.09019608, 0.27450982, 0.8862745, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.015686275, 0.6784314, 0.9254902, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 12
+shadow_color = Color(0.4117647, 0.8039216, 0.9254902, 0.3019608)
+shadow_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_ke7ie"]
+font = ExtResource("4_uwn3i")
+font_size = 32
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0.95, 1.91)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5600s"]
+font = ExtResource("4_uwn3i")
+font_size = 22
+font_color = Color(1, 0.85490197, 0.21960784, 1)
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0.95, 1.91)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ivl2s"]
+line_spacing = 0.0
+font = ExtResource("4_uwn3i")
+font_size = 20
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_seen7"]
+bg_color = Color(1, 0.20784314, 0.28627452, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0havr"]
+font = ExtResource("4_uwn3i")
+font_size = 18
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
+bg_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.85490197, 0.21960784, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_seen7"]
+line_spacing = 0.0
+font = ExtResource("4_uwn3i")
+font_size = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ke7ie"]
+content_margin_right = 15.0
+bg_color = Color(0.003921569, 0.67058825, 0.91764706, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5600s"]
+bg_color = Color(0.003921569, 0.67058825, 0.91764706, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8v716"]
+font = ExtResource("4_uwn3i")
+font_size = 15
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ivl2s"]
+content_margin_right = 15.0
+bg_color = Color(1, 0.20784314, 0.28627452, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4b66h"]
+line_spacing = 0.0
+font = ExtResource("4_uwn3i")
+
+[sub_resource type="LabelSettings" id="LabelSettings_bhhue"]
+line_spacing = 0.0
+font = ExtResource("4_uwn3i")
+
+[node name="TutorialPanel" type="Panel" unique_id=1528599234]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a8gd2")
+script = ExtResource("1_qxwin")
+
+[node name="BluePanel" type="Panel" parent="." unique_id=291078674]
+custom_minimum_size = Vector2(575, 348)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ch08c")
+
+[node name="MarginContainer" type="MarginContainer" parent="BluePanel" unique_id=1255900613]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="CloseButton" parent="BluePanel/MarginContainer" unique_id=247859986 instance=ExtResource("1_0ntlv")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="BluePanel/MarginContainer/CloseButton" unique_id=203804761]
+custom_minimum_size = Vector2(23, 23)
+custom_maximum_size = Vector2(23, 23)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_vycsw")
+
+[node name="MarginContainer" type="MarginContainer" parent="BluePanel/MarginContainer" unique_id=419715305]
+layout_mode = 2
+theme_override_constants/margin_bottom = 65
+
+[node name="Page1" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer" unique_id=1501143851]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page1" unique_id=1958814263]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_constants/separation = 3
+
+[node name="Título" parent="BluePanel/MarginContainer/MarginContainer/Page1/VBoxContainer" unique_id=625587219 instance=ExtResource("3_4vocv")]
+layout_mode = 2
+size_flags_vertical = 2
+text = "Instruções"
+label_settings = SubResource("LabelSettings_ke7ie")
+
+[node name="Subtítulo" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page1/VBoxContainer" unique_id=757663014]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+text = "1. Perguntas"
+label_settings = SubResource("LabelSettings_5600s")
+
+[node name="TextureRect" type="TextureRect" parent="BluePanel/MarginContainer/MarginContainer/Page1" unique_id=242261413]
+custom_maximum_size = Vector2(219, 101)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_oxjtl")
+
+[node name="Label3" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page1" unique_id=1384118601]
+layout_mode = 2
+text = "Crie perguntas criativas e instigantes para gerar 
+discórdia no grupo"
+label_settings = SubResource("LabelSettings_ivl2s")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Page2" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer" unique_id=1082344178]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page2" unique_id=1174216508]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Título" parent="BluePanel/MarginContainer/MarginContainer/Page2/VBoxContainer" unique_id=1021218836 instance=ExtResource("3_4vocv")]
+layout_mode = 2
+size_flags_vertical = 2
+text = "Instruções"
+label_settings = SubResource("LabelSettings_ke7ie")
+
+[node name="Subtítulo" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page2/VBoxContainer" unique_id=301392483]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+text = "2. Resposta"
+label_settings = SubResource("LabelSettings_5600s")
+
+[node name="TextureRect" type="TextureRect" parent="BluePanel/MarginContainer/MarginContainer/Page2" unique_id=724526926]
+custom_maximum_size = Vector2(298, 101)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_vycsw")
+
+[node name="Label3" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page2" unique_id=263537363]
+layout_mode = 2
+text = "Responda as perguntas, mas cuidado, vá no senso 
+comum para não se passar!"
+label_settings = SubResource("LabelSettings_ivl2s")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Page3" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer" unique_id=1050648125]
+layout_mode = 2
+theme_override_constants/separation = -10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3" unique_id=859937522]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_constants/separation = 3
+
+[node name="Título" parent="BluePanel/MarginContainer/MarginContainer/Page3/VBoxContainer" unique_id=1115961458 instance=ExtResource("3_4vocv")]
+layout_mode = 2
+size_flags_vertical = 2
+text = "Instruções"
+label_settings = SubResource("LabelSettings_ke7ie")
+
+[node name="Subtítulo" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page3/VBoxContainer" unique_id=2029089449]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+text = "3. Votação"
+label_settings = SubResource("LabelSettings_5600s")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3" unique_id=1895792189]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_constants/separation = 22
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer" unique_id=1555057118]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/separation = -35
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer" unique_id=542034196]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = -20
+
+[node name="TextureRect" type="TextureRect" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=575051692]
+z_index = 2
+custom_maximum_size = Vector2(101, 79)
+layout_mode = 2
+size_flags_horizontal = 2
+texture = ExtResource("7_vlqji")
+
+[node name="Panel" type="Panel" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=2129527062]
+z_index = 1
+custom_minimum_size = Vector2(151, 34)
+custom_maximum_size = Vector2(-1, 34)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_seen7")
+
+[node name="Label" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer/HBoxContainer/Panel" unique_id=1248795408]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Hora de julgar!"
+label_settings = SubResource("LabelSettings_0havr")
+
+[node name="Panel" type="Panel" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer" unique_id=1524259289]
+custom_minimum_size = Vector2(228, 127)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="MarginContainer" type="MarginContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer/Panel" unique_id=169817784]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 27
+
+[node name="Label" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer/Panel/MarginContainer" unique_id=129990898]
+custom_maximum_size = Vector2(211, 99)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Vote na resposta que mais distoa da maioria da galera."
+label_settings = SubResource("LabelSettings_seen7")
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer" unique_id=1496938355]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_constants/separation = -35
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2" unique_id=729472813]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = -50
+
+[node name="TextureRect" type="TextureRect" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2/HBoxContainer" unique_id=1678625929]
+z_index = 2
+custom_maximum_size = Vector2(111, 89)
+layout_mode = 2
+size_flags_horizontal = 2
+texture = ExtResource("8_qxwin")
+
+[node name="Label" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2/HBoxContainer" unique_id=2005894939]
+z_index = 1
+custom_minimum_size = Vector2(200, 34)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ke7ie")
+text = "Ninguém se passou!"
+label_settings = SubResource("LabelSettings_0havr")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2/HBoxContainer" unique_id=329213700]
+visible = false
+z_index = 1
+custom_minimum_size = Vector2(180, 34)
+custom_maximum_size = Vector2(-1, 34)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_5600s")
+
+[node name="Panel" type="Panel" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2" unique_id=1220970620]
+custom_minimum_size = Vector2(228, 127)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="MarginContainer" type="MarginContainer" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2/Panel" unique_id=592623123]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 16
+
+[node name="Label" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page3/HBoxContainer/VBoxContainer2/Panel/MarginContainer" unique_id=1689815413]
+custom_maximum_size = Vector2(211, 99)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Se todo mundo respondeu a mesma coisa e ninguém se passou, aperte para pular voto."
+label_settings = SubResource("LabelSettings_seen7")
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 2
+
+[node name="Page4" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer" unique_id=1277488311]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = -10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page4" unique_id=860550076]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_constants/separation = 3
+
+[node name="Título" parent="BluePanel/MarginContainer/MarginContainer/Page4/VBoxContainer" unique_id=1497030916 instance=ExtResource("3_4vocv")]
+layout_mode = 2
+size_flags_vertical = 2
+text = "Instruções"
+label_settings = SubResource("LabelSettings_ke7ie")
+
+[node name="Subtítulo" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page4/VBoxContainer" unique_id=9168034]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+text = "4. Pontuação"
+label_settings = SubResource("LabelSettings_5600s")
+
+[node name="Label" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page4" unique_id=769687800]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "Ganha a partida quem tiver menos tomates acumulados ao final!"
+label_settings = SubResource("LabelSettings_8v716")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page4" unique_id=2082563791]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_constants/separation = 22
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page4/HBoxContainer" unique_id=1752446010]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/separation = -35
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page4/HBoxContainer/VBoxContainer" unique_id=1036005105]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = -28
+
+[node name="TextureRect" type="TextureRect" parent="BluePanel/MarginContainer/MarginContainer/Page4/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1845676568]
+z_index = 2
+custom_maximum_size = Vector2(54, 51)
+layout_mode = 2
+size_flags_horizontal = 2
+texture = ExtResource("9_jrdcf")
+
+[node name="Label" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page4/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=344284799]
+z_index = 1
+custom_minimum_size = Vector2(160, 34)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ivl2s")
+text = "Leva 2 tomates"
+label_settings = SubResource("LabelSettings_0havr")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="BluePanel/MarginContainer/MarginContainer/Page4/HBoxContainer/VBoxContainer" unique_id=1645695725]
+custom_minimum_size = Vector2(228, 127)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="MarginContainer" type="MarginContainer" parent="BluePanel/MarginContainer/MarginContainer/Page4/HBoxContainer/VBoxContainer/Panel" unique_id=256116630]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 15
+
+[node name="Label" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page4/HBoxContainer/VBoxContainer/Panel/MarginContainer" unique_id=1622175157]
+custom_maximum_size = Vector2(211, 99)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Se a sua resposta for a mais votada da rodada (sozinho) ou se você vacilar e deixar o tempo de resposta estourar."
+label_settings = SubResource("LabelSettings_4b66h")
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page4/HBoxContainer" unique_id=1014075514]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_constants/separation = -35
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page4/HBoxContainer/VBoxContainer2" unique_id=1895832027]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = -35
+
+[node name="TextureRect" type="TextureRect" parent="BluePanel/MarginContainer/MarginContainer/Page4/HBoxContainer/VBoxContainer2/HBoxContainer" unique_id=770238096]
+z_index = 2
+custom_maximum_size = Vector2(54, 51)
+layout_mode = 2
+size_flags_horizontal = 2
+texture = ExtResource("10_ch08c")
+
+[node name="Label" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page4/HBoxContainer/VBoxContainer2/HBoxContainer" unique_id=1857395896]
+z_index = 1
+custom_minimum_size = Vector2(160, 34)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ke7ie")
+text = "Leva 1 tomate"
+label_settings = SubResource("LabelSettings_0havr")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="BluePanel/MarginContainer/MarginContainer/Page4/HBoxContainer/VBoxContainer2" unique_id=62645133]
+custom_minimum_size = Vector2(228, 127)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="MarginContainer" type="MarginContainer" parent="BluePanel/MarginContainer/MarginContainer/Page4/HBoxContainer/VBoxContainer2/Panel" unique_id=1224434210]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 12
+
+[node name="Label" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page4/HBoxContainer/VBoxContainer2/Panel/MarginContainer" unique_id=92936391]
+custom_maximum_size = Vector2(211, 99)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Se você empatar no topo dos votos com outro jogador ou se esquecer de votar dentro do tempo."
+label_settings = SubResource("LabelSettings_bhhue")
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 2
+
+[node name="Page5" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer" unique_id=149568231]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 18
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BluePanel/MarginContainer/MarginContainer/Page5" unique_id=337819765]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Título" parent="BluePanel/MarginContainer/MarginContainer/Page5/VBoxContainer" unique_id=1628721422 instance=ExtResource("3_4vocv")]
+layout_mode = 2
+size_flags_vertical = 2
+text = "Instruções"
+label_settings = SubResource("LabelSettings_ke7ie")
+
+[node name="Subtítulo" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page5/VBoxContainer" unique_id=1300254569]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+text = "5. Divirta-se"
+label_settings = SubResource("LabelSettings_5600s")
+
+[node name="TextureRect" type="TextureRect" parent="BluePanel/MarginContainer/MarginContainer/Page5" unique_id=805539304]
+custom_maximum_size = Vector2(119, 101)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("12_jrdcf")
+
+[node name="Label3" type="Label" parent="BluePanel/MarginContainer/MarginContainer/Page5" unique_id=888745550]
+layout_mode = 2
+text = "Repita o processo até acabarem as perguntas e evite 
+levar tomates. E o mais importante, se divirta!"
+label_settings = SubResource("LabelSettings_ivl2s")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BluePanel/MarginContainer" unique_id=1967126110]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="LeftButton" parent="BluePanel/MarginContainer/HBoxContainer" unique_id=1723046998 instance=ExtResource("6_vlqji")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="TextureRect" type="TextureRect" parent="BluePanel/MarginContainer/HBoxContainer/LeftButton" unique_id=427343671]
+custom_minimum_size = Vector2(30, 30)
+custom_maximum_size = Vector2(30, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_qxwin")
+
+[node name="RightButton" parent="BluePanel/MarginContainer/HBoxContainer" unique_id=1872873115 instance=ExtResource("6_vlqji")]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 8
+
+[node name="TextureRect" type="TextureRect" parent="BluePanel/MarginContainer/HBoxContainer/RightButton" unique_id=1238533379]
+custom_minimum_size = Vector2(30, 30)
+custom_maximum_size = Vector2(30, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_jrdcf")

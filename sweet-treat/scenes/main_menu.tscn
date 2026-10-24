@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://b5wyekog1o2ql" path="res://scenes/configuration_screen.tscn" id="16_j7ex8"]
 [ext_resource type="PackedScene" uid="uid://dutikdq86qml3" path="res://scenes/avatar_screen.tscn" id="17_a8gd2"]
 [ext_resource type="PackedScene" uid="uid://c5311gpa2i6ll" path="res://scenes/loading_join_room.tscn" id="18_a8gd2"]
+[ext_resource type="PackedScene" uid="uid://tbgrjpklhjj5" path="res://scenes/components/tutorial_panel.tscn" id="19_hstxw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8v716"]
 border_width_left = 2
@@ -471,7 +472,6 @@ offset_right = 287.5
 offset_bottom = 174.0
 
 [node name="ConfigurationPanel" type="Panel" parent="." unique_id=310481044]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -504,5 +504,16 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_tbmy8")
 
 [node name="LoadingScreen" parent="." unique_id=1093731414 instance=ExtResource("18_a8gd2")]
 visible = false
-layout_mode = 0
-anchors_preset = 0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -193.0
+offset_top = -145.5
+offset_right = 193.0
+offset_bottom = 145.5
+
+[node name="TutorialPanel" parent="." unique_id=1528599234 instance=ExtResource("19_hstxw")]
+layout_mode = 1
