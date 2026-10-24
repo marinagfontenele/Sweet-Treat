@@ -46,6 +46,9 @@ shadow_color = Color(0, 0, 0, 1)
 shadow_size = 1
 shadow_offset = Vector2(2, 4)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2cg7"]
+bg_color = Color(0.39215687, 0.39215687, 0.39215687, 0.53333336)
+
 [node name="CreateQuestions" type="Control" unique_id=140194987]
 layout_mode = 3
 anchors_preset = 15
@@ -106,7 +109,7 @@ label_settings = SubResource("LabelSettings_ywv44")
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer2" unique_id=1970367532]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
 theme_override_colors/font_uneditable_color = Color(1, 1, 1, 1)
 theme_override_colors/font_placeholder_color = Color(0.84313726, 0.84313726, 0.84313726, 1)
 theme_override_fonts/font = ExtResource("4_llf5h")
@@ -135,6 +138,7 @@ texture = ExtResource("7_ywv44")
 [node name="PlayButton" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1799951131 instance=ExtResource("6_hmaif")]
 layout_mode = 2
 size_flags_horizontal = 10
+theme_override_styles/focus = SubResource("StyleBoxFlat_o2cg7")
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayButton" unique_id=685544342]
 custom_minimum_size = Vector2(30, 30)
