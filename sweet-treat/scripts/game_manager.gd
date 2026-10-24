@@ -6,6 +6,7 @@ extends Node
 signal lobby_updated
 signal resposta_recebida
 signal questions_synced
+signal connection_failed(message)
 
 ## =====================================================================
 ## VARIÁVEIS GLOBAIS DE ESTADO E REDE (GAME CENTER)
@@ -27,6 +28,8 @@ var player_name: String = ""
 
 # [player_id: nome_exibicao]
 var connected_players_names: Dictionary = {}
+# [player_id: { name, character, background, host }]
+var connected_players_profiles: Dictionary = {}
 
 var _fallback_id: String = "local_" + str(randi())
 
@@ -52,6 +55,7 @@ var current_question_index: int = 0
 
 # { indice_da_rodada: { player_id: { "id", "player", "answer" } } }
 var answers_by_round: Dictionary = {}
+
 
 ## =====================================================================
 ## FUNÇÕES PADRÃO DO CICLO DE VIDA E UTILITÁRIOS GERAIS
@@ -144,6 +148,7 @@ func _load_profile() -> bool:
 
 	return true
 
+
 func change_scene(scene: String) -> void:
 	get_tree().change_scene_to_file(scene)
 
@@ -157,6 +162,52 @@ func _my_id() -> String:
 
 func _my_name() -> String:
 	return player_name if player_name != "" else "Jogador"
+
+# Registra o jogador local na lista da sala (sem esperar a partida do Game Center)
+func register_local_player(notify: bool = true) -> void:
+	var my_id := _my_id()
+	connected_players_names[my_id] = _my_name()
+	connected_players_profiles[my_id] = {
+		"name": _my_name(),
+		"character": player_character_index,
+		"background": player_background_index,
+		"host": is_host
+	}
+	if notify:
+		emit_signal("lobby_updated")
+
+
+# Chamado quando o jogador muda nome/avatar estando numa sala
+func refresh_local_profile() -> void:
+	if current_room_code == 0:
+		return
+	register_local_player()
+	_enviar_handshake_nome()
+
+
+# Lista ordenada para o lobby: Host primeiro, depois por id (igual em todos os aparelhos)
+func get_lobby_players() -> Array:
+	var out: Array = []
+	for pid in connected_players_profiles.keys():
+		var p: Dictionary = connected_players_profiles[pid].duplicate()
+		p["id"] = pid
+		out.append(p)
+	out.sort_custom(func(a, b):
+		if a["host"] != b["host"]:
+			return a["host"]
+		return str(a["id"]) < str(b["id"])
+	)
+	return out
+
+
+# Cancela a tentativa de entrar numa sala (botão fechar do modal de conexão)
+func cancel_join() -> void:
+	if matchmaker != null and matchmaker.has_method("cancel"):
+		matchmaker.cancel()
+	current_room_code = 0
+	connected_players_names.clear()
+	connected_players_profiles.clear()
+
 
 func reset_match_state() -> void:
 	my_created_questions.clear()
@@ -190,11 +241,17 @@ func authenticate() -> void:
 func join_room_with_code(room_code: int, am_i_host: bool) -> void:
 	if game_center == null or game_center.local_player == null:
 		print("Erro: Jogador não autenticado no Game Center!")
+		emit_signal("connection_failed", "Não foi possível conectar ao Game Center. Tente novamente.")
 		return
 
 	is_host = am_i_host
 	current_room_code = room_code
 	connected_players_names.clear()
+	connected_players_profiles.clear()
+
+	if local == null:
+		local = game_center.local_player
+	register_local_player(false)
 
 	var req := GKMatchRequest.new()
 	req.max_players = 4
@@ -207,6 +264,7 @@ func join_room_with_code(room_code: int, am_i_host: bool) -> void:
 	matchmaker.find_match(req, func(game_match: GKMatch, error: Variant) -> void:
 		if error != null:
 			print("Matchmaker falhou com erro: %s" % str(error))
+			call_deferred("emit_signal", "connection_failed", "Falha ao conectar na sala. Tente novamente.")
 			return
 
 		if game_match != null:
@@ -232,7 +290,7 @@ func _configurar_partida(game_match: GKMatch) -> void:
 		call_deferred("_notificar_atualizacao_lobby")
 	)
 
-	connected_players_names[_my_id()] = _my_name()
+	register_local_player()
 	_enviar_handshake_nome()
 
 	# Convidado vai para o lobby ao conectar; o Host navega pelo botão.
@@ -247,7 +305,10 @@ func _enviar_handshake_nome() -> void:
 	_enviar_pacote_json({
 		"type": "player_info",
 		"id": _my_id(),
-		"name": _my_name()
+		"name": _my_name(),
+		"character": player_character_index,
+		"background": player_background_index,
+		"host": is_host
 	})
 
 
@@ -265,8 +326,15 @@ func _processar_pacote_rede(data: PackedByteArray, _from_player: GKPlayer = null
 	match dict["type"]:
 		"player_info":
 			var p_id = str(dict.get("id", ""))
-			connected_players_names[p_id] = str(dict.get("name", "Jogador"))
-			print("Jogador identificado na sala: %s" % connected_players_names[p_id])
+			var p_name = str(dict.get("name", "Jogador"))
+			connected_players_names[p_id] = p_name
+			connected_players_profiles[p_id] = {
+				"name": p_name,
+				"character": clampi(int(dict.get("character", 0)), 0, characters.size() - 1),
+				"background": clampi(int(dict.get("background", 0)), 0, backgrounds.size() - 1),
+				"host": bool(dict.get("host", false))
+			}
+			print("Jogador identificado na sala: %s" % p_name)
 			emit_signal("lobby_updated")
 
 		"room_config":
