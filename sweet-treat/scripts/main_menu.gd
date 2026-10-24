@@ -5,6 +5,7 @@ extends Node
 @onready var configuration_panel: Control = $ConfigurationPanel
 @onready var avatar_panel: Control = $AvatarPanel
 @onready var edit_panel: Control = $AvatarPanel
+@onready var tutorial_panel: Control = $TutorialPanel
 
 func _ready() -> void:
 	GameManager.authenticate()
@@ -29,19 +30,26 @@ func _ready() -> void:
 	
 	var open_configuration_btn = _find_node_by_name(self, "SettingsButton")
 	if open_configuration_btn:
-		open_configuration_btn.pressed.connect(show_settings)
+		open_configuration_btn.pressed.connect(_show_settings)
 	
 	if configuration_panel:
 		configuration_panel.visible = false
 	
 	if avatar_panel:
 		avatar_panel.visible = false
+	
+	if tutorial_panel:
+		tutorial_panel.visible = false
+	
+	var open_info_btn = _find_node_by_name(self, "InfoButton")
+	if open_info_btn:
+		open_info_btn.pressed.connect(_show_tutorial)
 
 	# Círculo do avatar E botão roxo abrem o painel
 	for node_name in ["CharacterBackground", "EditButton"]:
 		var btn := _find_node_by_name(self, node_name) as BaseButton
-		if btn and not btn.pressed.is_connected(show_avatar):
-			btn.pressed.connect(show_avatar)
+		if btn and not btn.pressed.is_connected(_show_avatar):
+			btn.pressed.connect(_show_avatar)
 	
 	var avatar_screen = _find_node_by_name(self, "AvatarScreen")
 
@@ -109,7 +117,7 @@ func _on_open_join_modal_pressed() -> void:
 		code_modal.visible = true
 
 
-func show_avatar() -> void:
+func _show_avatar() -> void:
 	var avatar_screen = _find_node_by_name(self, "AvatarScreen")
 	if avatar_screen:
 		avatar_screen.load_from_saved()
@@ -117,9 +125,14 @@ func show_avatar() -> void:
 		avatar_panel.visible = true
 
 
-func show_settings() -> void:
+func _show_settings() -> void:
 	if configuration_panel:
 		configuration_panel.visible = true
+
+
+func _show_tutorial() -> void:
+	if tutorial_panel:
+		tutorial_panel.visible = true
 
 
 ## GUEST: Confirma o código
@@ -146,8 +159,8 @@ func _on_confirm_join_pressed() -> void:
 			if loading_modal:
 				loading_modal.show_modal("Conectando à sala %d..." % entered_code)
 				
-			# Inicia a busca no Game Center.
-			# A troca de cena para o lobby é feita pelo GameManager quando a rede conectar.
+			# Inicia a busca no Game Center. 
+			# A TROCA DE CENA PARA O LOBBY FOI REMOVIDA DAQUI E AGORA É FEITA PELO GAMEMANAGER QUANDO A REDE CONECTAR.
 			GameManager.join_room_with_code(entered_code, false)
 		else:
 			input_field.placeholder_text = "Código Inválido!"

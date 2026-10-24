@@ -30,6 +30,7 @@ corner_radius_bottom_left = 12
 corner_detail = 12
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjytk"]
+bg_color = Color(1, 0.85490197, 0.21960784, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
