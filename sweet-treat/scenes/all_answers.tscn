@@ -7,6 +7,14 @@
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_ieid6"]
 [ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="5_cxwln"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_8orqm"]
+font_size = 28
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(1, 2)
+
 [sub_resource type="LabelSettings" id="LabelSettings_gf8m0"]
 font = ExtResource("3_ieid6")
 font_size = 32
@@ -97,7 +105,18 @@ theme_override_constants/separation = 10
 layout_mode = 2
 size_flags_vertical = 2
 
-[node name="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=625587219 instance=ExtResource("2_8orqm")]
+[node name="TimerLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1090790241]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("3_ieid6")
+theme_override_font_sizes/font_size = 35
+text = "0:59"
+label_settings = SubResource("LabelSettings_8orqm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TitleLabel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=625587219 instance=ExtResource("2_8orqm")]
 layout_mode = 2
 size_flags_horizontal = 6
 text = "Respostas dos Participantes"
@@ -180,7 +199,14 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PlayButton" parent="MarginContainer/VBoxContainer" unique_id=122511985 instance=ExtResource("5_cxwln")]
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=552679863]
+layout_mode = 2
+
+[node name="ButtonVoteNull" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer4" unique_id=1997876517]
+layout_mode = 2
+text = "Pular voto"
+
+[node name="PlayButton" parent="MarginContainer/VBoxContainer/HBoxContainer4" unique_id=122511985 instance=ExtResource("5_cxwln")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -188,3 +214,11 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_hr1tq")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_dk81l")
 theme_override_styles/hover = SubResource("StyleBoxFlat_x3x51")
 text = "Votar"
+
+[node name="LabelText" type="Label" parent="MarginContainer/VBoxContainer" unique_id=297815938]
+layout_mode = 2
+text = "textos aqui"
+
+[node name="ButtonNextRound" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1475584993]
+layout_mode = 2
+text = "Próxima rodada"

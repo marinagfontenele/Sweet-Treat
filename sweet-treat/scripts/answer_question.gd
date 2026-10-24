@@ -1,7 +1,12 @@
 #answer_question.gd
 extends Node
 
+const KeyboardPreview = preload("res://scripts/keyboard_preview.gd")
+
 const WAIT_SCENE := "res://scenes/answer_formulation_wait.tscn"
+
+const URGENT_SECONDS := 10                      # a partir daqui o timer fica vermelho
+const TIMER_URGENT_COLOR := Color("#EB4A50")    # mesmo vermelho da tela de votação
 
 @onready var question_label = _find_question_label()
 @onready var timer_label = get_node_or_null("MarginContainer/Label2")
@@ -37,8 +42,12 @@ func _ready() -> void:
 
 	if answer_input and not answer_input.text_submitted.is_connected(_on_text_submitted):
 		answer_input.text_submitted.connect(_on_text_submitted)
+		# Barra acima do teclado mostrando o que está sendo digitado
+		KeyboardPreview.new().attach_to(self, answer_input)
 
 	print("Responder pronta (rodada %d, %ds): %s" % [GameManager.current_question_index, GameManager.config_answer_time, GameManager.get_current_question()])
+
+	GameManager.debug_bots_answer()   # DEBUG: não faz nada fora do modo bots
 
 
 func _process(delta: float) -> void:
@@ -61,6 +70,11 @@ func _update_timer_label() -> void:
 	_last_shown_second = sec
 	if timer_label:
 		timer_label.text = "%d:%02d" % [floori(sec / 60.0), sec % 60]
+		# vermelho nos últimos 10 segundos
+		if sec <= URGENT_SECONDS:
+			timer_label.add_theme_color_override("font_color", TIMER_URGENT_COLOR)
+		else:
+			timer_label.remove_theme_color_override("font_color")
 
 
 func _on_play_pressed() -> void:
@@ -80,13 +94,16 @@ func _submit_answer(forced: bool) -> void:
 	if answer_input:
 		text = answer_input.text.strip_edges()
 
+	# Tempo acabou sem nada digitado: conta como "não respondeu" (2 tomates,
+	# card desabilitado na votação). O texto do card vem da tela de votação.
+	var no_answer := false
 	if text.is_empty():
 		if not forced:
 			if answer_input:
 				answer_input.placeholder_text = "Digite uma resposta antes de enviar!"
 			return
-		text = "(sem resposta)"
+		no_answer = true
 
 	_answer_sent = true
-	GameManager.send_my_answer(text)
+	GameManager.send_my_answer(text, no_answer)
 	GameManager.call_deferred("change_scene", WAIT_SCENE)
