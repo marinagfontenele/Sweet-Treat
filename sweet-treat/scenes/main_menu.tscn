@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://b87icu65m3fcq" path="res://scenes/components/create_button.tscn" id="12_7b55j"]
 [ext_resource type="PackedScene" uid="uid://b5wyekog1o2ql" path="res://scenes/configuration_screen.tscn" id="16_j7ex8"]
 [ext_resource type="PackedScene" uid="uid://dutikdq86qml3" path="res://scenes/avatar_screen.tscn" id="17_a8gd2"]
+[ext_resource type="PackedScene" uid="uid://c5311gpa2i6ll" path="res://scenes/loading_join_room.tscn" id="18_a8gd2"]
 [ext_resource type="PackedScene" uid="uid://tbgrjpklhjj5" path="res://scenes/components/tutorial_panel.tscn" id="19_hstxw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8v716"]
@@ -158,6 +159,9 @@ corner_radius_top_right = 22
 corner_radius_bottom_right = 22
 corner_radius_bottom_left = 22
 corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
+bg_color = Color(0, 0, 0, 0.627451)
 
 [node name="MainMenu" type="Control" unique_id=1121190018]
 layout_mode = 3
@@ -471,6 +475,7 @@ offset_right = 287.5
 offset_bottom = 174.0
 
 [node name="ConfigurationPanel" type="Panel" parent="." unique_id=310481044]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -501,10 +506,16 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tbmy8")
 
-[node name="TutorialPanel" parent="." unique_id=1528599234 instance=ExtResource("19_hstxw")]
+[node name="LoadingScreen" type="Panel" parent="." unique_id=433433822]
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
 
-[node name="LoadingScreen" parent="." unique_id=1678902836 instance=ExtResource("18_a8gd2")]
+[node name="LoadingPanel" parent="LoadingScreen" unique_id=1678902836 instance=ExtResource("18_a8gd2")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -515,3 +526,6 @@ offset_left = -193.0
 offset_top = -145.5
 offset_right = 193.0
 offset_bottom = 145.5
+
+[node name="TutorialPanel" parent="." unique_id=1528599234 instance=ExtResource("19_hstxw")]
+layout_mode = 1

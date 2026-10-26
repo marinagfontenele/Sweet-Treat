@@ -108,7 +108,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="InfoButton" parent="MarginContainer" unique_id=247859986 instance=ExtResource("3_8jb3i")]
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="TextureRect2" type="TextureRect" parent="MarginContainer/InfoButton" unique_id=540500823]
