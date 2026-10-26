@@ -15,7 +15,7 @@ var _last_shown_second: int = -1
 
 
 func _find_question_label():
-	var n = get_node_or_null("MarginContainer/VBoxContainer/TextureRect/MarginContainer/Label")
+	var n = get_node_or_null("MarginContainer/VBoxContainer/TextureRect/MarginContainer/VBoxContainer/Label")
 	if n == null:
 		n = find_child("Label", true, false)
 	return n
