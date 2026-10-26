@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://dutikdq86qml3"]
 
-[ext_resource type="PackedScene" uid="uid://du50c2vu78lg7" path="res://scenes/components/purple_button.tscn" id="1_dsjho"]
+[ext_resource type="PackedScene" uid="uid://du50c2vu78lg7" path="res://scenes/components/Buttons/purple_button.tscn" id="1_dsjho"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="2_s25gk"]
 [ext_resource type="Texture2D" uid="uid://bi4dbr2rbo0fj" path="res://assets/images/symbols/xmark.svg" id="3_4hp0e"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_vbu0w"]
-[ext_resource type="PackedScene" uid="uid://uo88l1y5l3ud" path="res://scenes/components/avatar_button.tscn" id="4_wvjey"]
-[ext_resource type="PackedScene" uid="uid://svx315tqruom" path="res://scenes/components/character_button.tscn" id="5_dsjho"]
+[ext_resource type="PackedScene" uid="uid://uo88l1y5l3ud" path="res://scenes/components/Buttons/avatar_button.tscn" id="4_wvjey"]
+[ext_resource type="PackedScene" uid="uid://svx315tqruom" path="res://scenes/components/Buttons/character_button.tscn" id="5_dsjho"]
 [ext_resource type="Script" uid="uid://bi48udaus43yo" path="res://scripts/avatar_screen.gd" id="5_s25gk"]
-[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="6_x5saq"]
+[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/Buttons/play_button.tscn" id="6_x5saq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0havr"]
 bg_color = Color(0.09019608, 0.27450982, 0.8862745, 1)
@@ -78,7 +78,6 @@ corner_detail = 6
 [node name="AvatarScreen" type="Panel" unique_id=30360144]
 custom_minimum_size = Vector2(575, 348)
 custom_maximum_size = Vector2(575, 348)
-anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2

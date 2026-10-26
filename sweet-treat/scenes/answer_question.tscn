@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://2cn5ulkh1pek" path="res://scripts/answer_question.gd" id="1_dj7vg"]
 [ext_resource type="Texture2D" uid="uid://edw6s1an43ec" path="res://assets/images/backgrounds/purple_background.png" id="2_dj7vg"]
-[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="2_ydry8"]
+[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/Buttons/play_button.tscn" id="2_ydry8"]
 [ext_resource type="Texture2D" uid="uid://6yc7ikry2a5r" path="res://assets/images/LightsScreen.svg" id="3_uqjji"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="4_gkvey"]
 

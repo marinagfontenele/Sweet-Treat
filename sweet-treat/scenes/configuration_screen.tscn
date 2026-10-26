@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://b5wyekog1o2ql"]
 
-[ext_resource type="PackedScene" uid="uid://du50c2vu78lg7" path="res://scenes/components/purple_button.tscn" id="1_6ha1o"]
+[ext_resource type="PackedScene" uid="uid://du50c2vu78lg7" path="res://scenes/components/Buttons/purple_button.tscn" id="1_6ha1o"]
 [ext_resource type="Texture2D" uid="uid://bi4dbr2rbo0fj" path="res://assets/images/symbols/xmark.svg" id="2_2knr4"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="2_a8tt7"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_2xdi8"]
 [ext_resource type="Texture2D" uid="uid://cxwtfn08hcafm" path="res://assets/images/check_button.svg" id="4_2xdi8"]
 [ext_resource type="Texture2D" uid="uid://djhw46tpa6tuq" path="res://assets/images/check_active_button.svg" id="6_2knr4"]
-[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="6_30llq"]
+[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/Buttons/play_button.tscn" id="6_30llq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0havr"]
 bg_color = Color(0.09019608, 0.27450982, 0.8862745, 1)
@@ -44,7 +44,6 @@ shadow_offset = Vector2(0.95, 1.91)
 [node name="ConfigurationScreen" type="Panel" unique_id=30360144]
 custom_minimum_size = Vector2(575, 348)
 custom_maximum_size = Vector2(575, 348)
-anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
