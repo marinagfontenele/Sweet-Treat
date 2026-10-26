@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://c4ab0em2siv4f"]
+
+[ext_resource type="Script" uid="uid://4d8jbv8l7xkl" path="res://scripts/loading_join_room.gd" id="1_cieep"]
+[ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="1_e6k4h"]
+[ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="2_cieep"]
+[ext_resource type="Texture2D" uid="uid://bdornrvq78kxw" path="res://assets/images/wait_door.svg" id="3_u4h2n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0havr"]
+bg_color = Color(0.09019608, 0.27450982, 0.8862745, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.015686275, 0.6784314, 0.9254902, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 12
+shadow_color = Color(0.4117647, 0.8039216, 0.9254902, 0.3019608)
+shadow_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_30llq"]
+font = ExtResource("2_cieep")
+font_size = 32
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0.95, 1.91)
+
+[sub_resource type="LabelSettings" id="LabelSettings_megxp"]
+font = ExtResource("2_cieep")
+font_size = 24
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="ConfigurationScreen" type="Panel" unique_id=30360144]
+custom_minimum_size = Vector2(386, 291)
+custom_maximum_size = Vector2(386, 291)
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0havr")
+script = ExtResource("1_cieep")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1242892489]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=92155776]
+layout_mode = 2
+
+[node name="Label" parent="MarginContainer/VBoxContainer" unique_id=625587219 instance=ExtResource("1_e6k4h")]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+text = "Entrando na sala"
+label_settings = SubResource("LabelSettings_30llq")
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=1621851875]
+custom_maximum_size = Vector2(141, 141)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+texture = ExtResource("3_u4h2n")
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1143919956]
+layout_mode = 2
+size_flags_vertical = 10
+text = "Aguarde um momento..."
+label_settings = SubResource("LabelSettings_megxp")
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -5,7 +5,7 @@ const KeyboardPreview = preload("res://scripts/keyboard_preview.gd")
 # =====================================================================
 # AJUSTE AQUI: Caminho exato do arquivo de imagem do Check no projeto
 # =====================================================================
-const CHECK_TEXTURE = preload("res://assets/images/symbols/checkmark.svg") # <--- Coloque o caminho real do seu arquivo do Check aqui
+const CHECK_TEXTURE = preload("res://assets/images/symbols/checkmark.svg") # <--- Ajuste para o caminho real do arquivo do Check
 
 # Nós da cena
 @onready var progress_bar = _find_progress_bar()
@@ -16,7 +16,7 @@ const CHECK_TEXTURE = preload("res://assets/images/symbols/checkmark.svg") # <--
 var back_button: BaseButton = null
 var next_button: BaseButton = null
 
-# Guarda a textura original da seta para alternar quando não for a última pergunta
+# Guarda a textura original da seta para alternar com o Check
 var _original_next_texture: Texture2D = null
 
 var total_questions: int = 1
@@ -44,6 +44,8 @@ func _ready() -> void:
 
 	if input_question:
 		input_question.text_submitted.connect(_on_text_submitted)
+		if not input_question.text_changed.is_connected(_on_text_changed):
+			input_question.text_changed.connect(_on_text_changed)
 		KeyboardPreview.new().attach_to(self, input_question)
 
 	_refresh()
@@ -99,7 +101,6 @@ func _find_and_setup_buttons() -> void:
 	if next_button and not next_button.pressed.is_connected(_on_next_pressed):
 		next_button.pressed.connect(_on_next_pressed)
 
-	# Salva a textura original da seta (seja TextureButton ou TextureRect filho)
 	_original_next_texture = _get_button_texture(next_button)
 
 
@@ -164,20 +165,26 @@ func _refresh() -> void:
 	if progress_label:
 		progress_label.text = "Pergunta %d de %d" % [current_index + 1, total_questions]
 
+	var current_text: String = questions[current_index]
+
 	if input_question:
-		input_question.placeholder_text = ""
-		input_question.text = questions[current_index]
+		input_question.placeholder_text = "Digite sua pergunta aqui..."
+		input_question.text = current_text
 		input_question.caret_column = input_question.text.length()
 
-	# Botão Voltar desabilitado na 1ª pergunta
+	# 1. BOTÃO VOLTAR: Invisível na 1ª pergunta, visível a partir da 2ª
 	if back_button:
-		back_button.disabled = (current_index == 0) or _finished
+		back_button.visible = (current_index > 0) and not _finished
+		back_button.disabled = _finished
 
-	# Botão Avançar / Enviar
+	# 2. BOTÃO AVANÇAR / CHECK:
+	# Só fica habilitado se houver algo escrito no campo de texto da pergunta
+	var is_text_valid: bool = not current_text.strip_edges().is_empty()
+
 	if next_button:
-		next_button.disabled = _finished
+		next_button.disabled = (not is_text_valid) or _finished
 		
-		# Troca dinâmica da imagem entre Seta e Check
+		# Alterna entre Seta e Check se for a última pergunta
 		if _is_last():
 			if CHECK_TEXTURE:
 				_set_button_texture(next_button, CHECK_TEXTURE)
@@ -193,14 +200,16 @@ func _save_current() -> void:
 		questions[current_index] = input_question.text.strip_edges()
 
 
-func _warn_empty() -> void:
-	if input_question:
-		input_question.placeholder_text = "Por favor, digite uma pergunta válida!"
+# ---------------------------------------------------------------------
+# Monitoramento de Texto e Fluxo
+# ---------------------------------------------------------------------
+func _on_text_changed(new_text: String) -> void:
+	# Atualiza o estado do botão de avançar em tempo real conforme o jogador digita
+	var has_content: bool = not new_text.strip_edges().is_empty()
+	if next_button and not _finished:
+		next_button.disabled = not has_content
 
 
-# ---------------------------------------------------------------------
-# Fluxo e Ações
-# ---------------------------------------------------------------------
 func _on_text_submitted(_text: String) -> void:
 	_handle_advance_or_send()
 
@@ -222,7 +231,6 @@ func _handle_advance_or_send() -> void:
 		return
 
 	if input_question and input_question.text.strip_edges().is_empty():
-		_warn_empty()
 		return
 
 	_save_current()
@@ -240,7 +248,6 @@ func _on_send_pressed() -> void:
 		if String(questions[i]).is_empty():
 			current_index = i
 			_refresh()
-			_warn_empty()
 			return
 
 	_finished = true
