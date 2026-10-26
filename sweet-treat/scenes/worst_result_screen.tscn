@@ -5,8 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="2_lvrtv"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_c4fvb"]
 [ext_resource type="PackedScene" uid="uid://c8781a8h81ums" path="res://scenes/components/podium_player.tscn" id="5_krjn3"]
+[ext_resource type="Script" uid="uid://qkkittlyi1ff" path="res://scenes/scroll_container_ranking.gd" id="6_qmjba"]
+[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/Buttons/play_button.tscn" id="7_lvrtv"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_todft"]
+[sub_resource type="LabelSettings" id="LabelSettings_c4fvb"]
 font = ExtResource("3_c4fvb")
 font_size = 32
 outline_size = 6
@@ -14,6 +16,28 @@ outline_color = Color(0, 0, 0, 1)
 shadow_size = 4
 shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(0.95, 1.91)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i14x0"]
+content_margin_left = 13.0
+bg_color = Color(0.44705883, 0, 0.043137256, 0.49803922)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.20784314, 0.28627452, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+
+[sub_resource type="LabelSettings" id="LabelSettings_yj5tl"]
+font = ExtResource("3_c4fvb")
+font_size = 20
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="WorstResultScreen" type="Control" unique_id=5410941]
 layout_mode = 3
@@ -34,7 +58,7 @@ grow_vertical = 2
 texture = ExtResource("2_ldmk3")
 expand_mode = 5
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=919100568]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=566326538]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,27 +66,98 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 30
-theme_override_constants/margin_top = 30
+theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 90
+theme_override_constants/margin_bottom = 24
 
 [node name="Label" parent="MarginContainer" unique_id=625587219 instance=ExtResource("2_lvrtv")]
 layout_mode = 2
 size_flags_vertical = 0
-text = "Os melhores em ser os piores..."
-label_settings = SubResource("LabelSettings_todft")
+text = "E os melhores em serem os piores..."
+label_settings = SubResource("LabelSettings_c4fvb")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=966947822]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1731960075]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
+size_flags_vertical = 4
 theme_override_constants/separation = 40
 
 [node name="PodiumPlayer" parent="MarginContainer/HBoxContainer" unique_id=1732712691 instance=ExtResource("5_krjn3")]
 layout_mode = 2
 
-[node name="PodiumPlayer2" parent="MarginContainer/HBoxContainer" unique_id=47142006 instance=ExtResource("5_krjn3")]
+[node name="PodiumPlayer2" parent="MarginContainer/HBoxContainer" unique_id=1350598799 instance=ExtResource("5_krjn3")]
 layout_mode = 2
 
-[node name="PodiumPlayer3" parent="MarginContainer/HBoxContainer" unique_id=1978877647 instance=ExtResource("5_krjn3")]
+[node name="PodiumPlayer3" parent="MarginContainer/HBoxContainer" unique_id=2104670722 instance=ExtResource("5_krjn3")]
 layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer" unique_id=839128485]
+custom_minimum_size = Vector2(729, 228)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_i14x0")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel" unique_id=2034565216]
+custom_maximum_size = Vector2(729, 228)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 13
+theme_override_constants/margin_right = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Panel/MarginContainer" unique_id=141966807]
+custom_minimum_size = Vector2(729, 228)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("6_qmjba")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/ScrollContainer" unique_id=585080197]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_constants/separation = 24
+
+[node name="PodiumPlayer" parent="MarginContainer/Panel/MarginContainer/ScrollContainer/HBoxContainer" unique_id=1716829706 instance=ExtResource("5_krjn3")]
+layout_mode = 2
+
+[node name="PodiumPlayer2" parent="MarginContainer/Panel/MarginContainer/ScrollContainer/HBoxContainer" unique_id=619812759 instance=ExtResource("5_krjn3")]
+layout_mode = 2
+
+[node name="PodiumPlayer3" parent="MarginContainer/Panel/MarginContainer/ScrollContainer/HBoxContainer" unique_id=313039784 instance=ExtResource("5_krjn3")]
+layout_mode = 2
+
+[node name="PodiumPlayer4" parent="MarginContainer/Panel/MarginContainer/ScrollContainer/HBoxContainer" unique_id=729260084 instance=ExtResource("5_krjn3")]
+layout_mode = 2
+
+[node name="PodiumPlayer5" parent="MarginContainer/Panel/MarginContainer/ScrollContainer/HBoxContainer" unique_id=1741885225 instance=ExtResource("5_krjn3")]
+layout_mode = 2
+
+[node name="PodiumPlayer6" parent="MarginContainer/Panel/MarginContainer/ScrollContainer/HBoxContainer" unique_id=375266753 instance=ExtResource("5_krjn3")]
+layout_mode = 2
+
+[node name="PodiumPlayer7" parent="MarginContainer/Panel/MarginContainer/ScrollContainer/HBoxContainer" unique_id=2091872087 instance=ExtResource("5_krjn3")]
+layout_mode = 2
+
+[node name="PodiumPlayer8" parent="MarginContainer/Panel/MarginContainer/ScrollContainer/HBoxContainer" unique_id=1271089786 instance=ExtResource("5_krjn3")]
+layout_mode = 2
+
+[node name="PlayButton" parent="MarginContainer" unique_id=122511985 instance=ExtResource("7_lvrtv")]
+custom_minimum_size = Vector2(238, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Pontuação geral"
+
+[node name="Label2" parent="MarginContainer" unique_id=1381246086 instance=ExtResource("2_lvrtv")]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+text = "Segura aí! O host vai fazer o placar completo aparecer..."
+label_settings = SubResource("LabelSettings_yj5tl")
+vertical_alignment = 1
