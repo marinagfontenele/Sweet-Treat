@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="2_qbvo8"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_13q43"]
 [ext_resource type="PackedScene" uid="uid://crxl2csnks6g1" path="res://scenes/components/ranking_player.tscn" id="4_uwxgj"]
-[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="5_kykl7"]
+[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/Buttons/play_button.tscn" id="5_kykl7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tr5xb"]
 font = ExtResource("3_13q43")

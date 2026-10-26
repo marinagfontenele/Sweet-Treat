@@ -7,16 +7,17 @@
 [ext_resource type="Texture2D" uid="uid://dc7wvqxxjgb8h" path="res://assets/images/symbols/pencil.svg" id="3_flqon"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_rtw2f"]
 [ext_resource type="Texture2D" uid="uid://g0s2secdmqy0" path="res://assets/images/player_area.svg" id="4_7b55j"]
-[ext_resource type="PackedScene" uid="uid://du50c2vu78lg7" path="res://scenes/components/purple_button.tscn" id="4_oa1go"]
-[ext_resource type="PackedScene" uid="uid://cqhe6wwbw7q2f" path="res://scenes/components/join_button.tscn" id="4_rtw2f"]
+[ext_resource type="PackedScene" uid="uid://du50c2vu78lg7" path="res://scenes/components/Buttons/purple_button.tscn" id="4_oa1go"]
+[ext_resource type="PackedScene" uid="uid://cqhe6wwbw7q2f" path="res://scenes/components/Buttons/join_button.tscn" id="4_rtw2f"]
 [ext_resource type="Texture2D" uid="uid://crgtmb0gv472n" path="res://assets/images/symbols/info.svg" id="6_rcqid"]
 [ext_resource type="Texture2D" uid="uid://d170wlhq74rg8" path="res://assets/images/symbols/settings.svg" id="7_1ajci"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="7_tbmy8"]
-[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="8_jk1qb"]
+[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/Buttons/play_button.tscn" id="8_jk1qb"]
 [ext_resource type="Texture2D" uid="uid://bi4dbr2rbo0fj" path="res://assets/images/symbols/xmark.svg" id="10_7b55j"]
-[ext_resource type="PackedScene" uid="uid://b87icu65m3fcq" path="res://scenes/components/create_button.tscn" id="12_7b55j"]
+[ext_resource type="PackedScene" uid="uid://b87icu65m3fcq" path="res://scenes/components/Buttons/create_button.tscn" id="12_7b55j"]
 [ext_resource type="PackedScene" uid="uid://b5wyekog1o2ql" path="res://scenes/configuration_screen.tscn" id="16_j7ex8"]
 [ext_resource type="PackedScene" uid="uid://dutikdq86qml3" path="res://scenes/avatar_screen.tscn" id="17_a8gd2"]
+[ext_resource type="PackedScene" uid="uid://c5311gpa2i6ll" path="res://scenes/loading_join_room.tscn" id="18_a8gd2"]
 [ext_resource type="PackedScene" uid="uid://tbgrjpklhjj5" path="res://scenes/components/tutorial_panel.tscn" id="19_hstxw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8v716"]
@@ -158,6 +159,9 @@ corner_radius_top_right = 22
 corner_radius_bottom_right = 22
 corner_radius_bottom_left = 22
 corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
+bg_color = Color(0, 0, 0, 0.627451)
 
 [node name="MainMenu" type="Control" unique_id=1121190018]
 layout_mode = 3
@@ -471,6 +475,7 @@ offset_right = 287.5
 offset_bottom = 174.0
 
 [node name="ConfigurationPanel" type="Panel" parent="." unique_id=310481044]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -501,9 +506,17 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tbmy8")
 
-[node name="TutorialPanel" parent="." unique_id=1528599234 instance=ExtResource("19_hstxw")]
+[node name="LoadingScreen" type="Panel" parent="." unique_id=433433822]
+visible = false
 layout_mode = 1
-[node name="LoadingScreen" parent="." unique_id=1678902836 instance=ExtResource("18_a8gd2")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="LoadingPanel" parent="LoadingScreen" unique_id=1678902836 instance=ExtResource("18_a8gd2")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -514,3 +527,8 @@ offset_left = -193.0
 offset_top = -145.5
 offset_right = 193.0
 offset_bottom = 145.5
+
+[node name="TutorialPanel" parent="." unique_id=1528599234 instance=ExtResource("19_hstxw")]
+visible = false
+layout_mode = 1
+anchors_preset = 15

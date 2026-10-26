@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://b3ahvglndc6fn" path="res://scripts/lobby_room.gd" id="1_7a3ii"]
 [ext_resource type="PackedScene" uid="uid://2wt22hjltvpg" path="res://scenes/components/player_lobby.tscn" id="1_lsthe"]
 [ext_resource type="Texture2D" uid="uid://uyjevn7qqpkc" path="res://assets/images/backgrounds/radial_background.png" id="2_0idps"]
-[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="2_7a3ii"]
-[ext_resource type="PackedScene" uid="uid://du50c2vu78lg7" path="res://scenes/components/purple_button.tscn" id="3_0idps"]
+[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/Buttons/play_button.tscn" id="2_7a3ii"]
+[ext_resource type="PackedScene" uid="uid://du50c2vu78lg7" path="res://scenes/components/Buttons/purple_button.tscn" id="3_0idps"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="3_ejmfx"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="4_0idps"]
 [ext_resource type="Texture2D" uid="uid://bi4dbr2rbo0fj" path="res://assets/images/symbols/xmark.svg" id="4_wyy22"]
@@ -50,7 +50,7 @@ theme_override_constants/margin_bottom = 30
 
 [node name="InfoButton" parent="MarginContainer" unique_id=247859986 instance=ExtResource("3_0idps")]
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/InfoButton" unique_id=275090612]

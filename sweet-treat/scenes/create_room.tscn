@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://bua5ylfrdlxad" path="res://scripts/create_room.gd" id="1_78kgv"]
 [ext_resource type="PackedScene" uid="uid://y3y604jq3l4a" path="res://scenes/components/configuration_button.tscn" id="2_g5yfu"]
 [ext_resource type="Texture2D" uid="uid://uyjevn7qqpkc" path="res://assets/images/backgrounds/radial_background.png" id="2_v55s6"]
-[ext_resource type="PackedScene" uid="uid://du50c2vu78lg7" path="res://scenes/components/purple_button.tscn" id="3_8jb3i"]
+[ext_resource type="PackedScene" uid="uid://du50c2vu78lg7" path="res://scenes/components/Buttons/purple_button.tscn" id="3_8jb3i"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="3_hdjgt"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="4_qg0me"]
 [ext_resource type="Texture2D" uid="uid://bi4dbr2rbo0fj" path="res://assets/images/symbols/xmark.svg" id="4_v55s6"]
 [ext_resource type="Texture2D" uid="uid://dtx4ee3hhi427" path="res://assets/images/lock.png" id="5_hdjgt"]
-[ext_resource type="PackedScene" uid="uid://de8ybwgvlf0q4" path="res://scenes/components/check_button.tscn" id="6_iju0h"]
+[ext_resource type="PackedScene" uid="uid://de8ybwgvlf0q4" path="res://scenes/components/Buttons/check_button.tscn" id="6_iju0h"]
 [ext_resource type="Texture2D" uid="uid://b4yveq8v8jjql" path="res://assets/images/symbols/checkmark.svg" id="8_qg0me"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
@@ -108,7 +108,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="InfoButton" parent="MarginContainer" unique_id=247859986 instance=ExtResource("3_8jb3i")]
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="TextureRect2" type="TextureRect" parent="MarginContainer/InfoButton" unique_id=540500823]

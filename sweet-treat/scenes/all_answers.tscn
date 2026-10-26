@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://daksgitxujjt7" path="res://assets/images/backgrounds/yellow_background.svg" id="1_p0idi"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="2_8orqm"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_ieid6"]
-[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="5_cxwln"]
+[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/Buttons/play_button.tscn" id="5_cxwln"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gf8m0"]
 font = ExtResource("3_ieid6")
