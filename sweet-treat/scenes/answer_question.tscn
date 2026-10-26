@@ -2,17 +2,10 @@
 
 [ext_resource type="Script" uid="uid://2cn5ulkh1pek" path="res://scripts/answer_question.gd" id="1_dj7vg"]
 [ext_resource type="Texture2D" uid="uid://edw6s1an43ec" path="res://assets/images/backgrounds/purple_background.png" id="2_dj7vg"]
-[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/Buttons/play_button.tscn" id="2_ydry8"]
+[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/play_button.tscn" id="2_ydry8"]
+[ext_resource type="LabelSettings" uid="uid://duktkte4u76ha" path="res://resources/normal_time.tres" id="3_gqe78"]
 [ext_resource type="Texture2D" uid="uid://6yc7ikry2a5r" path="res://assets/images/LightsScreen.svg" id="3_uqjji"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="4_gkvey"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_megxp"]
-font_size = 28
-outline_size = 6
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 2
-shadow_color = Color(0, 0, 0, 1)
-shadow_offset = Vector2(1, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gkvey"]
 content_margin_left = 25.0
@@ -81,10 +74,8 @@ theme_override_constants/margin_bottom = 50
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("4_gkvey")
-theme_override_font_sizes/font_size = 35
 text = "0:59"
-label_settings = SubResource("LabelSettings_megxp")
+label_settings = ExtResource("3_gqe78")
 horizontal_alignment = 1
 vertical_alignment = 1
 
