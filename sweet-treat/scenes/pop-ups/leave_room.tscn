@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cweewlnuywwd8"]
 
+[ext_resource type="Script" uid="uid://dejtvhnnl56o3" path="res://scripts/leave_room_popUp.gd" id="1_kwyrx"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="1_qknfo"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="2_5joq5"]
 [ext_resource type="PackedScene" uid="uid://ch8nyd0mj6eql" path="res://scenes/components/Buttons/dark_blue_button.tscn" id="3_4wfmw"]
@@ -38,12 +39,12 @@ font = ExtResource("2_5joq5")
 font_size = 17
 
 [node name="LeaveRoom" type="Panel" unique_id=1411481531]
-anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_68kpw")
+script = ExtResource("1_kwyrx")
 
 [node name="Panel" type="Panel" parent="." unique_id=255595347]
 custom_minimum_size = Vector2(300, 186)
