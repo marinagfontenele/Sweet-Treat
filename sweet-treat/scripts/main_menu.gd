@@ -73,19 +73,7 @@ func _ready() -> void:
 		name_input.select_all_on_focus = true
 		name_input.text_changed.connect(_on_player_name_changed)
 
-	_add_debug_button()
 
-
-# DEBUG: pula Game Center e lobby, com bots (some quando GameManager.DEBUG_BOTS = 0)
-func _add_debug_button() -> void:
-	if GameManager.DEBUG_BOTS <= 0:
-		return
-	var dbg := Button.new()
-	dbg.text = "DEBUG SOLO"
-	dbg.position = Vector2(20, 20)
-	dbg.z_index = 100
-	dbg.pressed.connect(GameManager.debug_start_solo)
-	add_child(dbg)
 
 
 func _on_player_name_changed(new_name: String) -> void:

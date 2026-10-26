@@ -25,9 +25,6 @@ const MIN_PLAYERS := 2
 # a penalidade de "não votou".
 const BLANK_VOTE := "__blank__"
 
-# DEBUG: quantidade de jogadores falsos para testar sem Game Center.
-# 0 desliga tudo (e esconde o botão de debug do menu).
-const DEBUG_BOTS := 2
 
 ## =====================================================================
 ## VARIÁVEIS GLOBAIS DE ESTADO E REDE (GAME CENTER)
@@ -542,38 +539,8 @@ func get_total_questions_received() -> int:
 func send_my_questions_to_others() -> void:
 	# Registra as perguntas do jogador real.
 	questions_by_player[_my_id()] = my_created_questions.duplicate()
-
-	# Modo de teste com bots.
-	if debug_active():
-		for i in range(_debug_ids.size()):
-			var bot_id: String = str(_debug_ids[i])
-			var bot_questions: Array = _generate_debug_bot_questions(i)
-
-			questions_by_player[bot_id] = bot_questions
-
-			print(
-				"[DEBUG] %s enviou %d perguntas."
-				% [
-					connected_players_names.get(bot_id, bot_id),
-					bot_questions.size()
-				]
-			)
-
-		_rebuild_game_questions()
-		game_questions.shuffle()
-		questions_finalized = true
-
-		print(
-			"[DEBUG] Total de perguntas recebidas: %d"
-			% get_total_questions_received()
-		)
-
-		emit_signal("lobby_updated")
-		return
-
-	# Fluxo normal, sem bots.
 	_rebuild_game_questions()
-
+	
 	if current_match == null:
 		game_questions = my_created_questions.duplicate()
 		game_questions.shuffle()
@@ -895,80 +862,3 @@ func get_current_question() -> String:
 	if current_question_index < game_questions.size():
 		return str(game_questions[current_question_index])
 	return str(game_questions[0])
-
-
-## =====================================================================
-## DEBUG: jogadores falsos para testar sem Game Center
-## Apague este bloco (e as chamadas debug_*) antes de publicar.
-## =====================================================================
-
-var _debug_ids: Array = []
-
-func debug_active() -> bool:
-	return DEBUG_BOTS > 0 and current_match == null and not _debug_ids.is_empty()
-
-
-# Pula Game Center e lobby: você vira host sozinho com DEBUG_BOTS bots
-func debug_start_solo() -> void:
-	is_host = true
-	current_room_code = 1234
-	connected_players_names.clear()
-	connected_players_profiles.clear()
-	_debug_ids.clear()
-	register_local_player(false)
-	for i in range(DEBUG_BOTS):
-		var bid := "bot_%d" % (i + 1)
-		var bname := "Bot %d" % (i + 1)
-		_debug_ids.append(bid)
-		connected_players_names[bid] = bname
-		connected_players_profiles[bid] = {
-			"name": bname,
-			"character": (i + 1) % characters.size(),
-			"background": (i + 3) % backgrounds.size(),
-			"host": false
-		}
-	host_start_game()   # vai direto para create_questions
-
-
-# Os bots respondem. skip_last = true: o último bot NÃO responde (testa "Sem Resposta")
-func debug_bots_answer(skip_last: bool = false) -> void:
-	if not debug_active():
-		return
-	for i in range(_debug_ids.size()):
-		if skip_last and i == _debug_ids.size() - 1:
-			continue
-		var bid: String = _debug_ids[i]
-		_store_answer(current_question_index, bid, connected_players_names[bid], "Resposta do %s" % connected_players_names[bid], false)
-	emit_signal("resposta_recebida")
-
-
-# Os bots votam em target_id (vazio = voto em branco)
-func debug_bots_vote(target_id: String = "") -> void:
-	if not debug_active():
-		return
-	for bid in _debug_ids:
-		register_vote(bid, target_id if target_id != "" else BLANK_VOTE, current_question_index)
-
-func _generate_debug_bot_questions(bot_index: int) -> Array:
-	var question_pool: Array[String] = [
-		"Qual seria o pior nome para um restaurante?",
-		"O que todo mundo finge gostar, mas quase ninguém gosta?",
-		"Qual seria o pior superpoder para ter?",
-		"O que você nunca deveria dizer em uma entrevista?",
-		"Qual objeto seria estranho encontrar na geladeira?",
-		"Qual seria o pior lugar para tirar uma soneca?",
-		"O que você faria se ficasse invisível por um dia?",
-		"Qual desculpa seria péssima para chegar atrasado?",
-		"Qual animal seria o pior colega de apartamento?",
-		"O que seria estranho fazer durante uma reunião?"
-	]
-
-	question_pool.shuffle()
-
-	var bot_questions: Array = []
-	var amount: int = maxi(1, GameManager.config_questions_per_player)
-
-	for i in range(amount):
-		bot_questions.append(question_pool[i % question_pool.size()])
-
-	return bot_questions

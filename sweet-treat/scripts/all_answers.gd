@@ -153,7 +153,6 @@ func _post_setup() -> void:
 			GameManager.host_resolve_round(r)
 		return
 
-	GameManager.debug_bots_vote(GameManager._my_id())   # DEBUG: no-op fora do modo bots
 	_check_all_votes_received()
 
 

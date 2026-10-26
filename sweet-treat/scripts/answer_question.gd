@@ -50,7 +50,7 @@ func _ready() -> void:
 
 	print("Responder pronta (rodada %d, %ds): %s" % [GameManager.current_question_index, GameManager.config_answer_time, GameManager.get_current_question()])
 
-	GameManager.debug_bots_answer()   # DEBUG: não faz nada fora do modo bots
+	
 
 
 func _process(delta: float) -> void:
