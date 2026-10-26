@@ -7,7 +7,7 @@ extends Control
 var _started: bool = false
 
 func _find_question_label():
-	var n = get_node_or_null("TextureRect/MarginContainer/TextureRect/MarginContainer/Label2")
+	var n = get_node_or_null("TextureRect/MarginContainer/TextureRect/MarginContainer/VBoxContainer/Label2")
 	if n == null:
 		n = find_child("Label2", true, false)
 	return n
