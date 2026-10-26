@@ -290,6 +290,7 @@ text = "90s"
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+disabled = false
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/PlayButton" unique_id=1050239488]
 custom_minimum_size = Vector2(25, 25)
