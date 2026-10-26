@@ -1,11 +1,12 @@
+#answer_formulation_wait.gd
+# Tela de espera: aguarda TODAS as respostas da rodada antes de exibi-las juntas.
 extends Node
 
-# Tela de espera: aguarda TODAS as respostas da rodada antes de exibi-las juntas.
 const NEXT_SCENE := "res://scenes/all_answers.tscn"
-const MAX_WAIT_SECONDS := 20.0   # segurança caso um jogador caia
 
 @onready var label_enviadas = _get_label("MarginContainer/VBoxContainer/HBoxContainer/PerguntasEnviadas", "PerguntasEnviadas")
 @onready var label_totais = _get_label("MarginContainer/VBoxContainer/HBoxContainer/PerguntasTotais", "PerguntasTotais")
+
 
 var _advanced: bool = false
 var _elapsed: float = 0.0
@@ -30,8 +31,11 @@ func _process(delta: float) -> void:
 	if _advanced:
 		return
 	_elapsed += delta
-	if _elapsed >= MAX_WAIT_SECONDS:
-		print("Tempo de espera esgotado; exibindo as respostas recebidas.")
+	# Segurança caso um jogador caia: tempo de resposta + margem para latência.
+	# (Precisa ser MAIOR que o tempo de resposta, senão quem responde primeiro
+	# é empurrado para a votação antes dos outros terminarem.)
+	if _elapsed >= float(GameManager.config_answer_time) + 5.0:
+		print("Timeout de espera: avançando com o que chegou.")
 		_advance()
 
 
@@ -52,5 +56,4 @@ func _advance() -> void:
 	if _advanced:
 		return
 	_advanced = true
-	print("Todas as respostas da rodada chegaram. Exibindo.")
 	GameManager.call_deferred("change_scene", NEXT_SCENE)

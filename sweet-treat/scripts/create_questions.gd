@@ -165,7 +165,7 @@ func _refresh() -> void:
 		progress_label.text = "Pergunta %d de %d" % [current_index + 1, total_questions]
 
 	if input_question:
-		input_question.placeholder_text = "Digite sua pergunta aqui..."
+		input_question.placeholder_text = ""
 		input_question.text = questions[current_index]
 		input_question.caret_column = input_question.text.length()
 

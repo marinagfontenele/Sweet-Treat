@@ -1,3 +1,4 @@
+#game_manager.gd
 extends Node
 
 ## =====================================================================
@@ -6,7 +7,24 @@ extends Node
 signal lobby_updated
 signal resposta_recebida
 signal questions_synced
+signal vote_received
+signal force_reveal_results(round_idx: int)   # resultado oficial da rodada pronto
+signal next_round_requested(round_idx: int)   # o host mandou ir para a próxima rodada
 signal connection_failed(message)
+
+## =====================================================================
+## CONSTANTES
+## =====================================================================
+
+# Máximo de jogadores pedido ao Game Center. O jogo é de 2 a 8; se o lobby
+# se comportar mal com 8, volte para 4 aqui (um lugar só).
+const MAX_PLAYERS := 4
+const MIN_PLAYERS := 2
+
+# Voto em branco ("Pular voto"): não conta para ninguém e não gera
+# a penalidade de "não votou".
+const BLANK_VOTE := "__blank__"
+
 
 ## =====================================================================
 ## VARIÁVEIS GLOBAIS DE ESTADO E REDE (GAME CENTER)
@@ -33,6 +51,10 @@ var connected_players_profiles: Dictionary = {}
 
 var _fallback_id: String = "local_" + str(randi())
 
+var _auth_pending: bool = false
+var _searching: bool = false
+var _search_id: int = 0
+
 ## =====================================================================
 ## CONFIGURAÇÕES DA SALA (DEFINIDAS PELO HOST)
 ## =====================================================================
@@ -53,9 +75,18 @@ var game_questions: Array = []
 var questions_finalized: bool = false
 var current_question_index: int = 0
 
-# { indice_da_rodada: { player_id: { "id", "player", "answer" } } }
+# { indice_da_rodada: { player_id: { "id", "player", "answer", "no_answer" } } }
 var answers_by_round: Dictionary = {}
 
+# { player_id: tomates acumulados na partida }
+var player_tomatoes: Dictionary = {}
+
+# { round_index: { voter_id: target_player_id } }
+var votes_by_round: Dictionary = {}
+
+# { round_index: { player_id: tomates daquela rodada } } resultado OFICIAL,
+# aplicado uma única vez por rodada (igual em todos os aparelhos)
+var round_results: Dictionary = {}
 
 ## =====================================================================
 ## FUNÇÕES PADRÃO DO CICLO DE VIDA E UTILITÁRIOS GERAIS
@@ -163,6 +194,12 @@ func _my_id() -> String:
 func _my_name() -> String:
 	return player_name if player_name != "" else "Jogador"
 
+# Quem decide o resultado da rodada e libera a próxima:
+# o host (ou o próprio aparelho, no modo local sem rede).
+func is_authority() -> bool:
+	return is_host or current_match == null
+
+
 # Registra o jogador local na lista da sala (sem esperar a partida do Game Center)
 func register_local_player(notify: bool = true) -> void:
 	var my_id := _my_id()
@@ -202,8 +239,10 @@ func get_lobby_players() -> Array:
 
 # Cancela a tentativa de entrar numa sala (botão fechar do modal de conexão)
 func cancel_join() -> void:
-	if matchmaker != null and matchmaker.has_method("cancel"):
+	_search_id += 1   # ignora o retorno de qualquer busca antiga
+	if _searching and matchmaker != null and matchmaker.has_method("cancel"):
 		matchmaker.cancel()
+	_searching = false
 	current_room_code = 0
 	connected_players_names.clear()
 	connected_players_profiles.clear()
@@ -216,20 +255,29 @@ func reset_match_state() -> void:
 	questions_finalized = false
 	current_question_index = 0
 	answers_by_round.clear()
-
+	votes_by_round.clear()
+	player_tomatoes.clear()
+	round_results.clear()
 
 ## =====================================================================
 ## AUTENTICAÇÃO E SALAS VIA APPLE GAME CENTER
 ## =====================================================================
 
 func authenticate() -> void:
+	# Só autentica uma vez. Recriar o GameCenterManager a cada abertura do menu
+	# deixa local_player nulo durante o login e quebra criar/entrar em sala.
+	if _auth_pending or (game_center != null and game_center.local_player != null):
+		return
+	_auth_pending = true
 	game_center = GameCenterManager.new()
 
 	game_center.authentication_error.connect(func(error: String) -> void:
+		_auth_pending = false
 		print("Erro de autenticação Game Center: %s" % error)
 	)
 
 	game_center.authentication_result.connect(func(status: bool) -> void:
+		_auth_pending = false
 		print("Status de autenticação: %s" % status)
 		if status and game_center.local_player:
 			local = game_center.local_player
@@ -238,11 +286,17 @@ func authenticate() -> void:
 	game_center.authenticate()
 
 
-func join_room_with_code(room_code: int, am_i_host: bool) -> void:
+# Devolve false se não conseguiu nem iniciar a busca (ex.: Game Center sem login).
+# Quem chama NÃO deve navegar para a próxima tela nesse caso.
+func join_room_with_code(room_code: int, am_i_host: bool) -> bool:
 	if game_center == null or game_center.local_player == null:
 		print("Erro: Jogador não autenticado no Game Center!")
 		emit_signal("connection_failed", "Não foi possível conectar ao Game Center. Tente novamente.")
-		return
+		return false
+
+	# Nova tentativa: cancela busca anterior que ainda esteja pendente
+	if _searching and matchmaker != null and matchmaker.has_method("cancel"):
+		matchmaker.cancel()
 
 	is_host = am_i_host
 	current_room_code = room_code
@@ -254,14 +308,24 @@ func join_room_with_code(room_code: int, am_i_host: bool) -> void:
 	register_local_player(false)
 
 	var req := GKMatchRequest.new()
-	req.max_players = 4
-	req.min_players = 2
+	req.max_players = MAX_PLAYERS
+	req.min_players = MIN_PLAYERS
 	req.player_group = room_code
 
-	print("Buscando/Criando sala no Game Center (Player Group): %d..." % room_code)
+	print("[LOBBY] auth ok | id=%s | host=%s | sala=%d | max=%d min=%d" % [_my_id(), am_i_host, room_code, MAX_PLAYERS, MIN_PLAYERS])
+
+	_search_id += 1
+	var my_search := _search_id
+	var t0 := Time.get_ticks_msec()
+	_searching = true
 
 	matchmaker = GKMatchmaker.new()
 	matchmaker.find_match(req, func(game_match: GKMatch, error: Variant) -> void:
+		if my_search != _search_id:
+			return   # busca antiga/cancelada
+		_searching = false
+		print("[LOBBY] find_match respondeu em %d ms | erro=%s | match=%s" % [Time.get_ticks_msec() - t0, str(error), game_match != null])
+
 		if error != null:
 			print("Matchmaker falhou com erro: %s" % str(error))
 			call_deferred("emit_signal", "connection_failed", "Falha ao conectar na sala. Tente novamente.")
@@ -271,6 +335,7 @@ func join_room_with_code(room_code: int, am_i_host: bool) -> void:
 			print("Partida estabelecida com sucesso via Game Center!")
 			call_deferred("_configurar_partida", game_match)
 	)
+	return true
 
 
 func _configurar_partida(game_match: GKMatch) -> void:
@@ -326,7 +391,10 @@ func _processar_pacote_rede(data: PackedByteArray, _from_player: GKPlayer = null
 	match dict["type"]:
 		"player_info":
 			var p_id = str(dict.get("id", ""))
+			if p_id == "":
+				return
 			var p_name = str(dict.get("name", "Jogador"))
+			var is_new := not connected_players_profiles.has(p_id)
 			connected_players_names[p_id] = p_name
 			connected_players_profiles[p_id] = {
 				"name": p_name,
@@ -334,7 +402,11 @@ func _processar_pacote_rede(data: PackedByteArray, _from_player: GKPlayer = null
 				"background": clampi(int(dict.get("background", 0)), 0, backgrounds.size() - 1),
 				"host": bool(dict.get("host", false))
 			}
-			print("Jogador identificado na sala: %s" % p_name)
+			print("[LOBBY] player_info de %s (novo: %s) | total na sala: %d" % [p_name, is_new, connected_players_profiles.size()])
+			# O primeiro handshake pode se perder numa corrida de conexão:
+			# quem recebe um jogador novo responde com o próprio, para ele também me ver.
+			if is_new and p_id != _my_id():
+				_enviar_handshake_nome()
 			emit_signal("lobby_updated")
 
 		"room_config":
@@ -390,11 +462,31 @@ func _processar_pacote_rede(data: PackedByteArray, _from_player: GKPlayer = null
 			var remote_answer = str(dict.get("answer", ""))
 			var remote_id = str(dict.get("id", remote_player))
 			var remote_round = int(dict.get("round", current_question_index))
-			if _store_answer(remote_round, remote_id, remote_player, remote_answer):
-				print("Resposta (rodada %d) de %s: %s" % [remote_round, remote_player, remote_answer])
+			var remote_no_answer = bool(dict.get("no_answer", false))
+			if _store_answer(remote_round, remote_id, remote_player, remote_answer, remote_no_answer):
+				print("Resposta (rodada %d) de %s: %s (sem resposta: %s)" % [remote_round, remote_player, remote_answer, remote_no_answer])
 				emit_signal("resposta_recebida")
 				
 		
+
+		"player_vote":
+			var voter = str(dict.get("voter_id", ""))
+			var target = str(dict.get("target_id", ""))
+			var r_idx = int(dict.get("round", current_question_index))
+			if voter != "":
+				register_vote(voter, target, r_idx)
+
+		"reveal_votes":
+			# O host manda o resultado pronto; todos aplicam o mesmo placar
+			var r_idx = int(dict.get("round", current_question_index))
+			var pen = dict.get("penalties", {})
+			if pen is Dictionary:
+				apply_round_results(r_idx, pen)
+
+		"next_round":
+			# O host apertou "Próxima rodada"
+			var r_idx = int(dict.get("round", current_question_index))
+			emit_signal("next_round_requested", r_idx)
 
 
 func _notificar_atualizacao_lobby() -> void:
@@ -431,12 +523,30 @@ func get_total_questions_received() -> int:
 	return total
 
 
+#func send_my_questions_to_others() -> void:
+	#questions_by_player[_my_id()] = my_created_questions.duplicate()
+	#_rebuild_game_questions()
+#
+	#if current_match == null:
+		## Modo local/teste sem rede
+		#game_questions = my_created_questions.duplicate()
+		#game_questions.shuffle()
+		#questions_finalized = true
+		#emit_signal("lobby_updated")
+		#return
+#
+	#_enviar_pacote_json({
+		#"type": "player_questions",
+		#"id": _my_id(),
+		#"questions": my_created_questions
+	#})
+	#emit_signal("lobby_updated")
 func send_my_questions_to_others() -> void:
+	# Registra as perguntas do jogador real.
 	questions_by_player[_my_id()] = my_created_questions.duplicate()
 	_rebuild_game_questions()
-
+	
 	if current_match == null:
-		# Modo local/teste sem rede
 		game_questions = my_created_questions.duplicate()
 		game_questions.shuffle()
 		questions_finalized = true
@@ -448,8 +558,8 @@ func send_my_questions_to_others() -> void:
 		"id": _my_id(),
 		"questions": my_created_questions
 	})
-	emit_signal("lobby_updated")
 
+	emit_signal("lobby_updated")
 
 func host_start_game() -> void:
 	if not is_host:
@@ -507,19 +617,20 @@ func host_start_question_display() -> void:
 ## RESPOSTAS (guardadas por rodada e por jogador)
 ## =====================================================================
 
-func _store_answer(round_idx: int, player_id: String, player: String, answer: String) -> bool:
+# no_answer = true quando o tempo acabou sem o jogador enviar nada
+func _store_answer(round_idx: int, player_id: String, player: String, answer: String, no_answer: bool = false) -> bool:
 	if not answers_by_round.has(round_idx):
 		answers_by_round[round_idx] = {}
 	var round_answers: Dictionary = answers_by_round[round_idx]
 	if round_answers.has(player_id):
 		return false
-	round_answers[player_id] = { "id": player_id, "player": player, "answer": answer }
+	round_answers[player_id] = { "id": player_id, "player": player, "answer": answer, "no_answer": no_answer }
 	return true
 
 
-func send_my_answer(answer_text: String) -> void:
+func send_my_answer(answer_text: String, no_answer: bool = false) -> void:
 	var nickname := _my_name()
-	_store_answer(current_question_index, _my_id(), nickname, answer_text)
+	_store_answer(current_question_index, _my_id(), nickname, answer_text, no_answer)
 	emit_signal("resposta_recebida")
 
 	_enviar_pacote_json({
@@ -527,7 +638,8 @@ func send_my_answer(answer_text: String) -> void:
 		"id": _my_id(),
 		"round": current_question_index,
 		"player": nickname,
-		"answer": answer_text
+		"answer": answer_text,
+		"no_answer": no_answer
 	})
 
 
@@ -543,6 +655,29 @@ func get_current_round_answers() -> Array:
 	return out
 
 
+# Sempre devolve UM CARD POR JOGADOR da sala, na mesma ordem em todos os aparelhos.
+# Quem não respondeu (ou cujo pacote nunca chegou) vem com no_answer = true.
+func get_round_cards() -> Array:
+	var out: Array = []
+	var answers: Dictionary = answers_by_round.get(current_question_index, {})
+	var ids: Array = connected_players_names.keys()
+	for k in answers.keys():
+		if not ids.has(k):
+			ids.append(k)
+	ids.sort()
+	for pid in ids:
+		if answers.has(pid):
+			out.append(answers[pid])
+		else:
+			out.append({
+				"id": pid,
+				"player": connected_players_names.get(pid, "Jogador"),
+				"answer": "",
+				"no_answer": true
+			})
+	return out
+
+
 func get_current_answers_count() -> int:
 	if answers_by_round.has(current_question_index):
 		return answers_by_round[current_question_index].size()
@@ -555,6 +690,159 @@ func get_expected_players_count() -> int:
 
 func clear_round_answers() -> void:
 	answers_by_round.erase(current_question_index)
+
+
+## =====================================================================
+## VOTAÇÃO E PENALIDADES (SISTEMA DE TOMATES)
+## =====================================================================
+
+func register_vote(voter_id: String, target_id: String, round_idx: int = current_question_index) -> void:
+	# Votos que chegam depois do resultado oficial são ignorados
+	if round_results.has(round_idx):
+		return
+	# Votar na própria resposta é permitido (decisão do PO)
+	if not votes_by_round.has(round_idx):
+		votes_by_round[round_idx] = {}
+	votes_by_round[round_idx][voter_id] = target_id
+	print("Voto registrado na rodada %d: %s -> %s" % [round_idx, voter_id, target_id])
+	emit_signal("vote_received")
+
+
+func send_my_vote(target_player_id: String) -> void:
+	register_vote(_my_id(), target_player_id, current_question_index)
+
+	_enviar_pacote_json({
+		"type": "player_vote",
+		"voter_id": _my_id(),
+		"target_id": target_player_id,
+		"round": current_question_index
+	})
+
+
+# Apenas CALCULA (não acumula). O acúmulo é feito em apply_round_results.
+#  - 2 tomates: não respondeu OU pior resposta isolada (mais votos)
+#  - 1 tomate: não votou OU empatou no topo de votos
+#  - Ninguém respondeu: ninguém pôde votar, todos levam só os 2 tomates
+func calculate_round_penalties(round_idx: int = current_question_index) -> Dictionary:
+	var round_penalties: Dictionary = {}
+	var round_answers: Dictionary = answers_by_round.get(round_idx, {})
+	var round_votes: Dictionary = votes_by_round.get(round_idx, {})
+	var valid_ids: Array = []
+
+	for pid in connected_players_names.keys():
+		round_penalties[pid] = 0
+		var d = round_answers.get(pid)
+		if d != null and not d.get("no_answer", false):
+			valid_ids.append(pid)
+
+	# Ninguém respondeu: sem votação, todos +2
+	if valid_ids.is_empty():
+		for pid in round_penalties.keys():
+			round_penalties[pid] = 2
+		return round_penalties
+
+	for pid in connected_players_names.keys():
+		if not valid_ids.has(pid):
+			round_penalties[pid] += 2          # não respondeu
+		if not round_votes.has(pid):
+			round_penalties[pid] += 1          # não votou (voto em branco conta como voto)
+
+	# Votos recebidos por cada resposta válida (em branco e votos em quem não respondeu não contam)
+	var vote_counts: Dictionary = {}
+	for voter_id in round_votes.keys():
+		var target_id = round_votes[voter_id]
+		if not valid_ids.has(target_id):
+			continue
+		vote_counts[target_id] = int(vote_counts.get(target_id, 0)) + 1
+
+	# Só existe "pior resposta" se houver pelo menos 2 respostas válidas
+	if valid_ids.size() >= 2 and not vote_counts.is_empty():
+		var max_votes := 0
+		for pid in vote_counts.keys():
+			max_votes = maxi(max_votes, vote_counts[pid])
+		var top: Array = []
+		for pid in vote_counts.keys():
+			if vote_counts[pid] == max_votes:
+				top.append(pid)
+		var penalty := 2 if top.size() == 1 else 1   # isolado = 2, empate = 1 cada
+		for pid in top:
+			round_penalties[pid] += penalty
+
+	return round_penalties
+
+
+# Aplica o resultado oficial uma única vez por rodada e avisa as telas
+func apply_round_results(round_idx: int, penalties: Dictionary) -> bool:
+	if round_results.has(round_idx):
+		return false
+	var clean: Dictionary = {}
+	for pid in penalties.keys():
+		var key := str(pid)
+		clean[key] = int(penalties[pid])        # JSON devolve número como float
+		player_tomatoes[key] = int(player_tomatoes.get(key, 0)) + clean[key]
+	round_results[round_idx] = clean
+	emit_signal("force_reveal_results", round_idx)
+	return true
+
+
+# Só o host (ou o modo local) calcula e transmite o resultado
+func host_resolve_round(round_idx: int) -> void:
+	if round_results.has(round_idx):
+		return
+	var penalties := calculate_round_penalties(round_idx)
+	apply_round_results(round_idx, penalties)
+	_enviar_pacote_json({
+		"type": "reveal_votes",
+		"round": round_idx,
+		"penalties": penalties
+	})
+
+
+# O host apertou "Próxima rodada": avisa todos (e a si mesmo)
+func host_next_round() -> void:
+	if not is_authority():
+		return
+	var r := current_question_index
+	_enviar_pacote_json({
+		"type": "next_round",
+		"round": r
+	})
+	emit_signal("next_round_requested", r)
+
+
+## =====================================================================
+## PLACAR (para as telas finais)
+## =====================================================================
+
+# Ranking final: do MAIS tomates (perdedor) para o menos.
+# Cada item: { "id", "name", "tomatoes" }
+func get_tomato_ranking() -> Array:
+	var ranking: Array = []
+	for pid in connected_players_names.keys():
+		ranking.append({
+			"id": pid,
+			"name": connected_players_names[pid],
+			"tomatoes": int(player_tomatoes.get(pid, 0))
+		})
+	ranking.sort_custom(func(a, b):
+		if a["tomatoes"] != b["tomatoes"]:
+			return a["tomatoes"] > b["tomatoes"]
+		return String(a["name"]) < String(b["name"])   # desempate estável
+	)
+	return ranking
+
+
+# Quem perdeu (mais tomates). Pode ter mais de um em caso de empate.
+func get_losers() -> Array:
+	var ranking := get_tomato_ranking()
+	if ranking.is_empty():
+		return []
+	var top: int = ranking[0]["tomatoes"]
+	return ranking.filter(func(p): return p["tomatoes"] == top)
+
+
+func get_my_tomatoes() -> int:
+	return int(player_tomatoes.get(_my_id(), 0))
 
 
 ## =====================================================================
