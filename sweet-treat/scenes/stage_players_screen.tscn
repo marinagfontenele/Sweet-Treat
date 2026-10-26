@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dsjdg3snqri2t" path="res://assets/images/backgrounds/players_stage_background.png" id="1_ossv1"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="2_my36j"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_6y27y"]
-[ext_resource type="PackedScene" uid="uid://bmu5y2pb401r8" path="res://scenes/components/stage_card_panel.tscn" id="4_05fry"]
+[ext_resource type="PackedScene" uid="uid://ccmijuuqrgu3q" path="res://scenes/components/stage_card_panel.tscn" id="4_05fry"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_seen7"]
 bg_color = Color(0.003921569, 0.67058825, 0.91764706, 1)
@@ -77,7 +77,7 @@ z_index = 1
 custom_minimum_size = Vector2(593, 42)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_seen7")
-text = "Alguma frase legal aqui"
+text = "Luz, câmera... se preparem!"
 label_settings = SubResource("LabelSettings_h1efr")
 vertical_alignment = 1
 

@@ -78,3 +78,4 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_xuqmd")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_lw7gq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_cjytk")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_22cvj")
+disabled = true

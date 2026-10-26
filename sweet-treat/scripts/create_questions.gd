@@ -2,15 +2,22 @@ extends Node
 
 const KeyboardPreview = preload("res://scripts/keyboard_preview.gd")
 
-# Nós da cena (com busca automática caso o caminho exato mude)
+# =====================================================================
+# AJUSTE AQUI: Caminho exato do arquivo de imagem do Check no projeto
+# =====================================================================
+const CHECK_TEXTURE = preload("res://assets/images/symbols/checkmark.svg") # <--- Coloque o caminho real do seu arquivo do Check aqui
+
+# Nós da cena
 @onready var progress_bar = _find_progress_bar()
 @onready var progress_label = get_node_or_null("MarginContainer/VBoxContainer/VBoxContainer/Label")
 @onready var input_question = _find_line_edit()
 
-# Botões: detectados pelo nome/texto (Voltar / Próxima / Enviar)
+# Botões da interface
 var back_button: BaseButton = null
 var next_button: BaseButton = null
-var send_button: BaseButton = null
+
+# Guarda a textura original da seta para alternar quando não for a última pergunta
+var _original_next_texture: Texture2D = null
 
 var total_questions: int = 1
 var current_index: int = 0
@@ -27,37 +34,23 @@ func _ready() -> void:
 		questions.append("")
 	GameManager.my_created_questions.clear()
 
-	_detect_buttons()
+	_find_and_setup_buttons()
+	_remove_hidden_button_texts()
 
 	if progress_bar:
 		progress_bar.min_value = 0
 		progress_bar.max_value = total_questions
 		progress_bar.value = 0
 
-	if back_button:
-		back_button.pressed.connect(_on_back_pressed)
-	if next_button:
-		next_button.pressed.connect(_on_next_pressed)
-	if send_button:
-		send_button.pressed.connect(_on_send_pressed)
-
 	if input_question:
 		input_question.text_submitted.connect(_on_text_submitted)
-		input_question.text_changed.connect(_on_text_changed)
-		# Barra acima do teclado mostrando o que está sendo digitado
 		KeyboardPreview.new().attach_to(self, input_question)
 
 	_refresh()
-	print("create_questions pronta: %d perguntas. Voltar=%s Próxima=%s Enviar=%s" % [
-		total_questions, _name_of(back_button), _name_of(next_button), _name_of(send_button)])
-
-
-func _name_of(n: Node) -> String:
-	return String(n.name) if n else "nenhum"
 
 
 # ---------------------------------------------------------------------
-# Descoberta de nós
+# Mapeamento de Nós e Texturas
 # ---------------------------------------------------------------------
 func _find_progress_bar():
 	var n = get_node_or_null("MarginContainer/VBoxContainer/VBoxContainer/ProgressBar/ProgressBar")
@@ -83,71 +76,88 @@ func _find_first_of_class(node: Node, cls: String):
 	return null
 
 
-func _collect_buttons(node: Node, out: Array) -> void:
+func _collect_all_buttons(node: Node, out: Array) -> void:
 	for child in node.get_children():
 		if child is BaseButton:
 			out.append(child)
-		_collect_buttons(child, out)
+		_collect_all_buttons(child, out)
 
 
-func _button_text(b: Node) -> String:
-	var t = b.get("text")
-	if t is String and t != "":
-		return t
-	var stack: Array = [b]
-	while not stack.is_empty():
-		var cur: Node = stack.pop_front()
-		if cur is Label:
-			return cur.text
-		for c in cur.get_children():
-			stack.append(c)
-	return ""
+func _find_and_setup_buttons() -> void:
+	var all_buttons: Array = []
+	_collect_all_buttons(self, all_buttons)
+
+	if all_buttons.size() >= 2:
+		all_buttons.sort_custom(func(a, b): return a.global_position.x < b.global_position.x)
+		back_button = all_buttons[0]
+		next_button = all_buttons[all_buttons.size() - 1]
+	elif all_buttons.size() == 1:
+		next_button = all_buttons[0]
+
+	if back_button and not back_button.pressed.is_connected(_on_back_pressed):
+		back_button.pressed.connect(_on_back_pressed)
+	if next_button and not next_button.pressed.is_connected(_on_next_pressed):
+		next_button.pressed.connect(_on_next_pressed)
+
+	# Salva a textura original da seta (seja TextureButton ou TextureRect filho)
+	_original_next_texture = _get_button_texture(next_button)
 
 
-func _has_any(s: String, words: Array) -> bool:
-	for w in words:
-		if s.contains(w):
-			return true
-	return false
+func _get_button_texture(btn: Node) -> Texture2D:
+	if btn == null:
+		return null
+	if btn is TextureButton and btn.texture_normal != null:
+		return btn.texture_normal
+	var rect = _find_first_of_class(btn, "TextureRect")
+	if rect and rect.texture != null:
+		return rect.texture
+	return null
 
 
-func _detect_buttons() -> void:
-	var all: Array = []
-	_collect_buttons(self, all)
-	for b in all:
-		var key: String = (String(b.name) + " " + _button_text(b)).to_lower()
-		if _has_any(key, ["voltar", "back", "anterior", "prev"]):
-			back_button = b
-		elif _has_any(key, ["próxima", "proxima", "avançar", "avancar", "next", "seguinte"]):
-			next_button = b
-		elif _has_any(key, ["enviar", "send", "play"]):
-			send_button = b
+func _set_button_texture(btn: Node, tex: Texture2D) -> void:
+	if btn == null or tex == null:
+		return
+	if btn is TextureButton:
+		btn.texture_normal = tex
+	var rect = _find_first_of_class(btn, "TextureRect")
+	if rect:
+		rect.texture = tex
 
-	if send_button == null:
-		send_button = get_node_or_null("MarginContainer/VBoxContainer/VBoxContainer2/PlayButton")
+
+func _remove_hidden_button_texts() -> void:
+	var buttons = [back_button, next_button]
+	for b in buttons:
+		if b != null:
+			if "text" in b:
+				b.text = ""
+			_hide_labels_in_node(b)
+
+
+func _hide_labels_in_node(node: Node) -> void:
+	for child in node.get_children():
+		if child is Label:
+			child.visible = false
+		_hide_labels_in_node(child)
 
 
 # ---------------------------------------------------------------------
-# Estado da tela
+# Atualização Visual dos Estados
 # ---------------------------------------------------------------------
 func _is_last() -> bool:
 	return current_index >= total_questions - 1
 
 
-func _filled_count() -> int:
-	var c := 0
+func _confirmed_count() -> int:
+	var count := 0
 	for i in range(total_questions):
-		var t: String = questions[i]
-		if i == current_index and input_question:
-			t = input_question.text.strip_edges()
-		if not t.is_empty():
-			c += 1
-	return c
+		if not String(questions[i]).strip_edges().is_empty():
+			count += 1
+	return count
 
 
 func _update_progress() -> void:
 	if progress_bar:
-		progress_bar.value = _filled_count()
+		progress_bar.value = _confirmed_count()
 
 
 func _refresh() -> void:
@@ -159,18 +169,21 @@ func _refresh() -> void:
 		input_question.text = questions[current_index]
 		input_question.caret_column = input_question.text.length()
 
-	var two_buttons := next_button != null
-
+	# Botão Voltar desabilitado na 1ª pergunta
 	if back_button:
-		back_button.disabled = current_index == 0
+		back_button.disabled = (current_index == 0) or _finished
 
-	if two_buttons:
-		next_button.visible = not _is_last()
-		if send_button:
-			send_button.visible = _is_last()
-	elif send_button and "text" in send_button:
-		# Só existe um botão: ele avança e, na última pergunta, envia
-		send_button.text = "Enviar" if _is_last() else "Próxima"
+	# Botão Avançar / Enviar
+	if next_button:
+		next_button.disabled = _finished
+		
+		# Troca dinâmica da imagem entre Seta e Check
+		if _is_last():
+			if CHECK_TEXTURE:
+				_set_button_texture(next_button, CHECK_TEXTURE)
+		else:
+			if _original_next_texture:
+				_set_button_texture(next_button, _original_next_texture)
 
 	_update_progress()
 
@@ -186,21 +199,10 @@ func _warn_empty() -> void:
 
 
 # ---------------------------------------------------------------------
-# Ações
+# Fluxo e Ações
 # ---------------------------------------------------------------------
-func _on_text_changed(_new_text: String) -> void:
-	_update_progress()
-
-
 func _on_text_submitted(_text: String) -> void:
-	_primary_action()
-
-
-func _primary_action() -> void:
-	if _is_last():
-		_on_send_pressed()
-	else:
-		_on_next_pressed()
+	_handle_advance_or_send()
 
 
 func _on_back_pressed() -> void:
@@ -212,31 +214,28 @@ func _on_back_pressed() -> void:
 
 
 func _on_next_pressed() -> void:
-	if _finished or _is_last():
-		return
-	if input_question and input_question.text.strip_edges().is_empty():
-		_warn_empty()
-		return
-	_save_current()
-	current_index += 1
-	_refresh()
+	_handle_advance_or_send()
 
 
-func _on_send_pressed() -> void:
+func _handle_advance_or_send() -> void:
 	if _finished:
 		return
 
-	# Com um botão só, ele funciona como "Próxima" até a última pergunta
-	if not _is_last():
-		_on_next_pressed()
-		return
-
 	if input_question and input_question.text.strip_edges().is_empty():
 		_warn_empty()
 		return
+
 	_save_current()
 
-	# Confere se alguma pergunta anterior ficou vazia (editada com "Voltar")
+	if not _is_last():
+		current_index += 1
+		_refresh()
+		return
+
+	_on_send_pressed()
+
+
+func _on_send_pressed() -> void:
 	for i in range(total_questions):
 		if String(questions[i]).is_empty():
 			current_index = i
@@ -245,10 +244,22 @@ func _on_send_pressed() -> void:
 			return
 
 	_finished = true
+	_update_progress()
+
+	if input_question:
+		input_question.editable = false
+
+	if back_button:
+		back_button.disabled = true
+
+	if next_button:
+		next_button.disabled = true
+
 	GameManager.my_created_questions = questions.duplicate()
 	GameManager.send_my_questions_to_others()
-	print("Perguntas enviadas: %s" % str(questions))
-	call_deferred("go_to_question_formulation_wait")
+
+	await get_tree().create_timer(0.6).timeout
+	go_to_question_formulation_wait()
 
 
 func go_to_question_formulation_wait() -> void:

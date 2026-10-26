@@ -120,6 +120,7 @@ layout_mode = 2
 [node name="PlayButton2" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1723046998 instance=ExtResource("6_hmaif")]
 layout_mode = 2
 size_flags_horizontal = 8
+disabled = false
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayButton2" unique_id=1233946359]
 custom_minimum_size = Vector2(30, 30)
@@ -135,6 +136,7 @@ texture = ExtResource("7_ywv44")
 [node name="PlayButton" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1799951131 instance=ExtResource("6_hmaif")]
 layout_mode = 2
 size_flags_horizontal = 10
+disabled = false
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayButton" unique_id=685544342]
 custom_minimum_size = Vector2(30, 30)
