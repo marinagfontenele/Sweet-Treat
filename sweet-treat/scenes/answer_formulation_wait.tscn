@@ -3,7 +3,40 @@
 [ext_resource type="Script" uid="uid://d2joqmxe0ecaa" path="res://scripts/answer_formulation_wait.gd" id="1_6nxtq"]
 [ext_resource type="Texture2D" uid="uid://uyjevn7qqpkc" path="res://assets/images/backgrounds/radial_background.png" id="2_qt6qm"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="3_mwirj"]
-[ext_resource type="Texture2D" uid="uid://gddaokoa2qbh" path="res://assets/images/Group 36.png" id="4_w5w52"]
+[ext_resource type="Texture2D" uid="uid://bm6fdd3tleyp8" path="res://assets/images/wait_tomato.png" id="4_qt6qm"]
+[ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="5_mwirj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_w5w52"]
+font = ExtResource("5_mwirj")
+font_size = 20
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_a0dd8"]
+font = ExtResource("5_mwirj")
+font_size = 20
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_o3hi2"]
+font = ExtResource("5_mwirj")
+font_size = 20
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2mdqv"]
+font = ExtResource("5_mwirj")
+font_size = 20
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="AnswerFormulationWait" type="Control" unique_id=1949044887]
 layout_mode = 3
@@ -24,7 +57,7 @@ grow_vertical = 2
 texture = ExtResource("2_qt6qm")
 expand_mode = 5
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1014892588]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1329414840]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,48 +65,52 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
+theme_override_constants/margin_top = 35
 theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 35
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=848244672]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=61404250]
 layout_mode = 2
 theme_override_constants/separation = 30
 
 [node name="Label2" parent="MarginContainer/VBoxContainer" unique_id=625587219 instance=ExtResource("3_mwirj")]
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 2
 text = "Aguardando outros jogadores..."
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=630811571]
-custom_maximum_size = Vector2(200, 200)
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=1304235]
+custom_maximum_size = Vector2(173, 168)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
-texture = ExtResource("4_w5w52")
+texture = ExtResource("4_qt6qm")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1366419985]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1599808022]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 8
+size_flags_vertical = 10
+theme_override_constants/separation = 3
 
-[node name="PerguntasEnviadas" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=696430124 instance=ExtResource("3_mwirj")]
+[node name="PerguntasEnviadas" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=612160364 instance=ExtResource("3_mwirj")]
 layout_mode = 2
 size_flags_vertical = 8
-text = ""
+text = "1"
+label_settings = SubResource("LabelSettings_w5w52")
 
-[node name="Label2" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1119098221 instance=ExtResource("3_mwirj")]
+[node name="Label2" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=111388773 instance=ExtResource("3_mwirj")]
 layout_mode = 2
 size_flags_vertical = 8
 text = "de"
+label_settings = SubResource("LabelSettings_a0dd8")
 
-[node name="PerguntasTotais" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=567975522 instance=ExtResource("3_mwirj")]
+[node name="PerguntasTotais" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=441568880 instance=ExtResource("3_mwirj")]
 layout_mode = 2
 size_flags_vertical = 8
-text = ""
+text = "2"
+label_settings = SubResource("LabelSettings_o3hi2")
 
-[node name="Label3" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=874350076 instance=ExtResource("3_mwirj")]
+[node name="Label3" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1898281606 instance=ExtResource("3_mwirj")]
 layout_mode = 2
 size_flags_vertical = 8
-text = "jogadores enviaram suas respostas"
+text = " jogadores enviaram suas respostas"
+label_settings = SubResource("LabelSettings_2mdqv")
