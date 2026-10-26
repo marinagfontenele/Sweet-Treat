@@ -18,8 +18,8 @@ signal connection_failed(message)
 
 # Máximo de jogadores pedido ao Game Center. O jogo é de 2 a 8; se o lobby
 # se comportar mal com 8, volte para 4 aqui (um lugar só).
-const MAX_PLAYERS := 4
-const MIN_PLAYERS := 2
+const MAX_PLAYERS := 8
+const MIN_PLAYERS := 1
 
 # Voto em branco ("Pular voto"): não conta para ninguém e não gera
 # a penalidade de "não votou".
@@ -180,8 +180,11 @@ func _load_profile() -> bool:
 	return true
 
 
-func change_scene(scene: String) -> void:
-	get_tree().change_scene_to_file(scene)
+func change_scene(scene_path: String) -> void:
+	call_deferred("_deferred_change_scene", scene_path)
+
+func _deferred_change_scene(scene_path: String) -> void:
+	get_tree().change_scene_to_file(scene_path)
 
 func add_score(quant: int) -> void:
 	tomato += quant
@@ -864,6 +867,5 @@ func advance_to_next_question() -> bool:
 func get_current_question() -> String:
 	if game_questions.is_empty():
 		return ""
-	if current_question_index < game_questions.size():
-		return str(game_questions[current_question_index])
-	return str(game_questions[0])
+	var safe_index = clamp(current_question_index, 0, game_questions.size() - 1)
+	return str(game_questions[safe_index])

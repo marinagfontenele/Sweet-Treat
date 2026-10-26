@@ -1,11 +1,14 @@
 extends Node
 
+const ALERT_POPUP_SCENE = preload("res://scenes/pop-ups/leave_room.tscn")
+
 const QUESTION_OPTIONS := [1, 2, 3]
 const ANSWER_OPTIONS := [30, 60, 90]
 const VOTE_OPTIONS := [30, 60, 90]
 
 @onready var room_code_label = _get_node_or_find("MarginContainer/VBoxContainer/HBoxContainer/Panel/VBoxContainer/Panel/RoomCodeLabel", "RoomCodeLabel")
 @onready var play_button = _get_node_or_find("MarginContainer/PlayButton", "PlayButton")
+@onready var close_button = _get_node_or_find("MarginContainer/InfoButton", "InfoButton")
 
 # groups[0] = perguntas, groups[1] = tempo de resposta, groups[2] = tempo de votação
 var groups: Array = [[], [], []]
@@ -30,6 +33,13 @@ func _ready() -> void:
 	else:
 		push_error("PlayButton não encontrado na cena create_room!")
 
+	# Conecta o botão X para abrir o Pop-up de alerta
+	if close_button:
+		if not close_button.pressed.is_connected(_on_close_pressed):
+			close_button.pressed.connect(_on_close_pressed)
+	else:
+		push_error("InfoButton (botão X) não encontrado na cena create_room!")
+
 	print("create_room pronta. Botões: perguntas=%d, resposta=%d, voto=%d" % [groups[0].size(), groups[1].size(), groups[2].size()])
 
 
@@ -41,13 +51,23 @@ func _get_node_or_find(path: String, node_name: String) -> Node:
 
 
 # ---------------------------------------------------------------------
-# Descoberta dos botões (não depende do caminho exato na cena)
+# Abertura do Pop-up de Sair ao clicar no X
+# ---------------------------------------------------------------------
+func _on_close_pressed() -> void:
+	if ALERT_POPUP_SCENE:
+		var popup = ALERT_POPUP_SCENE.instantiate()
+		add_child(popup)
+		if popup.has_method("set_message"):
+			popup.set_message("Tem certeza de que deseja sair agora? A sala será encerrada")
+
+
+# ---------------------------------------------------------------------
+# Descoberta e Seleção dos Botões de Configuração
 # ---------------------------------------------------------------------
 func _collect_option_buttons() -> void:
 	var rows: Dictionary = {}
 	_scan_named(self, rows)
 
-	# Plano B: qualquer linha com 3+ botões (exceto o PlayButton)
 	if rows.size() < 3:
 		rows.clear()
 		_scan_generic(self, rows)
@@ -81,7 +101,7 @@ func _scan_named(node: Node, rows: Dictionary) -> void:
 func _scan_generic(node: Node, rows: Dictionary) -> void:
 	var buttons: Array = []
 	for child in node.get_children():
-		if child is BaseButton and String(child.name) != "PlayButton":
+		if child is BaseButton and String(child.name) != "PlayButton" and String(child.name) != "InfoButton":
 			buttons.append(child)
 	if buttons.size() >= 3:
 		rows[String(node.name) + "_" + str(node.get_instance_id())] = buttons
@@ -89,9 +109,6 @@ func _scan_generic(node: Node, rows: Dictionary) -> void:
 		_scan_generic(child, rows)
 
 
-# ---------------------------------------------------------------------
-# Seleção estilo "rádio" baseada no clique (sinal pressed)
-# ---------------------------------------------------------------------
 func _setup_group(g: int) -> void:
 	var buttons: Array = groups[g]
 	if buttons.is_empty():
