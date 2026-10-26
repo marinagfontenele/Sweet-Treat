@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dn3i0o7gifbkd"]
 
+[ext_resource type="Script" uid="uid://bcxruycdqjnog" path="res://scripts/stage_players_screen.gd" id="1_58fnh"]
 [ext_resource type="Texture2D" uid="uid://dsjdg3snqri2t" path="res://assets/images/backgrounds/players_stage_background.png" id="1_ossv1"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="2_my36j"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_6y27y"]
@@ -46,6 +47,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_58fnh")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=678474525]
 layout_mode = 1

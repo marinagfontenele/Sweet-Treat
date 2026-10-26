@@ -370,6 +370,9 @@ func _processar_pacote_rede(data: PackedByteArray, _from_player: GKPlayer = null
 				questions_finalized = true
 				print("Lista oficial sincronizada: %s" % str(game_questions))
 				emit_signal("questions_synced")
+				
+		"change_to_stage":
+			call_deferred("change_scene", "res://scenes/stage_players_screen.tscn")
 
 		"start_display_questions":
 			# A lista vem junto do comando para evitar corrida entre pacotes.
@@ -390,6 +393,8 @@ func _processar_pacote_rede(data: PackedByteArray, _from_player: GKPlayer = null
 			if _store_answer(remote_round, remote_id, remote_player, remote_answer):
 				print("Resposta (rodada %d) de %s: %s" % [remote_round, remote_player, remote_answer])
 				emit_signal("resposta_recebida")
+				
+		
 
 
 func _notificar_atualizacao_lobby() -> void:
