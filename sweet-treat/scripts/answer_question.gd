@@ -6,12 +6,15 @@ const KeyboardPreview = preload("res://scripts/keyboard_preview.gd")
 const WAIT_SCENE := "res://scenes/answer_formulation_wait.tscn"
 
 const URGENT_SECONDS := 10                      # a partir daqui o timer fica vermelho
-const TIMER_URGENT_COLOR := Color("#EB4A50")    # mesmo vermelho da tela de votação
+#const TIMER_URGENT_COLOR := Color("#EB4A50")    # mesmo vermelho da tela de votação
 
 @onready var question_label = _find_question_label()
 @onready var timer_label = get_node_or_null("MarginContainer/Label2")
 @onready var answer_input = get_node_or_null("MarginContainer/VBoxContainer/LineEdit")
 @onready var play_button = get_node_or_null("MarginContainer/VBoxContainer/PlayButton")
+
+@onready var normal_time: LabelSettings = preload("res://resources/normal_time.tres")
+@onready var red_time: LabelSettings = preload("res://resources/red_time.tres")
 
 var _answer_sent: bool = false
 var _time_left: float = 30.0
@@ -68,13 +71,17 @@ func _process(delta: float) -> void:
 func _update_timer_label() -> void:
 	var sec: int = int(ceil(_time_left))
 	_last_shown_second = sec
+
 	if timer_label:
-		timer_label.text = "%d:%02d" % [floori(sec / 60.0), sec % 60]
-		# vermelho nos últimos 10 segundos
+		timer_label.text = "%d:%02d" % [
+			floori(sec / 60.0),
+			sec % 60
+		]
+
 		if sec <= URGENT_SECONDS:
-			timer_label.add_theme_color_override("font_color", TIMER_URGENT_COLOR)
+			timer_label.label_settings = red_time
 		else:
-			timer_label.remove_theme_color_override("font_color")
+			timer_label.label_settings = normal_time
 
 
 func _on_play_pressed() -> void:

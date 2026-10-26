@@ -33,7 +33,6 @@ const TEXT_NO_ANSWER := "Sem Resposta"
 # ---------------------------------------------------------------------
 const OWN_CARD_COLOR := Color("#4CA8E4")          # card da própria resposta
 const NO_ANSWER_TEXT_COLOR := Color("#C7C7C7")    # texto "Sem Resposta"
-const TIMER_URGENT_COLOR := Color("#EB4A50")      # timer nos últimos segundos
 const BADGE_RED := Color("#EB4A50")               # +2 (ou mais)
 const BADGE_BLUE := Color("#4CA8E4")              # +1
 
@@ -72,6 +71,8 @@ var _last_second: int = -1
 @onready var title_label: Label = _find_node("TitleLabel") as Label
 @onready var timer_label: Label = _find_node("TimerLabel") as Label
 
+const NORMAL_TIME: LabelSettings = preload("res://resources/normal_time.tres")
+const RED_TIME: LabelSettings = preload("res://resources/red_time.tres")
 
 func _find_node(node_name: String) -> Node:
 	return find_child(node_name, true, false)
@@ -370,19 +371,27 @@ func _process(delta: float) -> void:
 			GameManager.apply_round_results(r, GameManager.calculate_round_penalties(r))
 
 
+
 func _update_timer_label() -> void:
 	if timer_label == null:
 		return
+
 	var sec: int = int(ceil(_time_left))
+
 	if sec == _last_second:
 		return
-	_last_second = sec
-	timer_label.text = "%d:%02d" % [floori(sec / 60.0), sec % 60]
-	if sec <= URGENT_SECONDS:
-		timer_label.add_theme_color_override("font_color", TIMER_URGENT_COLOR)
-	else:
-		timer_label.remove_theme_color_override("font_color")
 
+	_last_second = sec
+
+	timer_label.text = "%d:%02d" % [
+		floori(sec / 60.0),
+		sec % 60
+	]
+
+	if sec <= URGENT_SECONDS:
+		timer_label.label_settings = RED_TIME
+	else:
+		timer_label.label_settings = NORMAL_TIME
 
 ## =====================================================================
 ## RESULTADO
