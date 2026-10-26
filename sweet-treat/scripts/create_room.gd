@@ -1,8 +1,8 @@
 extends Node
 
 const QUESTION_OPTIONS := [1, 2, 3]
-const ANSWER_OPTIONS := [30, 45, 60]
-const VOTE_OPTIONS := [15, 20, 30]
+const ANSWER_OPTIONS := [30, 60, 90]
+const VOTE_OPTIONS := [30, 60, 90]
 
 @onready var room_code_label = _get_node_or_find("MarginContainer/VBoxContainer/HBoxContainer/Panel/VBoxContainer/Panel/RoomCodeLabel", "RoomCodeLabel")
 @onready var play_button = _get_node_or_find("MarginContainer/PlayButton", "PlayButton")

@@ -7,8 +7,6 @@ const NEXT_SCENE := "res://scenes/all_answers.tscn"
 @onready var label_enviadas = _get_label("MarginContainer/VBoxContainer/HBoxContainer/PerguntasEnviadas", "PerguntasEnviadas")
 @onready var label_totais = _get_label("MarginContainer/VBoxContainer/HBoxContainer/PerguntasTotais", "PerguntasTotais")
 
-# Label de teste (opcional). Se não existir na cena, é simplesmente ignorado.
-@onready var debug_label = get_node_or_null("MarginContainer/VBoxContainer/LabelDebug")
 
 var _advanced: bool = false
 var _elapsed: float = 0.0
@@ -49,8 +47,6 @@ func _refresh() -> void:
 		label_enviadas.text = "%d" % received
 	if label_totais:
 		label_totais.text = "%d" % expected
-	if debug_label:
-		debug_label.text = "Rec: %d | Exp: %d" % [received, expected]
 
 	if received >= expected:
 		_advance()
