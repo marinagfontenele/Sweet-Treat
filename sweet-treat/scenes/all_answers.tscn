@@ -24,6 +24,48 @@ shadow_size = 4
 shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(0.95, 1.91)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8orqm"]
+bg_color = Color(0.003921569, 0.67058825, 0.91764706, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color(0.000861733, 0.49172884, 0.6779962, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ieid6"]
+bg_color = Color(0.003921569, 0.67058825, 0.91764706, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color(0.000861733, 0.49172884, 0.6779962, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cxwln"]
+bg_color = Color(0.003921569, 0.67058825, 0.91764706, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color(0.000861733, 0.49172884, 0.6779962, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_offset = Vector2(1, 2)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hr1tq"]
 bg_color = Color(1, 0.20784314, 0.28627452, 1)
 border_width_left = 1
@@ -66,6 +108,57 @@ shadow_color = Color(0, 0, 0, 1)
 shadow_size = 2
 shadow_offset = Vector2(1, 2)
 
+[sub_resource type="LabelSettings" id="LabelSettings_megxp"]
+font = ExtResource("3_ieid6")
+font_size = 20
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gf8m0"]
+bg_color = Color(0.09019608, 0.27450982, 0.8862745, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color(0.040410385, 0.18088692, 0.7062095, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wfj8r"]
+bg_color = Color(0.09019608, 0.27450982, 0.8862745, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color(0.040410385, 0.18088692, 0.7062095, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jnp5"]
+bg_color = Color(0.09019608, 0.27450982, 0.8862745, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color(0.040410385, 0.18088692, 0.7062095, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_offset = Vector2(1, 2)
+
 [node name="AllAnswers" type="Control" unique_id=470674663]
 layout_mode = 3
 anchors_preset = 15
@@ -85,6 +178,7 @@ grow_vertical = 2
 texture = ExtResource("1_p0idi")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=541822600]
+custom_maximum_size = Vector2(852, 393)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -96,18 +190,9 @@ theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=88306416]
+[node name="TimerLabel" type="Label" parent="MarginContainer" unique_id=1090790241]
 layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=655028495]
-layout_mode = 2
-size_flags_vertical = 2
-
-[node name="TimerLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1090790241]
-layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("3_ieid6")
 theme_override_font_sizes/font_size = 35
@@ -116,109 +201,163 @@ label_settings = SubResource("LabelSettings_8orqm")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TitleLabel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=625587219 instance=ExtResource("2_8orqm")]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=88306416]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="TitleLabel" parent="MarginContainer/VBoxContainer" unique_id=625587219 instance=ExtResource("2_8orqm")]
 layout_mode = 2
 size_flags_horizontal = 6
+size_flags_vertical = 2
 text = "Respostas dos Participantes"
 label_settings = SubResource("LabelSettings_gf8m0")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1922991529]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1979056877]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=1922991529]
+layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1784029147]
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1784029147]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer2/AspectRatioContainer2" unique_id=44938943 instance=ExtResource("1_cph5a")]
+[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/AspectRatioContainer2" unique_id=44938943 instance=ExtResource("1_cph5a")]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1330250618]
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1330250618]
 propagate_maximum_size = false
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer2/AspectRatioContainer3" unique_id=1304507414 instance=ExtResource("1_cph5a")]
+[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/AspectRatioContainer3" unique_id=1304507414 instance=ExtResource("1_cph5a")]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=36692589]
+[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2" unique_id=36692589]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer2/AspectRatioContainer4" unique_id=96157969 instance=ExtResource("1_cph5a")]
+[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/AspectRatioContainer4" unique_id=96157969 instance=ExtResource("1_cph5a")]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AspectRatioContainer5" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1098593493]
+[node name="AspectRatioContainer5" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1098593493]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer2/AspectRatioContainer5" unique_id=780869512 instance=ExtResource("1_cph5a")]
+[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/AspectRatioContainer5" unique_id=780869512 instance=ExtResource("1_cph5a")]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=793459863]
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=793459863]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1521738073]
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3" unique_id=1521738073]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer3/AspectRatioContainer2" unique_id=708084493 instance=ExtResource("1_cph5a")]
+[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/AspectRatioContainer2" unique_id=708084493 instance=ExtResource("1_cph5a")]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=46830255]
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3" unique_id=46830255]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer3/AspectRatioContainer3" unique_id=1555335966 instance=ExtResource("1_cph5a")]
+[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/AspectRatioContainer3" unique_id=1555335966 instance=ExtResource("1_cph5a")]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=127873027]
+[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3" unique_id=127873027]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer3/AspectRatioContainer4" unique_id=713987576 instance=ExtResource("1_cph5a")]
+[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/AspectRatioContainer4" unique_id=713987576 instance=ExtResource("1_cph5a")]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AspectRatioContainer5" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1784408912]
+[node name="AspectRatioContainer5" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3" unique_id=1784408912]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/HBoxContainer3/AspectRatioContainer5" unique_id=987584538 instance=ExtResource("1_cph5a")]
+[node name="PlayerAnswer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/AspectRatioContainer5" unique_id=987584538 instance=ExtResource("1_cph5a")]
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=552679863]
+custom_minimum_size = Vector2(0, 40)
+custom_maximum_size = Vector2(-1, 40)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_constants/separation = 20
 
 [node name="ButtonVoteNull" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer4" unique_id=1997876517]
+custom_minimum_size = Vector2(176, 40)
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("3_ieid6")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_8orqm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ieid6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cxwln")
 text = "Pular voto"
 
 [node name="PlayButton" parent="MarginContainer/VBoxContainer/HBoxContainer4" unique_id=122511985 instance=ExtResource("5_cxwln")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+theme_override_colors/font_disabled_color = Color(0.8047426, 0.80474263, 0.8047426, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_hr1tq")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_dk81l")
 theme_override_styles/hover = SubResource("StyleBoxFlat_x3x51")
 text = "Votar"
 
-[node name="LabelText" type="Label" parent="MarginContainer/VBoxContainer" unique_id=297815938]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1159519630]
+custom_minimum_size = Vector2(0, 40)
+custom_maximum_size = Vector2(-1, 40)
 layout_mode = 2
-text = "textos aqui"
+size_flags_horizontal = 4
+size_flags_vertical = 10
 
-[node name="ButtonNextRound" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1475584993]
+[node name="LabelText" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=297815938]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Textos aqui"
+label_settings = SubResource("LabelSettings_megxp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1081358734]
+custom_minimum_size = Vector2(0, 40)
+custom_maximum_size = Vector2(-1, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+
+[node name="ButtonNextRound" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1475584993]
+custom_minimum_size = Vector2(236, 40)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("3_ieid6")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_gf8m0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wfj8r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1jnp5")
 text = "Próxima rodada"
