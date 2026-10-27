@@ -27,6 +27,12 @@ const TEXT_SKIPPED := "Voto pulado! Aguardando a galera votar..."
 const TEXT_WAITING_NEXT := "Aguardando próxima rodada..."
 const TEXT_NOBODY := "Ninguém respondeu. Aguardando próxima rodada..."
 const TEXT_NO_ANSWER := "Sem Resposta"
+const TEXT_LAST_ROUND := "Última rodada finalizada! Aguardando o host liberar o resultado..."
+const BUTTON_NEXT := "Próxima rodada"
+const BUTTON_FINAL := "Liberar resultado"
+
+# Tempo mínimo que quem votou vê o tomate no card antes do resultado aparecer
+const VOTE_FEEDBACK_SECONDS := 1.5
 
 # ---------------------------------------------------------------------
 # CORES (tiradas dos protótipos do Figma; ajuste aqui se precisar)
@@ -63,6 +69,10 @@ var _time_left: float = 0.0
 var _grace_left: float = FALLBACK_GRACE
 var _timer_running: bool = false
 var _last_second: int = -1
+var _vote_feedback_left: float = 0.0
+var _reveal_pending: bool = false
+var _resolve_pending: bool = false      # host: todos votaram, esperando o tempo do tomate
+var _resolve_delay_left: float = 0.0
 
 @onready var vote_button: Button = _find_node("PlayButton") as Button
 @onready var skip_button: Button = _find_node("ButtonVoteNull") as Button
@@ -316,6 +326,7 @@ func _submit_vote(target_id: String) -> void:
 	if has_voted or is_revealing:
 		return
 	has_voted = true
+	_vote_feedback_left = VOTE_FEEDBACK_SECONDS
 
 	var skipped: bool = (target_id == GameManager.BLANK_VOTE)
 
@@ -345,10 +356,28 @@ func _check_all_votes_received() -> void:
 
 	var votes: int = GameManager.votes_by_round.get(r, {}).size()
 	if votes >= GameManager.get_expected_players_count() and GameManager.is_authority():
-		GameManager.host_resolve_round(r)
+		# Espera o tempo do tomate antes de fechar: assim todos veem o resultado juntos
+		if not _resolve_pending:
+			_resolve_pending = true
+			_resolve_delay_left = VOTE_FEEDBACK_SECONDS
 
 
 func _process(delta: float) -> void:
+	# Resultado que chegou cedo demais espera o tempo do tomate terminar
+	if _vote_feedback_left > 0.0:
+		_vote_feedback_left -= delta
+		if _vote_feedback_left <= 0.0 and _reveal_pending:
+			_reveal_pending = false
+			_reveal_results()
+			return
+
+	# Host: todos votaram, fecha a rodada depois do tempo do tomate
+	if _resolve_pending:
+		_resolve_delay_left -= delta
+		if _resolve_delay_left <= 0.0:
+			_resolve_pending = false
+			GameManager.host_resolve_round(GameManager.current_question_index)
+
 	if not _timer_running or is_revealing:
 		return
 
@@ -408,6 +437,12 @@ func _reveal_results() -> void:
 	var r: int = GameManager.current_question_index
 	if not GameManager.round_results.has(r):
 		return
+
+	# Quem acabou de votar (ex.: o último) vê o tomate no card por um instante
+	if has_voted and _vote_feedback_left > 0.0:
+		_reveal_pending = true
+		return
+
 	is_revealing = true
 	_timer_running = false
 
@@ -438,15 +473,22 @@ func _reveal_results() -> void:
 					badge.text = "+%d" % tomatoes
 				_style_badge(badge, tomatoes)
 
+	# Última rodada: o botão do host vira "Liberar resultado" e os outros são avisados
+	var is_last_round: bool = not GameManager.has_next_question()
+
 	# No lugar do texto: host vê o botão, os outros veem a mensagem
 	if GameManager.is_authority():
 		if info_label:
 			info_label.visible = false
 		if next_round_button:
+			next_round_button.text = BUTTON_FINAL if is_last_round else BUTTON_NEXT
 			next_round_button.disabled = false
 			next_round_button.visible = true
 	else:
-		_show_info(TEXT_NOBODY if nobody_answered else TEXT_WAITING_NEXT)
+		if is_last_round:
+			_show_info(TEXT_LAST_ROUND)
+		else:
+			_show_info(TEXT_NOBODY if nobody_answered else TEXT_WAITING_NEXT)
 
 
 func _on_next_round_pressed() -> void:

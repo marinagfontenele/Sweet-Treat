@@ -802,8 +802,9 @@ func calculate_round_penalties(round_idx: int = current_question_index) -> Dicti
 			continue
 		vote_counts[target_id] = int(vote_counts.get(target_id, 0)) + 1
 
-	# Só existe "pior resposta" se houver pelo menos 2 respostas válidas
-	if valid_ids.size() >= 2 and not vote_counts.is_empty():
+	# Pior resposta = a mais votada. Vale mesmo com uma só resposta válida:
+	# o voto nela conta (ex.: quem não respondeu votou nela, ela leva +2).
+	if not vote_counts.is_empty():
 		var max_votes := 0
 		for pid in vote_counts.keys():
 			max_votes = maxi(max_votes, vote_counts[pid])
