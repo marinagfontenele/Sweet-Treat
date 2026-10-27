@@ -2,7 +2,7 @@
 # Tela de espera: aguarda TODAS as respostas da rodada antes de exibi-las juntas.
 extends Node
 
-const NEXT_SCENE := "res://scenes/all_answers.tscn"
+const NEXT_SCENE := "res://scenes/reveal_screen.tscn"   # "A hora da verdade..." e depois a votação
 
 @onready var label_enviadas = _get_label("MarginContainer/VBoxContainer/HBoxContainer/PerguntasEnviadas", "PerguntasEnviadas")
 @onready var label_totais = _get_label("MarginContainer/VBoxContainer/HBoxContainer/PerguntasTotais", "PerguntasTotais")
