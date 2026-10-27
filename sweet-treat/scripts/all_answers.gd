@@ -24,8 +24,8 @@ const TITLE_VOTING := "Quem se passou mais?"
 const TITLE_RESULTS := "Olha quem se passou!"
 const TEXT_VOTED := "Tomate jogado! Aguardando a galera votar..."
 const TEXT_SKIPPED := "Voto pulado! Aguardando a galera votar..."
-const TEXT_WAITING_NEXT := "Aguardando próxima rodada..."
-const TEXT_NOBODY := "Ninguém respondeu. Aguardando próxima rodada..."
+const TEXT_WAITING_NEXT := "Aguardando o host iniciar a próxima rodada..."
+const TEXT_NOBODY := "Ninguém respondeu. Aguardando o host iniciar a próxima rodada..."
 const TEXT_NO_ANSWER := "Sem Resposta"
 
 # ---------------------------------------------------------------------
