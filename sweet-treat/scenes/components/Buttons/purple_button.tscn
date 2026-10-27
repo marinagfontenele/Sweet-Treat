@@ -45,6 +45,21 @@ shadow_color = Color(0, 0, 0, 1)
 shadow_size = 2
 shadow_offset = Vector2(1, 2)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_erst0"]
+bg_color = Color(0.5294118, 0.5294118, 0.5294118, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color(0.25929368, 0.25929374, 0.2592936, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 4)
+
 [node name="InfoButton" type="Button" unique_id=247859986]
 custom_minimum_size = Vector2(38, 38)
 anchors_preset = 8
@@ -61,3 +76,4 @@ grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_seen7")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_6ha1o")
 theme_override_styles/hover = SubResource("StyleBoxFlat_trfeb")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_erst0")

@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://b5wyekog1o2ql"]
+[gd_scene format=3 uid="uid://ck5g0x0qm75nq"]
 
 [ext_resource type="PackedScene" uid="uid://du50c2vu78lg7" path="res://scenes/components/Buttons/purple_button.tscn" id="1_6ha1o"]
 [ext_resource type="Texture2D" uid="uid://bi4dbr2rbo0fj" path="res://assets/images/symbols/xmark.svg" id="2_2knr4"]

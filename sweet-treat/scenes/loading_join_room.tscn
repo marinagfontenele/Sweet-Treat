@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c5311gpa2i6ll"]
+[gd_scene format=3 uid="uid://c4ab0em2siv4f"]
 
 [ext_resource type="Script" uid="uid://4d8jbv8l7xkl" path="res://scripts/loading_join_room.gd" id="1_cieep"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="1_e6k4h"]
@@ -38,7 +38,6 @@ outline_color = Color(0, 0, 0, 1)
 [node name="ConfigurationScreen" type="Panel" unique_id=30360144]
 custom_minimum_size = Vector2(386, 291)
 custom_maximum_size = Vector2(386, 291)
-anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2

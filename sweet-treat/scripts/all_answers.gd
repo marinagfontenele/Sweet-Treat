@@ -466,7 +466,7 @@ func _on_next_round(r_idx: int) -> void:
 	if GameManager.advance_to_next_question():
 		GameManager.change_scene("res://scenes/show_question.tscn")
 	else:
-		GameManager.change_scene("res://scenes/worst_result_screen.tscn")
+		GameManager.change_scene(GameManager.SCENE_BEST)   # primeiro: tela dos melhores
 
 
 ## =====================================================================

@@ -1,20 +1,16 @@
-#answer_question.gd
 extends Node
 
 const KeyboardPreview = preload("res://scripts/keyboard_preview.gd")
-
 const WAIT_SCENE := "res://scenes/answer_formulation_wait.tscn"
-
-const URGENT_SECONDS := 10                      # a partir daqui o timer fica vermelho
-#const TIMER_URGENT_COLOR := Color("#EB4A50")    # mesmo vermelho da tela de votação
+const URGENT_SECONDS := 10
 
 @onready var question_label = _find_question_label()
 @onready var timer_label = get_node_or_null("MarginContainer/Label2")
 @onready var answer_input = get_node_or_null("MarginContainer/VBoxContainer/LineEdit")
 @onready var play_button = get_node_or_null("MarginContainer/VBoxContainer/PlayButton")
 
-@onready var normal_time: LabelSettings = preload("res://resources/normal_time.tres")
-@onready var red_time: LabelSettings = preload("res://resources/red_time.tres")
+var normal_time: LabelSettings = null
+var red_time: LabelSettings = null
 
 var _answer_sent: bool = false
 var _time_left: float = 30.0
@@ -22,7 +18,7 @@ var _last_shown_second: int = -1
 
 
 func _find_question_label():
-	var n = get_node_or_null("MarginContainer/VBoxContainer/TextureRect/MarginContainer/Label")
+	var n = get_node_or_null("MarginContainer/VBoxContainer/TextureRect/MarginContainer/VBoxContainer/Label")
 	if n == null:
 		n = find_child("Label", true, false)
 	return n
@@ -31,6 +27,13 @@ func _find_question_label():
 func _ready() -> void:
 	_answer_sent = false
 	_time_left = float(GameManager.config_answer_time)
+
+	# Carregamento seguro dos LabelSettings para evitar crash se o arquivo não existir
+	if ResourceLoader.exists("res://resources/normal_time.tres"):
+		normal_time = load("res://resources/normal_time.tres")
+	if ResourceLoader.exists("res://resources/red_time.tres"):
+		red_time = load("res://resources/red_time.tres")
+
 	_update_timer_label()
 
 	if question_label:
@@ -40,17 +43,12 @@ func _ready() -> void:
 
 	if play_button and not play_button.pressed.is_connected(_on_play_pressed):
 		play_button.pressed.connect(_on_play_pressed)
-	elif play_button == null:
-		push_error("PlayButton não encontrado em answer_question!")
 
 	if answer_input and not answer_input.text_submitted.is_connected(_on_text_submitted):
 		answer_input.text_submitted.connect(_on_text_submitted)
-		# Barra acima do teclado mostrando o que está sendo digitado
 		KeyboardPreview.new().attach_to(self, answer_input)
 
 	print("Responder pronta (rodada %d, %ds): %s" % [GameManager.current_question_index, GameManager.config_answer_time, GameManager.get_current_question()])
-
-	
 
 
 func _process(delta: float) -> void:
@@ -79,9 +77,15 @@ func _update_timer_label() -> void:
 		]
 
 		if sec <= URGENT_SECONDS:
-			timer_label.label_settings = red_time
+			if red_time:
+				timer_label.label_settings = red_time
+			else:
+				timer_label.modulate = Color("EB4A50") # Fallback de cor
 		else:
-			timer_label.label_settings = normal_time
+			if normal_time:
+				timer_label.label_settings = normal_time
+			else:
+				timer_label.modulate = Color.WHITE # Fallback de cor
 
 
 func _on_play_pressed() -> void:
@@ -92,7 +96,6 @@ func _on_text_submitted(_text: String) -> void:
 	_submit_answer(false)
 
 
-# forced = true quando o tempo acabou (envia o que estiver digitado)
 func _submit_answer(forced: bool) -> void:
 	if _answer_sent:
 		return
@@ -101,8 +104,6 @@ func _submit_answer(forced: bool) -> void:
 	if answer_input:
 		text = answer_input.text.strip_edges()
 
-	# Tempo acabou sem nada digitado: conta como "não respondeu" (2 tomates,
-	# card desabilitado na votação). O texto do card vem da tela de votação.
 	var no_answer := false
 	if text.is_empty():
 		if not forced:

@@ -1,19 +1,16 @@
 extends Node
 
-# Quantidade MÍNIMA de cards visíveis no lobby. Os que não tiverem jogador
-# aparecem como "Aguardando...".
-#   2 = o Host + 1 vaga de espera (bom para testar com dois aparelhos)
-#   4 = mostra todas as vagas da sala
-#   0 = não mostra vagas vazias
-const MIN_VISIBLE_CARDS := 2
+const ALERT_POPUP_SCENE = preload("res://scenes/pop-ups/leave_room.tscn")
 
-# Script do card; é anexado automaticamente se o PlayerLobby ainda não o tiver
+const MIN_VISIBLE_CARDS := 2
 const PLAYER_LOBBY_SCRIPT_PATH := "res://scripts/player_lobby.gd"
 
 @onready var room_code_label: Label = $MarginContainer/VBoxContainer/HBoxContainer4/RoomCodeLabel
 @onready var play_button = $MarginContainer/VBoxContainer/HBoxContainer4/PlayButton
+@onready var close_button = _find_close_button()
 
 var player_containers: Array = []
+
 
 func _ready() -> void:
 	if room_code_label:
@@ -24,15 +21,38 @@ func _ready() -> void:
 		if GameManager.is_host and not play_button.pressed.is_connected(go_to_create_questions):
 			play_button.pressed.connect(go_to_create_questions)
 
+	# Conecta o botão X para abrir o Pop-up de alerta
+	if close_button:
+		if not close_button.pressed.is_connected(_on_close_pressed):
+			close_button.pressed.connect(_on_close_pressed)
+
 	if not GameManager.lobby_updated.is_connected(update_lobby_ui):
 		GameManager.lobby_updated.connect(update_lobby_ui)
 
 	_collect_player_containers(self)
 
-	# Garante o card do jogador local na hora (o Host não precisa esperar ninguém entrar)
 	GameManager.register_local_player()
 	GameManager._enviar_handshake_nome()
 	update_lobby_ui()
+
+
+# Localiza o botão de fechar (X) na cena do Lobby
+func _find_close_button() -> BaseButton:
+	var btn = get_node_or_null("MarginContainer/InfoButton")
+	if btn == null:
+		btn = find_child("InfoButton", true, false)
+	if btn == null:
+		btn = find_child("CloseButton", true, false)
+	return btn as BaseButton
+
+
+# Disparado ao clicar no botão X
+func _on_close_pressed() -> void:
+	if ALERT_POPUP_SCENE:
+		var popup = ALERT_POPUP_SCENE.instantiate()
+		add_child(popup)
+		if popup.has_method("set_message"):
+			popup.set_message("Tem certeza que deseja sair da sala agora?")
 
 
 func _collect_player_containers(node: Node) -> void:
@@ -65,7 +85,6 @@ func update_lobby_ui() -> void:
 			container.visible = false
 
 
-# Garante que o card tenha set_profile/set_waiting (anexa o player_lobby.gd se faltar)
 func _ensure_card_script(card: Node) -> bool:
 	if card.has_method("set_profile") and card.has_method("set_waiting"):
 		return true
