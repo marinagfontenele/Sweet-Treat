@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/Buttons/play_button.tscn" id="8_jk1qb"]
 [ext_resource type="Texture2D" uid="uid://bi4dbr2rbo0fj" path="res://assets/images/symbols/xmark.svg" id="10_7b55j"]
 [ext_resource type="PackedScene" uid="uid://b87icu65m3fcq" path="res://scenes/components/Buttons/create_button.tscn" id="12_7b55j"]
+[ext_resource type="Script" uid="uid://eub0ca80agni" path="res://scripts/code_modal_panel.gd" id="13_8egab"]
 [ext_resource type="PackedScene" uid="uid://b5wyekog1o2ql" path="res://scenes/pop-ups/configuration_screen.tscn" id="16_j7ex8"]
 [ext_resource type="PackedScene" uid="uid://dutikdq86qml3" path="res://scenes/pop-ups/avatar_screen.tscn" id="17_a8gd2"]
 [ext_resource type="PackedScene" uid="uid://c5311gpa2i6ll" path="res://scenes/pop-ups/loading_join_room.tscn" id="18_a8gd2"]
@@ -381,6 +382,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tbmy8")
+script = ExtResource("13_8egab")
 
 [node name="BluePanel" type="Panel" parent="CodeModalPanel" unique_id=1209536741]
 custom_minimum_size = Vector2(471, 295)
