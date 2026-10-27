@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://cpac8u4i6x772" path="res://scripts/main_menu.gd" id="1_0fbet"]
 [ext_resource type="Texture2D" uid="uid://bqs2j434r25va" path="res://assets/images/backgrounds/main_background.svg" id="2_wu84c"]
 [ext_resource type="Texture2D" uid="uid://crbrmkxcsis6e" path="res://assets/images/backgrounds/city_panel_backgorund.png" id="3_1ajci"]
-[ext_resource type="Texture2D" uid="uid://csfue7yiid87f" path="res://assets/images/Frame 53.svg" id="3_8ln24"]
 [ext_resource type="Texture2D" uid="uid://dc7wvqxxjgb8h" path="res://assets/images/symbols/pencil.svg" id="3_flqon"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_rtw2f"]
 [ext_resource type="Texture2D" uid="uid://g0s2secdmqy0" path="res://assets/images/player_area.svg" id="4_7b55j"]
@@ -14,7 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="7_tbmy8"]
 [ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/Buttons/play_button.tscn" id="8_jk1qb"]
 [ext_resource type="Texture2D" uid="uid://bi4dbr2rbo0fj" path="res://assets/images/symbols/xmark.svg" id="10_7b55j"]
+[ext_resource type="Texture2D" uid="uid://bvdcmvd426q5d" path="res://assets/images/me_passei_main.png" id="10_8egab"]
 [ext_resource type="PackedScene" uid="uid://b87icu65m3fcq" path="res://scenes/components/Buttons/create_button.tscn" id="12_7b55j"]
+[ext_resource type="Script" uid="uid://eub0ca80agni" path="res://scripts/code_modal_panel.gd" id="13_8egab"]
 [ext_resource type="PackedScene" uid="uid://b5wyekog1o2ql" path="res://scenes/pop-ups/configuration_screen.tscn" id="16_j7ex8"]
 [ext_resource type="PackedScene" uid="uid://dutikdq86qml3" path="res://scenes/pop-ups/avatar_screen.tscn" id="17_a8gd2"]
 [ext_resource type="PackedScene" uid="uid://c5311gpa2i6ll" path="res://scenes/pop-ups/loading_join_room.tscn" id="18_a8gd2"]
@@ -353,16 +354,19 @@ texture = ExtResource("7_1ajci")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1424116047]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 40
+theme_override_constants/separation = 50
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer" unique_id=1800088930]
+custom_maximum_size = Vector2(377, 269)
 layout_mode = 2
-texture = ExtResource("3_8ln24")
+size_flags_horizontal = 10
+texture = ExtResource("10_8egab")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=470082235]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 6
 size_flags_vertical = 4
 theme_override_constants/separation = 15
 
@@ -381,6 +385,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tbmy8")
+script = ExtResource("13_8egab")
 
 [node name="BluePanel" type="Panel" parent="CodeModalPanel" unique_id=1209536741]
 custom_minimum_size = Vector2(471, 295)

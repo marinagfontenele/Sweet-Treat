@@ -35,7 +35,7 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 4
-border_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
+border_color = Color(0.01214023, 0.059472583, 0.24902034, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -43,6 +43,18 @@ corner_radius_bottom_left = 8
 shadow_color = Color(0, 0, 0, 1)
 shadow_size = 2
 shadow_offset = Vector2(1, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uwxgj"]
+bg_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color(0.01214023, 0.059472583, 0.24902034, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="OverallRankingScreen" type="Control" unique_id=1781540892]
 layout_mode = 3
@@ -161,7 +173,10 @@ theme_override_constants/separation = 15
 custom_minimum_size = Vector2(158, 40)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_13q43")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_uwxgj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_13q43")
 text = "Encerrar"
 
 [node name="PlayButton2" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1964587887 instance=ExtResource("5_kykl7")]
