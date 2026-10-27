@@ -1,3 +1,4 @@
+#scroll_container_ranking.gd
 extends ScrollContainer
 
 func _ready():

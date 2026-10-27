@@ -1,3 +1,4 @@
+#show_question.gd
 extends Control
 
 # Mapeamento dos nós da sua cena

@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cthkosbx5w0u"]
 
+[ext_resource type="Script" uid="uid://bok0behmwuvmi" path="res://scripts/reveal_screen.gd" id="1_00mlu"]
 [ext_resource type="Texture2D" uid="uid://uyjevn7qqpkc" path="res://assets/images/backgrounds/radial_background.png" id="1_hudep"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="2_00mlu"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_f5xia"]
@@ -20,6 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_00mlu")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1194940363]
 layout_mode = 1

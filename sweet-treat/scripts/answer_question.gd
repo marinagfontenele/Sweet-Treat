@@ -1,3 +1,4 @@
+#answer_question.gd
 extends Node
 
 const KeyboardPreview = preload("res://scripts/keyboard_preview.gd")
@@ -35,6 +36,7 @@ func _ready() -> void:
 		red_time = load("res://resources/red_time.tres")
 
 	_update_timer_label()
+	_update_round_labels()
 
 	if question_label:
 		question_label.text = GameManager.get_current_question()
@@ -47,6 +49,12 @@ func _ready() -> void:
 	if answer_input and not answer_input.text_submitted.is_connected(_on_text_submitted):
 		answer_input.text_submitted.connect(_on_text_submitted)
 		KeyboardPreview.new().attach_to(self, answer_input)
+
+	# Botão de enviar só habilita quando há texto escrito
+	if play_button:
+		play_button.disabled = true
+	if answer_input and not answer_input.text_changed.is_connected(_on_text_changed):
+		answer_input.text_changed.connect(_on_text_changed)
 
 	print("Responder pronta (rodada %d, %ds): %s" % [GameManager.current_question_index, GameManager.config_answer_time, GameManager.get_current_question()])
 
@@ -115,3 +123,18 @@ func _submit_answer(forced: bool) -> void:
 	_answer_sent = true
 	GameManager.send_my_answer(text, no_answer)
 	GameManager.call_deferred("change_scene", WAIT_SCENE)
+
+
+# "Rodada X de Y" (mesmos nós da tela da pergunta)
+func _update_round_labels() -> void:
+	var current_label := find_child("RodadaAtual", true, false) as Label
+	var total_label := find_child("TotalRodadas", true, false) as Label
+	if current_label:
+		current_label.text = str(GameManager.current_question_index + 1)
+	if total_label:
+		total_label.text = str(GameManager.game_questions.size())
+
+
+func _on_text_changed(new_text: String) -> void:
+	if play_button:
+		play_button.disabled = new_text.strip_edges().is_empty()

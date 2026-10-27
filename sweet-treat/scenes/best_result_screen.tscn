@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://wcqdx3yelg0u"]
 
+[ext_resource type="Script" uid="uid://dofxacvirrhyr" path="res://scripts/best_result.gd" id="1_u2eyx"]
 [ext_resource type="Texture2D" uid="uid://3eua1uy2l44" path="res://assets/images/backgrounds/best_awards_background.png" id="1_yhj0v"]
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="2_u2eyx"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_dusw5"]
@@ -45,6 +46,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_u2eyx")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1178875933]
 layout_mode = 1

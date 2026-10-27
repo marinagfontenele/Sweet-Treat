@@ -1,3 +1,4 @@
+#stage_players_screen.gd
 extends Control
 
 # Tempo de exibição da tela antes de mudar para as perguntas

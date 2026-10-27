@@ -18,13 +18,23 @@ signal connection_failed(message)
 
 # Máximo de jogadores pedido ao Game Center. O jogo é de 2 a 8; se o lobby
 # se comportar mal com 8, volte para 4 aqui (um lugar só).
-const MAX_PLAYERS := 8
-const MIN_PLAYERS := 1
+const MAX_PLAYERS := 4
+const MIN_PLAYERS := 2
 
 # Voto em branco ("Pular voto"): não conta para ninguém e não gera
 # a penalidade de "não votou".
 const BLANK_VOTE := "__blank__"
 
+# Cenas do fluxo de ranking final
+const SCENE_BEST := "res://scenes/best_result_screen.tscn"
+const SCENE_WORST := "res://scenes/worst_result_screen.tscn"
+const SCENE_OVERALL := "res://scenes/overall_ranking_screen.tscn"
+const SCENE_LOBBY := "res://scenes/lobby_room.tscn"
+const SCENE_MENU := "res://scenes/main_menu.tscn"
+
+# DEBUG: quantidade de jogadores falsos para testar sem Game Center.
+# 0 desliga tudo (e esconde o botão de debug do menu).
+const DEBUG_BOTS := 0
 
 ## =====================================================================
 ## VARIÁVEIS GLOBAIS DE ESTADO E REDE (GAME CENTER)
@@ -54,6 +64,7 @@ var _fallback_id: String = "local_" + str(randi())
 var _auth_pending: bool = false
 var _searching: bool = false
 var _search_id: int = 0
+var _left_match: bool = false   # true depois de "Encerrar": ignora pacotes da sala antiga
 
 ## =====================================================================
 ## CONFIGURAÇÕES DA SALA (DEFINIDAS PELO HOST)
@@ -180,11 +191,8 @@ func _load_profile() -> bool:
 	return true
 
 
-func change_scene(scene_path: String) -> void:
-	call_deferred("_deferred_change_scene", scene_path)
-
-func _deferred_change_scene(scene_path: String) -> void:
-	get_tree().change_scene_to_file(scene_path)
+func change_scene(scene: String) -> void:
+	get_tree().change_scene_to_file(scene)
 
 func add_score(quant: int) -> void:
 	tomato += quant
@@ -297,6 +305,8 @@ func join_room_with_code(room_code: int, am_i_host: bool) -> bool:
 		emit_signal("connection_failed", "Não foi possível conectar ao Game Center. Tente novamente.")
 		return false
 
+	_left_match = false
+
 	# Nova tentativa: cancela busca anterior que ainda esteja pendente
 	if _searching and matchmaker != null and matchmaker.has_method("cancel"):
 		matchmaker.cancel()
@@ -381,6 +391,9 @@ func _enviar_handshake_nome() -> void:
 
 
 func _processar_pacote_rede(data: PackedByteArray, _from_player: GKPlayer = null) -> void:
+	if _left_match:
+		return
+
 	var text = data.get_string_from_utf8()
 	var json = JSON.new()
 	var error = json.parse(text)
@@ -445,9 +458,6 @@ func _processar_pacote_rede(data: PackedByteArray, _from_player: GKPlayer = null
 				questions_finalized = true
 				print("Lista oficial sincronizada: %s" % str(game_questions))
 				emit_signal("questions_synced")
-				
-		"change_to_stage":
-			call_deferred("change_scene", "res://scenes/stage_players_screen.tscn")
 
 		"start_display_questions":
 			# A lista vem junto do comando para evitar corrida entre pacotes.
@@ -469,8 +479,6 @@ func _processar_pacote_rede(data: PackedByteArray, _from_player: GKPlayer = null
 			if _store_answer(remote_round, remote_id, remote_player, remote_answer, remote_no_answer):
 				print("Resposta (rodada %d) de %s: %s (sem resposta: %s)" % [remote_round, remote_player, remote_answer, remote_no_answer])
 				emit_signal("resposta_recebida")
-				
-		
 
 		"player_vote":
 			var voter = str(dict.get("voter_id", ""))
@@ -490,6 +498,12 @@ func _processar_pacote_rede(data: PackedByteArray, _from_player: GKPlayer = null
 			# O host apertou "Próxima rodada"
 			var r_idx = int(dict.get("round", current_question_index))
 			emit_signal("next_round_requested", r_idx)
+
+		"ranking_stage":
+			_go_to_ranking_stage(str(dict.get("stage", "")))
+
+		"play_again":
+			_go_play_again()
 
 
 func _notificar_atualizacao_lobby() -> void:
@@ -547,8 +561,38 @@ func get_total_questions_received() -> int:
 func send_my_questions_to_others() -> void:
 	# Registra as perguntas do jogador real.
 	questions_by_player[_my_id()] = my_created_questions.duplicate()
+
+	# Modo de teste com bots.
+	if debug_active():
+		for i in range(_debug_ids.size()):
+			var bot_id: String = str(_debug_ids[i])
+			var bot_questions: Array = _generate_debug_bot_questions(i)
+
+			questions_by_player[bot_id] = bot_questions
+
+			print(
+				"[DEBUG] %s enviou %d perguntas."
+				% [
+					connected_players_names.get(bot_id, bot_id),
+					bot_questions.size()
+				]
+			)
+
+		_rebuild_game_questions()
+		game_questions.shuffle()
+		questions_finalized = true
+
+		print(
+			"[DEBUG] Total de perguntas recebidas: %d"
+			% get_total_questions_received()
+		)
+
+		emit_signal("lobby_updated")
+		return
+
+	# Fluxo normal, sem bots.
 	_rebuild_game_questions()
-	
+
 	if current_match == null:
 		game_questions = my_created_questions.duplicate()
 		game_questions.shuffle()
@@ -758,8 +802,9 @@ func calculate_round_penalties(round_idx: int = current_question_index) -> Dicti
 			continue
 		vote_counts[target_id] = int(vote_counts.get(target_id, 0)) + 1
 
-	# Só existe "pior resposta" se houver pelo menos 2 respostas válidas
-	if valid_ids.size() >= 2 and not vote_counts.is_empty():
+	# Pior resposta = a mais votada. Vale mesmo com uma só resposta válida:
+	# o voto nela conta (ex.: quem não respondeu votou nela, ela leva +2).
+	if not vote_counts.is_empty():
 		var max_votes := 0
 		for pid in vote_counts.keys():
 			max_votes = maxi(max_votes, vote_counts[pid])
@@ -849,6 +894,90 @@ func get_my_tomatoes() -> int:
 
 
 ## =====================================================================
+## RANKING FINAL (melhores -> piores -> pontuação geral)
+## =====================================================================
+
+# Ranking completo. best_first = true: MENOS tomates primeiro (melhores);
+# false: MAIS tomates primeiro (piores).
+# Cada item: { id, name, tomatoes, character, background, place }
+# "place" é a posição com empate dividido (1º, 1º, 2º).
+func get_ranking(best_first: bool) -> Array:
+	var ranking: Array = []
+	for pid in connected_players_names.keys():
+		var prof: Dictionary = connected_players_profiles.get(pid, {})
+		ranking.append({
+			"id": pid,
+			"name": connected_players_names[pid],
+			"tomatoes": int(player_tomatoes.get(pid, 0)),
+			"character": int(prof.get("character", 0)),
+			"background": int(prof.get("background", 0))
+		})
+
+	ranking.sort_custom(func(a, b):
+		if a["tomatoes"] != b["tomatoes"]:
+			if best_first:
+				return a["tomatoes"] < b["tomatoes"]
+			return a["tomatoes"] > b["tomatoes"]
+		if a["name"] != b["name"]:
+			return String(a["name"]) < String(b["name"])
+		return String(a["id"]) < String(b["id"])   # mesma ordem em todos os aparelhos
+	)
+
+	var place := 0
+	var last := -1
+	for e in ranking:
+		if e["tomatoes"] != last:
+			place += 1
+			last = e["tomatoes"]
+		e["place"] = place
+	return ranking
+
+
+# O host avança o ranking: stage = "best", "worst" ou "overall". Todos trocam de tela.
+func host_ranking_go(stage: String) -> void:
+	if not is_authority():
+		return
+	_enviar_pacote_json({ "type": "ranking_stage", "stage": stage })
+	_go_to_ranking_stage(stage)
+
+
+func _go_to_ranking_stage(stage: String) -> void:
+	match stage:
+		"best":
+			call_deferred("change_scene", SCENE_BEST)
+		"worst":
+			call_deferred("change_scene", SCENE_WORST)
+		"overall":
+			call_deferred("change_scene", SCENE_OVERALL)
+
+
+# "Jogar Novamente": todos voltam ao lobby com a mesma sala
+func host_play_again() -> void:
+	if not is_authority():
+		return
+	_enviar_pacote_json({ "type": "play_again" })
+	_go_play_again()
+
+
+func _go_play_again() -> void:
+	reset_match_state()
+	call_deferred("change_scene", SCENE_LOBBY)
+
+
+# "Encerrar": sai da partida e volta ao menu.
+# TODO: chamar aqui o método do plugin que desconecta o GKMatch (confirmar o nome).
+func leave_match() -> void:
+	_left_match = true
+	reset_match_state()
+	current_match = null
+	is_host = false
+	current_room_code = 0
+	connected_players_names.clear()
+	connected_players_profiles.clear()
+	call_deferred("change_scene", SCENE_MENU)
+
+
+## =====================================================================
 ## RODADAS E HELPERS
 ## =====================================================================
 
@@ -867,5 +996,83 @@ func advance_to_next_question() -> bool:
 func get_current_question() -> String:
 	if game_questions.is_empty():
 		return ""
-	var safe_index = clamp(current_question_index, 0, game_questions.size() - 1)
-	return str(game_questions[safe_index])
+	if current_question_index < game_questions.size():
+		return str(game_questions[current_question_index])
+	return str(game_questions[0])
+
+
+## =====================================================================
+## DEBUG: jogadores falsos para testar sem Game Center
+## Apague este bloco (e as chamadas debug_*) antes de publicar.
+## =====================================================================
+
+var _debug_ids: Array = []
+
+func debug_active() -> bool:
+	return DEBUG_BOTS > 0 and current_match == null and not _debug_ids.is_empty()
+
+
+# Pula Game Center e lobby: você vira host sozinho com DEBUG_BOTS bots
+func debug_start_solo() -> void:
+	is_host = true
+	current_room_code = 1234
+	connected_players_names.clear()
+	connected_players_profiles.clear()
+	_debug_ids.clear()
+	register_local_player(false)
+	for i in range(DEBUG_BOTS):
+		var bid := "bot_%d" % (i + 1)
+		var bname := "Bot %d" % (i + 1)
+		_debug_ids.append(bid)
+		connected_players_names[bid] = bname
+		connected_players_profiles[bid] = {
+			"name": bname,
+			"character": (i + 1) % characters.size(),
+			"background": (i + 3) % backgrounds.size(),
+			"host": false
+		}
+	host_start_game()   # vai direto para create_questions
+
+
+# Os bots respondem. skip_last = true: o último bot NÃO responde (testa "Sem Resposta")
+func debug_bots_answer(skip_last: bool = false) -> void:
+	if not debug_active():
+		return
+	for i in range(_debug_ids.size()):
+		if skip_last and i == _debug_ids.size() - 1:
+			continue
+		var bid: String = _debug_ids[i]
+		_store_answer(current_question_index, bid, connected_players_names[bid], "Resposta do %s" % connected_players_names[bid], false)
+	emit_signal("resposta_recebida")
+
+
+# Os bots votam em target_id (vazio = voto em branco)
+func debug_bots_vote(target_id: String = "") -> void:
+	if not debug_active():
+		return
+	for bid in _debug_ids:
+		register_vote(bid, target_id if target_id != "" else BLANK_VOTE, current_question_index)
+
+func _generate_debug_bot_questions(bot_index: int) -> Array:
+	var question_pool: Array[String] = [
+		"Qual seria o pior nome para um restaurante?",
+		"O que todo mundo finge gostar, mas quase ninguém gosta?",
+		"Qual seria o pior superpoder para ter?",
+		"O que você nunca deveria dizer em uma entrevista?",
+		"Qual objeto seria estranho encontrar na geladeira?",
+		"Qual seria o pior lugar para tirar uma soneca?",
+		"O que você faria se ficasse invisível por um dia?",
+		"Qual desculpa seria péssima para chegar atrasado?",
+		"Qual animal seria o pior colega de apartamento?",
+		"O que seria estranho fazer durante uma reunião?"
+	]
+
+	question_pool.shuffle()
+
+	var bot_questions: Array = []
+	var amount: int = maxi(1, GameManager.config_questions_per_player)
+
+	for i in range(amount):
+		bot_questions.append(question_pool[i % question_pool.size()])
+
+	return bot_questions
