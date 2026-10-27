@@ -333,6 +333,7 @@ grow_vertical = 2
 texture = ExtResource("6_rcqid")
 
 [node name="SettingsButton" parent="MarginContainer/HBoxContainer2" unique_id=1835469227 instance=ExtResource("4_oa1go")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
