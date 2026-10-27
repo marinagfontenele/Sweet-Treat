@@ -135,6 +135,7 @@ text = "Configurações da partida"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=375801431]
 layout_mode = 2
+size_flags_vertical = 4
 theme_override_constants/separation = 36
 
 [node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=796115655]
@@ -290,7 +291,6 @@ text = "90s"
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-disabled = false
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/PlayButton" unique_id=1050239488]
 custom_minimum_size = Vector2(25, 25)

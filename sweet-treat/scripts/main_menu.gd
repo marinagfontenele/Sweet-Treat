@@ -52,6 +52,10 @@ func _ready() -> void:
 	var open_info_btn = _find_node_by_name(self, "InfoButton")
 	if open_info_btn:
 		open_info_btn.pressed.connect(_show_tutorial)
+	
+	var close_info_btn = _find_node_by_name(self, "CloseCodeButton")
+	if close_info_btn:
+		close_info_btn.pressed.connect(_on_close_join_modal_pressed)
 
 	# Círculo do avatar E botão roxo abrem o painel
 	for node_name in ["CharacterBackground", "EditButton"]:
@@ -74,7 +78,9 @@ func _ready() -> void:
 		name_input.text_changed.connect(_on_player_name_changed)
 
 
-
+func _on_close_join_modal_pressed() -> void:
+	if code_modal:
+		code_modal.visible = false
 
 func _on_player_name_changed(new_name: String) -> void:
 	GameManager.player_name = new_name.strip_edges()

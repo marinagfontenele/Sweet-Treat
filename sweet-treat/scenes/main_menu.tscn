@@ -333,6 +333,7 @@ grow_vertical = 2
 texture = ExtResource("6_rcqid")
 
 [node name="SettingsButton" parent="MarginContainer/HBoxContainer2" unique_id=1835469227 instance=ExtResource("4_oa1go")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
@@ -352,7 +353,7 @@ texture = ExtResource("7_1ajci")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1424116047]
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 4
 theme_override_constants/separation = 40
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer" unique_id=1800088930]
@@ -409,12 +410,12 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 32
 
-[node name="InfoButton" parent="CodeModalPanel/BluePanel/MarginContainer" unique_id=1197119529 instance=ExtResource("4_oa1go")]
+[node name="CloseCodeButton" parent="CodeModalPanel/BluePanel/MarginContainer" unique_id=1197119529 instance=ExtResource("4_oa1go")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="TextureRect" type="TextureRect" parent="CodeModalPanel/BluePanel/MarginContainer/InfoButton" unique_id=1252395420]
+[node name="TextureRect" type="TextureRect" parent="CodeModalPanel/BluePanel/MarginContainer/CloseCodeButton" unique_id=1252395420]
 custom_minimum_size = Vector2(23, 23)
 custom_maximum_size = Vector2(23, 23)
 layout_mode = 1
