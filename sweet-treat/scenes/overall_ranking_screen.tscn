@@ -154,7 +154,7 @@ size_flags_vertical = 4
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1748431993]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
+size_flags_vertical = 10
 theme_override_constants/separation = 15
 
 [node name="PlayButton" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=122511985 instance=ExtResource("5_kykl7")]
