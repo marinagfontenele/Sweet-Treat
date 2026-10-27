@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgup2td6iifko"
-path="res://.godot/imported/tomato_points.svg-0a9fb997c17c94573898234f1d02f84b.ctex"
+uid="uid://djyweg46cpnll"
+path="res://.godot/imported/three_tomato_points.png-74dfc349b6db69f300bffb9a26ab2c72.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/tomato_points.svg"
-dest_files=["res://.godot/imported/tomato_points.svg-0a9fb997c17c94573898234f1d02f84b.ctex"]
+source_file="res://assets/images/three_tomato_points.png"
+dest_files=["res://.godot/imported/three_tomato_points.png-74dfc349b6db69f300bffb9a26ab2c72.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=10.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

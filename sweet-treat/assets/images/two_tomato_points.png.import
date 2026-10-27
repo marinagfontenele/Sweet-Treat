@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cjek6p0d2sfpb"
-path="res://.godot/imported/two_tomato_points.png-bce3458c94ce8834f6609b42ef280c5b.ctex"
+path="res://.godot/imported/two_tomato_points.png-89fd1bb320f1974859780e24547315b7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/tutorial/two_tomato_points.png"
-dest_files=["res://.godot/imported/two_tomato_points.png-bce3458c94ce8834f6609b42ef280c5b.ctex"]
+source_file="res://assets/images/two_tomato_points.png"
+dest_files=["res://.godot/imported/two_tomato_points.png-89fd1bb320f1974859780e24547315b7.ctex"]
 
 [params]
 

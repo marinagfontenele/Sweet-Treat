@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://s3gcdrtnc3k0" path="res://assets/images/tutorial/tutorial3_image.png" id="7_vlqji"]
 [ext_resource type="Texture2D" uid="uid://7tjynyl6a73w" path="res://assets/images/symbols/arrow_right.svg" id="8_jrdcf"]
 [ext_resource type="Texture2D" uid="uid://da0t5nu34vwfo" path="res://assets/images/tutorial/tutorial3_image2.png" id="8_qxwin"]
-[ext_resource type="Texture2D" uid="uid://cjek6p0d2sfpb" path="res://assets/images/tutorial/two_tomato_points.png" id="9_jrdcf"]
+[ext_resource type="Texture2D" uid="uid://cjek6p0d2sfpb" path="res://assets/images/two_tomato_points.png" id="9_jrdcf"]
 [ext_resource type="Texture2D" uid="uid://c4cd8xmyvl76x" path="res://assets/images/one_tomato_point.png" id="10_ch08c"]
 [ext_resource type="Texture2D" uid="uid://bby6l6eh3q5wh" path="res://assets/images/tomato.png" id="12_jrdcf"]
 
