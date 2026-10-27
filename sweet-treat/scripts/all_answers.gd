@@ -211,7 +211,7 @@ func _setup_cards() -> void:
 				card.disabled = false
 				_selectable_count += 1
 				if pid == my_id:
-					_paint_card(card, OWN_CARD_COLOR)   # a própria resposta fica azul claro
+					_paint_card(card, OWN_CARD_COLOR, Color("#0081B0"))   # a própria resposta fica azul claro
 				card.pressed.connect(_on_card_pressed.bind(pid))
 
 		_cards.append({
@@ -250,14 +250,22 @@ func _set_name_visible(card: Node, show_name: bool) -> void:
 
 
 # Pinta o card (cada card ganha o próprio estilo, sem afetar os outros)
-func _paint_card(card: Node, color: Color) -> void:
+func _paint_card(card: Node, color: Color, stroke_color: Color) -> void:
 	if not (card is Button):
 		return
+
 	for shape in ["normal", "hover", "pressed", "hover_pressed"]:
 		var style = card.get_theme_stylebox(shape)
+
 		if style is StyleBoxFlat:
 			var s: StyleBoxFlat = style.duplicate()
+
+			# Muda a cor de fundo
 			s.bg_color = color
+
+			# Muda a cor do stroke (borda)
+			s.border_color = stroke_color
+
 			card.add_theme_stylebox_override(shape, s)
 
 
