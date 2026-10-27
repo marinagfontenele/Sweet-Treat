@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="2_lvrtv"]
 [ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_c4fvb"]
 [ext_resource type="PackedScene" uid="uid://c8781a8h81ums" path="res://scenes/components/podium_player.tscn" id="5_krjn3"]
-[ext_resource type="Script" uid="uid://qkkittlyi1ff" path="res://scenes/scroll_container_ranking.gd" id="6_qmjba"]
+[ext_resource type="Script" uid="uid://qkkittlyi1ff" path="res://scripts/scroll_container_ranking.gd" id="6_qmjba"]
 [ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/Buttons/play_button.tscn" id="7_lvrtv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_c4fvb"]
