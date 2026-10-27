@@ -14,7 +14,8 @@ extends Node
 ## Nós esperados na cena (procurados pelo NOME, em qualquer lugar da árvore):
 ##   TitleLabel, TimerLabel, LabelText, PlayButton ("Votar"),
 ##   ButtonVoteNull ("Pular voto"), ButtonNextRound
-## E dentro do PlayerAnswer (card), opcional: TomatoSplat (tomate amassado).
+## E dentro do PlayerAnswer (card): TomatoSplat (tomate amassado) e TomatoBadge
+## (TextureRect que mostra a imagem de 1, 2 ou 3 pontos de tomate).
 ## =====================================================================
 
 # ---------------------------------------------------------------------
@@ -39,8 +40,13 @@ const VOTE_FEEDBACK_SECONDS := 1.5
 # ---------------------------------------------------------------------
 const OWN_CARD_COLOR := Color("#4CA8E4")          # card da própria resposta
 const NO_ANSWER_TEXT_COLOR := Color("#C7C7C7")    # texto "Sem Resposta"
-const BADGE_RED := Color("#EB4A50")               # +2 (ou mais)
-const BADGE_BLUE := Color("#4CA8E4")              # +1
+
+# Imagens de pontos de tomate da rodada (o badge do card é um TextureRect)
+const TOMATO_POINT_TEXTURES := {
+	1: preload("res://assets/images/one_tomato_point.png"),
+	2: preload("res://assets/images/two_tomato_points.png"),
+	3: preload("res://assets/images/three_tomato_points.png"),
+}
 
 const URGENT_SECONDS := 10    # a partir daqui o timer fica vermelho
 const FALLBACK_GRACE := 6.0   # quem não é host espera isso a mais pelo resultado do host
@@ -279,17 +285,13 @@ func _paint_card(card: Node, color: Color, stroke_color: Color) -> void:
 			card.add_theme_stylebox_override(shape, s)
 
 
-# Badge de tomates: vermelho para +2 (ou mais), azul para +1
-func _style_badge(badge: Node, tomatoes: int) -> void:
-	if not (badge is Label):
+# Badge de tomates: mostra a imagem de 1, 2 ou 3 pontos (o máximo numa rodada é 3)
+func _show_tomato_badge(badge: Node, tomatoes: int) -> void:
+	if not (badge is TextureRect):
+		push_warning("TomatoBadge precisa ser um TextureRect.")
 		return
-	var color: Color = BADGE_RED if tomatoes >= 2 else BADGE_BLUE
-	badge.add_theme_color_override("font_color", color)
-	var style = badge.get_theme_stylebox("normal")
-	if style is StyleBoxFlat:
-		var s: StyleBoxFlat = style.duplicate()
-		s.border_color = color
-		badge.add_theme_stylebox_override("normal", s)
+	badge.texture = TOMATO_POINT_TEXTURES[clampi(tomatoes, 1, 3)]
+	badge.visible = true
 
 
 # Depois de votar / no resultado: cards não reagem mais ao mouse (sem hover),
@@ -475,11 +477,9 @@ func _reveal_results() -> void:
 		var tomatoes: int = int(penalties.get(c["id"], 0))
 		var badge = c["badge"]
 		if badge:
-			badge.visible = tomatoes > 0
+			badge.visible = false
 			if tomatoes > 0:
-				if badge is Label:
-					badge.text = "+%d" % tomatoes
-				_style_badge(badge, tomatoes)
+				_show_tomato_badge(badge, tomatoes)
 
 	# Última rodada: o botão do host vira "Liberar resultado" e os outros são avisados
 	var is_last_round: bool = not GameManager.has_next_question()
