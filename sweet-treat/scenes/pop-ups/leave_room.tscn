@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://cweewlnuywwd8"]
+
+[ext_resource type="Script" uid="uid://dejtvhnnl56o3" path="res://scripts/leave_room_popUp.gd" id="1_kwyrx"]
+[ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="1_qknfo"]
+[ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="2_5joq5"]
+[ext_resource type="PackedScene" uid="uid://ch8nyd0mj6eql" path="res://scenes/components/Buttons/dark_blue_button.tscn" id="3_4wfmw"]
+[ext_resource type="PackedScene" uid="uid://de1vs4i5um6mc" path="res://scenes/components/Buttons/red_button.tscn" id="4_5joq5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_68kpw"]
+bg_color = Color(0, 0, 0, 0.627451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
+bg_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(2, 4)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gmtyp"]
+font = ExtResource("2_5joq5")
+font_size = 32
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0.95, 1.91)
+
+[sub_resource type="LabelSettings" id="LabelSettings_megxp"]
+font = ExtResource("2_5joq5")
+font_size = 17
+
+[node name="LeaveRoom" type="Panel" unique_id=1411481531]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_68kpw")
+script = ExtResource("1_kwyrx")
+
+[node name="Panel" type="Panel" parent="." unique_id=255595347]
+custom_minimum_size = Vector2(300, 186)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1651810878]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 22
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=1922081463]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=625587219 instance=ExtResource("1_qknfo")]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Sair"
+label_settings = SubResource("LabelSettings_gmtyp")
+
+[node name="Label2" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=1195822495]
+layout_mode = 2
+size_flags_vertical = 2
+text = "Tem certeza de que deseja sair agora? A sala será encerrada"
+label_settings = SubResource("LabelSettings_megxp")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=843647313]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_constants/separation = 10
+
+[node name="DarkBlueButton" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=122511985 instance=ExtResource("3_4wfmw")]
+custom_minimum_size = Vector2(111, 40)
+layout_mode = 2
+text = "Cancelar"
+
+[node name="DarkBlueButton2" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=912935127 instance=ExtResource("4_5joq5")]
+custom_minimum_size = Vector2(111, 40)
+layout_mode = 2
+text = "Sair"

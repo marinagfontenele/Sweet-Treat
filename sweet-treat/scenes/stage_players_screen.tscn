@@ -1,0 +1,143 @@
+[gd_scene format=3 uid="uid://dn3i0o7gifbkd"]
+
+[ext_resource type="Script" uid="uid://bcxruycdqjnog" path="res://scripts/stage_players_screen.gd" id="1_58fnh"]
+[ext_resource type="Texture2D" uid="uid://dsjdg3snqri2t" path="res://assets/images/backgrounds/players_stage_background.png" id="1_ossv1"]
+[ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="2_my36j"]
+[ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_6y27y"]
+[ext_resource type="PackedScene" uid="uid://ccmijuuqrgu3q" path="res://scenes/components/stage_card_panel.tscn" id="4_05fry"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_seen7"]
+bg_color = Color(0.003921569, 0.67058825, 0.91764706, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_h1efr"]
+font = ExtResource("3_6y27y")
+font_size = 24
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0.95, 1.91)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
+bg_color = Color(0.02745098, 0.105882354, 0.37254903, 0.4509804)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.003921569, 0.67058825, 0.91764706, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+
+[node name="StagePlayersView" type="Control" unique_id=2032457099]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_58fnh")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=678474525]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ossv1")
+expand_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=764234587]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -4
+
+[node name="Label2" parent="VBoxContainer" unique_id=625587219 instance=ExtResource("2_my36j")]
+z_index = 1
+custom_minimum_size = Vector2(593, 42)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_seen7")
+text = "Luz, câmera... se preparem!"
+label_settings = SubResource("LabelSettings_h1efr")
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="VBoxContainer" unique_id=892172021]
+custom_minimum_size = Vector2(518, 300)
+custom_maximum_size = Vector2(518, -1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Panel" unique_id=718623165]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -130.0
+offset_right = 230.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Panel/VBoxContainer" unique_id=266358481]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="StageCardPanel" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer" unique_id=1732712691 instance=ExtResource("4_05fry")]
+layout_mode = 2
+
+[node name="StageCardPanel2" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer" unique_id=1487760721 instance=ExtResource("4_05fry")]
+layout_mode = 2
+
+[node name="StageCardPanel3" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer" unique_id=1906168280 instance=ExtResource("4_05fry")]
+layout_mode = 2
+
+[node name="StageCardPanel4" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer" unique_id=201524258 instance=ExtResource("4_05fry")]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/Panel/VBoxContainer" unique_id=1419059466]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="StageCardPanel" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer2" unique_id=1195584736 instance=ExtResource("4_05fry")]
+layout_mode = 2
+
+[node name="StageCardPanel2" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer2" unique_id=1772251993 instance=ExtResource("4_05fry")]
+layout_mode = 2
+
+[node name="StageCardPanel3" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer2" unique_id=2100983661 instance=ExtResource("4_05fry")]
+layout_mode = 2
+
+[node name="StageCardPanel4" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer2" unique_id=559147795 instance=ExtResource("4_05fry")]
+layout_mode = 2

@@ -1,0 +1,173 @@
+[gd_scene format=3 uid="uid://cqhe6wwbw7q2f"]
+
+[ext_resource type="Texture2D" uid="uid://cdr6r1mxbsxdo" path="res://assets/images/symbols/export.svg" id="1_wsvwo"]
+[ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="2_gg0bn"]
+[ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_y5rp4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2nqww"]
+content_margin_right = 10.0
+bg_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trfeb"]
+bg_color = Color(0.011764706, 0.07058824, 0.25882354, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yrolw"]
+bg_color = Color(0.011764706, 0.07058824, 0.25882354, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a0hen"]
+bg_color = Color(0.5294118, 0.5294118, 0.5294118, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color(0.25929368, 0.25929374, 0.2592936, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_seen7"]
+bg_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.2509804)
+shadow_size = 1
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
+bg_color = Color(1, 0.85490197, 0.21960784, 1)
+border_width_bottom = 3
+border_color = Color(0.9137255, 0.7411765, 0, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+corner_detail = 7
+
+[sub_resource type="LabelSettings" id="LabelSettings_bexny"]
+font = ExtResource("3_y5rp4")
+font_size = 20
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0.7, 0.7)
+
+[node name="JoinButton" type="Button" unique_id=876412539]
+custom_minimum_size = Vector2(327, 79)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_2nqww")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_trfeb")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yrolw")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_a0hen")
+
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=2016085397]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 6
+
+[node name="Panel" type="Panel" parent="MarginContainer2" unique_id=689551067]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_seen7")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/Panel" unique_id=1149872698]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2/Panel/MarginContainer" unique_id=1951068193]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Panel" type="Panel" parent="MarginContainer2/Panel/MarginContainer/HBoxContainer" unique_id=782162049]
+custom_minimum_size = Vector2(43, 44)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2/Panel/MarginContainer/HBoxContainer/Panel" unique_id=1745819823]
+custom_minimum_size = Vector2(30, 28)
+custom_maximum_size = Vector2(31, 31)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.5
+offset_top = -15.5
+offset_right = 15.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_wsvwo")
+
+[node name="Label2" parent="MarginContainer2/Panel/MarginContainer/HBoxContainer" unique_id=625587219 instance=ExtResource("2_gg0bn")]
+layout_mode = 2
+text = "Entrar na sala"
+label_settings = SubResource("LabelSettings_bexny")

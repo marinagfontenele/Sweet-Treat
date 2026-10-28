@@ -1,0 +1,169 @@
+[gd_scene format=3 uid="uid://bivqmg5mhy4s5"]
+
+[ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="1_11wi3"]
+[ext_resource type="Texture2D" uid="uid://jopijd6g0psm" path="res://assets/images/sight.svg" id="2_s4esf"]
+[ext_resource type="Texture2D" uid="uid://dladtgyja0rl3" path="res://assets/images/static_tomato_plash.png" id="3_l1nd6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_seen7"]
+bg_color = Color(0.29411766, 0.09803922, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color(0.18638915, 4.168123e-05, 0.68562454, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_11wi3"]
+bg_color = Color(0.29411766, 0.09803922, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color(0.1882353, 0, 0.6862745, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s4esf"]
+bg_color = Color(0.29411766, 0.09803922, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color(0.1882353, 0, 0.6862745, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qy3k5"]
+font = ExtResource("1_11wi3")
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="LabelSettings" id="LabelSettings_seen7"]
+font = ExtResource("1_11wi3")
+font_color = Color(0, 0, 0, 1)
+
+[node name="PlayerAnswer" type="Button" unique_id=1062434487]
+custom_minimum_size = Vector2(184, 120)
+custom_maximum_size = Vector2(184, 120)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -69.0
+offset_top = -64.5
+offset_right = 69.0
+offset_bottom = 64.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_seen7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_11wi3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_s4esf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=81670585]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1787971791]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "Fulano123"
+label_settings = SubResource("LabelSettings_qy3k5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=561314024]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="VBoxContainer/MarginContainer" unique_id=1767150187]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="VBoxContainer/MarginContainer/AspectRatioContainer" unique_id=701813862]
+custom_minimum_size = Vector2(171, 84)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/AspectRatioContainer/Panel" unique_id=1046970168]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/AspectRatioContainer/Panel/MarginContainer" unique_id=122602241]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+label_settings = SubResource("LabelSettings_seen7")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/AspectRatioContainer/Panel/MarginContainer" unique_id=14863801]
+custom_minimum_size = Vector2(34, 34)
+custom_maximum_size = Vector2(34, 34)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource("2_s4esf")
+
+[node name="TomatoSplat" type="TextureRect" parent="VBoxContainer/MarginContainer/AspectRatioContainer/Panel" unique_id=13438851]
+custom_maximum_size = Vector2(62, 143)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -176.0
+offset_right = 324.0
+offset_bottom = 176.0
+grow_vertical = 2
+texture = ExtResource("3_l1nd6")
+
+[node name="TomatoBadge" type="TextureRect" parent="." unique_id=345094362]
+custom_maximum_size = Vector2(42, 39)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -42.0
+offset_top = -39.0
+grow_horizontal = 0
+grow_vertical = 0

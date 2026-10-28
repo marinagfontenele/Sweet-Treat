@@ -1,0 +1,164 @@
+[gd_scene format=3 uid="uid://2lpvkd6r3v0b"]
+
+[ext_resource type="Script" uid="uid://bvq3577axoqo8" path="res://scripts/create_questions.gd" id="1_qpg4m"]
+[ext_resource type="Texture2D" uid="uid://bkri1wimsir0s" path="res://assets/images/backgrounds/blue_question_background.svg" id="2_n1i85"]
+[ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="3_fjeh6"]
+[ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="4_llf5h"]
+[ext_resource type="PackedScene" uid="uid://cr2iw44aw65xb" path="res://scenes/components/progress_bar.tscn" id="5_n1i85"]
+[ext_resource type="PackedScene" uid="uid://de8ybwgvlf0q4" path="res://scenes/components/Buttons/check_button.tscn" id="6_hmaif"]
+[ext_resource type="Texture2D" uid="uid://bysnstwv1oryo" path="res://assets/images/symbols/arrow_left.svg" id="7_ywv44"]
+[ext_resource type="Texture2D" uid="uid://7tjynyl6a73w" path="res://assets/images/symbols/arrow_right.svg" id="8_p7vmd"]
+[ext_resource type="Texture2D" uid="uid://b4yveq8v8jjql" path="res://assets/images/symbols/checkmark.svg" id="9_fk4gs"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hmaif"]
+font = ExtResource("4_llf5h")
+font_size = 20
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ywv44"]
+font = ExtResource("4_llf5h")
+font_size = 32
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wrm8i"]
+content_margin_left = 20.0
+content_margin_top = 5.0
+content_margin_right = 20.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 12
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(2, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2cg7"]
+bg_color = Color(0.39215687, 0.39215687, 0.39215687, 0.53333336)
+
+[node name="CreateQuestions" type="Control" unique_id=140194987]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qpg4m")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=399544051]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_n1i85")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=441074345]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1081586751]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=214705890]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=625587219 instance=ExtResource("3_fjeh6")]
+layout_mode = 2
+text = "Pergunta 1 de 3"
+label_settings = SubResource("LabelSettings_hmaif")
+
+[node name="ProgressBar" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=1816925574 instance=ExtResource("5_n1i85")]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=469908611]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="Label2" parent="MarginContainer/VBoxContainer/VBoxContainer2" unique_id=1945571086 instance=ExtResource("3_fjeh6")]
+layout_mode = 2
+text = "Escreva a sua pergunta"
+label_settings = SubResource("LabelSettings_ywv44")
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer2" unique_id=1970367532]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.02745098, 0.105882354, 0.37254903, 1)
+theme_override_colors/font_uneditable_color = Color(1, 1, 1, 1)
+theme_override_colors/font_placeholder_color = Color(0.84313726, 0.84313726, 0.84313726, 1)
+theme_override_fonts/font = ExtResource("4_llf5h")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_wrm8i")
+placeholder_text = "Digite sua resposta aqui..."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=711246559]
+layout_mode = 2
+
+[node name="PlayButton2" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1723046998 instance=ExtResource("6_hmaif")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayButton2" unique_id=1233946359]
+custom_minimum_size = Vector2(30, 30)
+custom_maximum_size = Vector2(30, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_ywv44")
+
+[node name="PlayButton" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1799951131 instance=ExtResource("6_hmaif")]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_styles/focus = SubResource("StyleBoxFlat_o2cg7")
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayButton" unique_id=685544342]
+custom_minimum_size = Vector2(30, 30)
+custom_maximum_size = Vector2(30, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_p7vmd")
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayButton" unique_id=204744619]
+visible = false
+custom_minimum_size = Vector2(30, 30)
+custom_maximum_size = Vector2(30, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_fk4gs")

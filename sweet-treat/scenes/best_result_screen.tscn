@@ -1,0 +1,163 @@
+[gd_scene format=3 uid="uid://wcqdx3yelg0u"]
+
+[ext_resource type="Script" uid="uid://dofxacvirrhyr" path="res://scripts/best_result.gd" id="1_u2eyx"]
+[ext_resource type="Texture2D" uid="uid://3eua1uy2l44" path="res://assets/images/backgrounds/best_awards_background.png" id="1_yhj0v"]
+[ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="2_u2eyx"]
+[ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_dusw5"]
+[ext_resource type="PackedScene" uid="uid://c8781a8h81ums" path="res://scenes/components/podium_player.tscn" id="4_3x2ty"]
+[ext_resource type="Script" uid="uid://qkkittlyi1ff" path="res://scenes/scroll_container_ranking.gd" id="5_qf32t"]
+[ext_resource type="PackedScene" uid="uid://nq3ijrvktsq7" path="res://scenes/components/Buttons/play_button.tscn" id="6_u2eyx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yhj0v"]
+font = ExtResource("3_dusw5")
+font_size = 32
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0.95, 1.91)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megxp"]
+content_margin_left = 13.0
+bg_color = Color(0.02745098, 0.105882354, 0.37254903, 0.45882353)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.003921569, 0.67058825, 0.91764706, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+
+[sub_resource type="LabelSettings" id="LabelSettings_dusw5"]
+font = ExtResource("3_dusw5")
+font_size = 20
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="BestResultScreen" type="Control" unique_id=241234735]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u2eyx")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1178875933]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_yhj0v")
+expand_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=229546849]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 24
+
+[node name="Label" parent="MarginContainer" unique_id=625587219 instance=ExtResource("2_u2eyx")]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Os melhores da vez.."
+label_settings = SubResource("LabelSettings_yhj0v")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1987849831]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 40
+
+[node name="PodiumPlayer" parent="MarginContainer/HBoxContainer" unique_id=1732712691 instance=ExtResource("4_3x2ty")]
+layout_mode = 2
+
+[node name="PodiumPlayer2" parent="MarginContainer/HBoxContainer" unique_id=1675091475 instance=ExtResource("4_3x2ty")]
+layout_mode = 2
+
+[node name="PodiumPlayer3" parent="MarginContainer/HBoxContainer" unique_id=1356680779 instance=ExtResource("4_3x2ty")]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer" unique_id=1396177173]
+custom_minimum_size = Vector2(729, 228)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_megxp")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel" unique_id=1257556847]
+custom_maximum_size = Vector2(729, 228)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 13
+theme_override_constants/margin_right = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Panel/MarginContainer" unique_id=1977263004]
+custom_minimum_size = Vector2(729, 228)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("5_qf32t")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/ScrollContainer" unique_id=1369412764]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_constants/separation = 24
+
+[node name="PodiumPlayer" parent="MarginContainer/Panel/MarginContainer/ScrollContainer/HBoxContainer" unique_id=317492246 instance=ExtResource("4_3x2ty")]
+layout_mode = 2
+
+[node name="PodiumPlayer2" parent="MarginContainer/Panel/MarginContainer/ScrollContainer/HBoxContainer" unique_id=1132727979 instance=ExtResource("4_3x2ty")]
+layout_mode = 2
+
+[node name="PodiumPlayer3" parent="MarginContainer/Panel/MarginContainer/ScrollContainer/HBoxContainer" unique_id=1584717943 instance=ExtResource("4_3x2ty")]
+layout_mode = 2
+
+[node name="PodiumPlayer4" parent="MarginContainer/Panel/MarginContainer/ScrollContainer/HBoxContainer" unique_id=809900208 instance=ExtResource("4_3x2ty")]
+layout_mode = 2
+
+[node name="PodiumPlayer5" parent="MarginContainer/Panel/MarginContainer/ScrollContainer/HBoxContainer" unique_id=1671127590 instance=ExtResource("4_3x2ty")]
+layout_mode = 2
+
+[node name="PodiumPlayer6" parent="MarginContainer/Panel/MarginContainer/ScrollContainer/HBoxContainer" unique_id=226641093 instance=ExtResource("4_3x2ty")]
+layout_mode = 2
+
+[node name="PodiumPlayer7" parent="MarginContainer/Panel/MarginContainer/ScrollContainer/HBoxContainer" unique_id=1316397242 instance=ExtResource("4_3x2ty")]
+layout_mode = 2
+
+[node name="PodiumPlayer8" parent="MarginContainer/Panel/MarginContainer/ScrollContainer/HBoxContainer" unique_id=517608402 instance=ExtResource("4_3x2ty")]
+layout_mode = 2
+
+[node name="PlayButton" parent="MarginContainer" unique_id=122511985 instance=ExtResource("6_u2eyx")]
+visible = false
+custom_minimum_size = Vector2(218, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Revelar piores"
+
+[node name="Label2" parent="MarginContainer" unique_id=801431040 instance=ExtResource("2_u2eyx")]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Calma lá! O host já vai revelar os piores..."
+label_settings = SubResource("LabelSettings_dusw5")
+vertical_alignment = 1

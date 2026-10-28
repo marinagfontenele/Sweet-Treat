@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bfh5rydhou8w"]
+
+[ext_resource type="Script" uid="uid://bvq3577axoqo8" path="res://scripts/create_questions.gd" id="1_08ho7"]
+
+[node name="CenaInputQuestion" type="Control" unique_id=481864700]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_08ho7")
+
+[node name="LineEdit" type="LineEdit" parent="." unique_id=1223724684]
+layout_mode = 0
+offset_left = 99.0
+offset_top = 103.0
+offset_right = 334.0
+offset_bottom = 260.0
+placeholder_text = "digite pergunta"

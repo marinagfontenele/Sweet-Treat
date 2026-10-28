@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://cdpe4i65d2edx"]
+
+[ext_resource type="Script" uid="uid://b3g638jkeqlb2" path="res://scripts/show_question.gd" id="1_et4w1"]
+[ext_resource type="Texture2D" uid="uid://edw6s1an43ec" path="res://assets/images/backgrounds/purple_background.png" id="2_kl56r"]
+[ext_resource type="Texture2D" uid="uid://b1vueupav5sa5" path="res://assets/images/show_question_image.png" id="3_kl56r"]
+[ext_resource type="PackedScene" uid="uid://d0823yfca2ihv" path="res://scenes/components/screen_title.tscn" id="4_6068r"]
+[ext_resource type="FontFile" uid="uid://bbh8euxqxoj4n" path="res://assets/fonts/LilitaOne-Regular.ttf" id="5_i6s5o"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_megxp"]
+font = ExtResource("5_i6s5o")
+font_color = Color(1, 0.85490197, 0.21960784, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gl0tk"]
+font = ExtResource("5_i6s5o")
+font_size = 58
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0.95, 1.91)
+
+[node name="ShowQuestion" type="Control" unique_id=1816669097]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_et4w1")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1467023724]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_kl56r")
+expand_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect" unique_id=626335817]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/MarginContainer" unique_id=830512643]
+custom_minimum_size = Vector2(740, 341)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_kl56r")
+expand_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect/MarginContainer/TextureRect" unique_id=1958443298]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 43
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 43
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/MarginContainer/TextureRect/MarginContainer" unique_id=1167149119]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/MarginContainer/TextureRect/MarginContainer/VBoxContainer" unique_id=1529392731]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 3
+
+[node name="Label" type="Label" parent="TextureRect/MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1167711310]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Rodada"
+label_settings = SubResource("LabelSettings_megxp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RodadaAtual" type="Label" parent="TextureRect/MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1983262430]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "1"
+label_settings = SubResource("LabelSettings_megxp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="de" type="Label" parent="TextureRect/MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer" unique_id=847931038]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "de"
+label_settings = SubResource("LabelSettings_megxp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TotalRodadas" type="Label" parent="TextureRect/MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1907027592]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "6"
+label_settings = SubResource("LabelSettings_megxp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" parent="TextureRect/MarginContainer/TextureRect/MarginContainer/VBoxContainer" unique_id=625587219 instance=ExtResource("4_6068r")]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 6
+text = ""
+label_settings = SubResource("LabelSettings_gl0tk")
+autowrap_mode = 2
